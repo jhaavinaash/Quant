@@ -1,0 +1,1688 @@
+
+============================================================
+Run: 2026-05-29 20:42:55
+============================================================
+Running E1...
+Downloading data...
+
+TODAY SIGNALS
+
+            Ticker          CMP       Target     StopLoss
+60    BALAMINES.NS  1775.599976  1869.706774  1722.331976
+38          BSE.NS  4146.100098  4365.843403  4021.717095
+29    SCHNEIDER.NS  1308.800049  1378.166451  1269.536047
+86      KIRLPNU.NS  1574.300049  1657.737951  1527.071047
+56   PNBHOUSING.NS  1030.500000  1085.116500   999.585000
+122         MCX.NS  2954.500000  3111.088500  2865.865000
+75       QPOWER.NS  1062.099976  1118.391274  1030.236976
+
+Used Capital (E1): ₹82725.0
+Remaining Capital (E1): ₹92275.0
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+E1 completed
+
+Running E2...
+Updating incremental data from 2026-05-27...
+Data update complete. Added 314 new rows.
+
+===== DEBUG SAMPLE =====
+Signal Date: 2026-05-29
+Total tickers in DB: 307
+Tickers available today: 307
+No signals found for the selected criteria.
+E2 completed
+
+Running E3...
+Downloading data...
+
+ENGINE-3 TRADE CANDIDATES
+
+          Ticker          CMP
+0      QPOWER.NS  1062.099976
+1         BSE.NS  4146.100098
+2    MAHABANK.NS    79.269997
+3  DATAPATTNS.NS  4043.100098
+
+Used Capital (E3): ₹17655.0
+Remaining Capital (E3): ₹82345.0
+E3 final signals: [{'Ticker': 'QPOWER.NS', 'Entry': 1062.1, 'SL': 1030.24, 'Target': 1118.39}, {'Ticker': 'BSE.NS', 'Entry': 4146.1, 'SL': 4021.72, 'Target': 4365.84}, {'Ticker': 'MAHABANK.NS', 'Entry': 79.27, 'SL': 76.89, 'Target': 83.47}, {'Ticker': 'DATAPATTNS.NS', 'Entry': 4043.1, 'SL': 3921.81, 'Target': 4257.38}]
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+E3 completed
+
+Running E4...
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+E4 completed
+
+Running E5...
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+E5 completed
+
+Running E6...
+Columns in file: ['Ticker', 'Sector']
+Using column: Ticker
+BATAINDIA.NS
+TORNTPOWER.NS
+JKPAPER.NS
+PRIVISCL.NS
+SHAILY.NS
+INDHOTEL.NS
+ATGL.NS
+KPIGREEN.NS
+RAINBOW.NS
+FLUOROCHEM.NS
+MOTHERSON.NS
+HEROMOTOCO.NS
+M&M.NS
+AIAENG.NS
+HAPPYFORGE.NS
+GENUSPOWER.NS
+GLENMARK.NS
+METROBRAND.NS
+KPRMILL.NS
+LGBBROSLTD.NS
+ACUTAAS.NS
+NTPC.NS
+BEML.NS
+ATUL.NS
+ASHOKLEY.NS
+ACMESOLAR.NS
+VBL.NS
+ANURAS.NS
+KEC.NS
+SCHNEIDER.NS
+SBIN.NS
+AAVAS.NS
+ABCAPITAL.NS
+ADANIPOWER.NS
+ICICIGI.NS
+KEI.NS
+BEL.NS
+NAM-INDIA.NS
+BSE.NS
+COFORGE.NS
+VINATIORGA.NS
+EMCURE.NS
+KRN.NS
+GRINDWELL.NS
+VIJAYA.NS
+DATAPATTNS.NS
+MUTHOOTFIN.NS
+ZENTEC.NS
+ANGELONE.NS
+AUBANK.NS
+PFIZER.NS
+HSCL.NS
+INDIAGLYCO.NS
+PICCADIL.NS
+AETHER.NS
+SJS.NS
+PNBHOUSING.NS
+BERGEPAINT.NS
+NH.NS
+SCHNEIDER.NS
+HINDCOPPER.NS
+BALAMINES.NS
+JYOTICNC.NS
+GRWRHITECH.NS
+THYROCARE.NS
+GPPL.NS
+ALIVUS.NS
+ENGINERSIN.NS
+SHRIPISTON.NS
+JBCHEPHARM.NS
+CAPLIPOINT.NS
+RUBICON.NS
+DOMS.NS
+INDIAGLYCO.NS
+JUBLPHARMA.NS
+VIKRAMSOLR.NS
+UNITDSPR.NS
+QPOWER.NS
+TORNTPHARM.NS
+IKS.NS
+HBLENGINE.NS
+SUPRIYA.NS
+HINDUNILVR.NS
+ECLERX.NS
+TARIL.NS
+SYNGENE.NS
+CAMS.NS
+BAJAJ-AUTO.NS
+KIRLPNU.NS
+VOLTAMP.NS
+GVT&D.NS
+SCHAEFFLER.NS
+EICHERMOT.NS
+PIDILITIND.NS
+CDSL.NS
+RADICO.NS
+TDPOWERSYS.NS
+PERSISTENT.NS
+TRENT.NS
+BALUFORGE.NS
+Price DF shape: (122, 98)
+Last date: 2026-05-29 00:00:00
+Scores count: 98
+Price
+ADANIPOWER.NS    0.721876
+BALAMINES.NS     0.631086
+SHAILY.NS        0.502110
+ATGL.NS          0.498353
+TDPOWERSYS.NS    0.495774
+GRWRHITECH.NS    0.489555
+BSE.NS           0.480274
+SUPRIYA.NS       0.461968
+SCHNEIDER.NS     0.457218
+ACUTAAS.NS       0.433573
+Name: 2026-05-29 00:00:00, dtype: float64
+Price DF shape: (122, 98)
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+E6 completed
+
+Master signal file updated.
+
+============================================================
+Run: 2026-05-29 21:17:19
+============================================================
+Running E1...
+Downloading data...
+
+TODAY SIGNALS
+
+            Ticker          CMP       Target     StopLoss
+60    BALAMINES.NS  1775.599976  1869.706774  1722.331976
+38          BSE.NS  4146.100098  4365.843403  4021.717095
+29    SCHNEIDER.NS  1308.800049  1378.166451  1269.536047
+86      KIRLPNU.NS  1574.300049  1657.737951  1527.071047
+56   PNBHOUSING.NS  1030.500000  1085.116500   999.585000
+122         MCX.NS  2954.500000  3111.088500  2865.865000
+75       QPOWER.NS  1062.099976  1118.391274  1030.236976
+
+Used Capital (E1): ₹82725.0
+Remaining Capital (E1): ₹92275.0
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+E1 completed
+
+Running E2...
+Updating incremental data from 2026-05-29...
+No new data found.
+
+===== DEBUG SAMPLE =====
+Signal Date: 2026-05-29
+Total tickers in DB: 307
+Tickers available today: 307
+No signals found for the selected criteria.
+E2 completed
+
+Running E3...
+Downloading data...
+
+ENGINE-3 TRADE CANDIDATES
+
+          Ticker          CMP
+0      QPOWER.NS  1062.099976
+1         BSE.NS  4146.100098
+2    MAHABANK.NS    79.269997
+3  DATAPATTNS.NS  4043.100098
+
+Used Capital (E3): ₹17655.0
+Remaining Capital (E3): ₹82345.0
+E3 final signals: [{'Ticker': 'QPOWER.NS', 'Entry': 1062.1, 'SL': 1030.24, 'Target': 1118.39}, {'Ticker': 'BSE.NS', 'Entry': 4146.1, 'SL': 4021.72, 'Target': 4365.84}, {'Ticker': 'MAHABANK.NS', 'Entry': 79.27, 'SL': 76.89, 'Target': 83.47}, {'Ticker': 'DATAPATTNS.NS', 'Entry': 4043.1, 'SL': 3921.81, 'Target': 4257.38}]
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+E3 completed
+
+Running E4...
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+E4 completed
+
+Running E5...
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+E5 completed
+
+Running E6...
+Columns in file: ['Ticker', 'Sector']
+Using column: Ticker
+BATAINDIA.NS
+TORNTPOWER.NS
+JKPAPER.NS
+PRIVISCL.NS
+SHAILY.NS
+INDHOTEL.NS
+ATGL.NS
+KPIGREEN.NS
+RAINBOW.NS
+FLUOROCHEM.NS
+MOTHERSON.NS
+HEROMOTOCO.NS
+M&M.NS
+AIAENG.NS
+HAPPYFORGE.NS
+GENUSPOWER.NS
+GLENMARK.NS
+METROBRAND.NS
+KPRMILL.NS
+LGBBROSLTD.NS
+ACUTAAS.NS
+NTPC.NS
+BEML.NS
+ATUL.NS
+ASHOKLEY.NS
+ACMESOLAR.NS
+VBL.NS
+ANURAS.NS
+KEC.NS
+SCHNEIDER.NS
+SBIN.NS
+AAVAS.NS
+ABCAPITAL.NS
+ADANIPOWER.NS
+ICICIGI.NS
+KEI.NS
+BEL.NS
+NAM-INDIA.NS
+BSE.NS
+COFORGE.NS
+VINATIORGA.NS
+EMCURE.NS
+KRN.NS
+GRINDWELL.NS
+VIJAYA.NS
+DATAPATTNS.NS
+MUTHOOTFIN.NS
+ZENTEC.NS
+ANGELONE.NS
+AUBANK.NS
+PFIZER.NS
+HSCL.NS
+INDIAGLYCO.NS
+PICCADIL.NS
+AETHER.NS
+SJS.NS
+PNBHOUSING.NS
+BERGEPAINT.NS
+NH.NS
+SCHNEIDER.NS
+HINDCOPPER.NS
+BALAMINES.NS
+JYOTICNC.NS
+GRWRHITECH.NS
+THYROCARE.NS
+GPPL.NS
+ALIVUS.NS
+ENGINERSIN.NS
+SHRIPISTON.NS
+JBCHEPHARM.NS
+CAPLIPOINT.NS
+RUBICON.NS
+DOMS.NS
+INDIAGLYCO.NS
+JUBLPHARMA.NS
+VIKRAMSOLR.NS
+UNITDSPR.NS
+QPOWER.NS
+TORNTPHARM.NS
+IKS.NS
+HBLENGINE.NS
+SUPRIYA.NS
+HINDUNILVR.NS
+ECLERX.NS
+TARIL.NS
+SYNGENE.NS
+CAMS.NS
+BAJAJ-AUTO.NS
+KIRLPNU.NS
+VOLTAMP.NS
+GVT&D.NS
+SCHAEFFLER.NS
+EICHERMOT.NS
+PIDILITIND.NS
+CDSL.NS
+RADICO.NS
+TDPOWERSYS.NS
+PERSISTENT.NS
+TRENT.NS
+BALUFORGE.NS
+Price DF shape: (122, 98)
+Last date: 2026-05-29 00:00:00
+Scores count: 98
+Price
+ADANIPOWER.NS    0.721876
+BALAMINES.NS     0.631086
+SHAILY.NS        0.502110
+ATGL.NS          0.498353
+TDPOWERSYS.NS    0.495774
+GRWRHITECH.NS    0.489555
+BSE.NS           0.480274
+SUPRIYA.NS       0.461968
+SCHNEIDER.NS     0.457218
+ACUTAAS.NS       0.433573
+Name: 2026-05-29 00:00:00, dtype: float64
+Price DF shape: (122, 98)
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+E6 completed
+
+Master signal file updated.
+
+[ALERTS]
+SIGNALS: 26 signal(s) found — dispatching...
+TELEGRAM: credentials missing — set TELEGRAM_BOT_TOKEN in config.py
+EMAIL: credentials missing — set EMAIL_SENDER in config.py
+
+Result: {'signals': 26, 'telegram': False, 'email': False}
+
+============================================================
+Run: 2026-05-29 21:21:27
+============================================================
+Running E1...
+Downloading data...
+
+TODAY SIGNALS
+
+            Ticker          CMP       Target     StopLoss
+60    BALAMINES.NS  1775.599976  1869.706774  1722.331976
+38          BSE.NS  4146.100098  4365.843403  4021.717095
+29    SCHNEIDER.NS  1308.800049  1378.166451  1269.536047
+86      KIRLPNU.NS  1574.300049  1657.737951  1527.071047
+56   PNBHOUSING.NS  1030.500000  1085.116500   999.585000
+122         MCX.NS  2954.500000  3111.088500  2865.865000
+75       QPOWER.NS  1062.099976  1118.391274  1030.236976
+
+Used Capital (E1): ₹82725.0
+Remaining Capital (E1): ₹92275.0
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+E1 completed
+
+Running E2...
+Updating incremental data from 2026-05-29...
+No new data found.
+
+===== DEBUG SAMPLE =====
+Signal Date: 2026-05-29
+Total tickers in DB: 307
+Tickers available today: 307
+No signals found for the selected criteria.
+E2 completed
+
+Running E3...
+Downloading data...
+
+ENGINE-3 TRADE CANDIDATES
+
+          Ticker          CMP
+0      QPOWER.NS  1062.099976
+1         BSE.NS  4146.100098
+2    MAHABANK.NS    79.269997
+3  DATAPATTNS.NS  4043.100098
+
+Used Capital (E3): ₹17655.0
+Remaining Capital (E3): ₹82345.0
+E3 final signals: [{'Ticker': 'QPOWER.NS', 'Entry': 1062.1, 'SL': 1030.24, 'Target': 1118.39}, {'Ticker': 'BSE.NS', 'Entry': 4146.1, 'SL': 4021.72, 'Target': 4365.84}, {'Ticker': 'MAHABANK.NS', 'Entry': 79.27, 'SL': 76.89, 'Target': 83.47}, {'Ticker': 'DATAPATTNS.NS', 'Entry': 4043.1, 'SL': 3921.81, 'Target': 4257.38}]
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+E3 completed
+
+Running E4...
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+E4 completed
+
+Running E5...
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+E5 completed
+
+Running E6...
+Columns in file: ['Ticker', 'Sector']
+Using column: Ticker
+BATAINDIA.NS
+TORNTPOWER.NS
+JKPAPER.NS
+PRIVISCL.NS
+SHAILY.NS
+INDHOTEL.NS
+ATGL.NS
+KPIGREEN.NS
+RAINBOW.NS
+FLUOROCHEM.NS
+MOTHERSON.NS
+HEROMOTOCO.NS
+M&M.NS
+AIAENG.NS
+HAPPYFORGE.NS
+GENUSPOWER.NS
+GLENMARK.NS
+METROBRAND.NS
+KPRMILL.NS
+LGBBROSLTD.NS
+ACUTAAS.NS
+NTPC.NS
+BEML.NS
+ATUL.NS
+ASHOKLEY.NS
+ACMESOLAR.NS
+VBL.NS
+ANURAS.NS
+KEC.NS
+SCHNEIDER.NS
+SBIN.NS
+AAVAS.NS
+ABCAPITAL.NS
+ADANIPOWER.NS
+ICICIGI.NS
+KEI.NS
+BEL.NS
+NAM-INDIA.NS
+BSE.NS
+COFORGE.NS
+VINATIORGA.NS
+EMCURE.NS
+KRN.NS
+GRINDWELL.NS
+VIJAYA.NS
+DATAPATTNS.NS
+MUTHOOTFIN.NS
+ZENTEC.NS
+ANGELONE.NS
+AUBANK.NS
+PFIZER.NS
+HSCL.NS
+INDIAGLYCO.NS
+PICCADIL.NS
+AETHER.NS
+SJS.NS
+PNBHOUSING.NS
+BERGEPAINT.NS
+NH.NS
+SCHNEIDER.NS
+HINDCOPPER.NS
+BALAMINES.NS
+JYOTICNC.NS
+GRWRHITECH.NS
+THYROCARE.NS
+GPPL.NS
+ALIVUS.NS
+ENGINERSIN.NS
+SHRIPISTON.NS
+JBCHEPHARM.NS
+CAPLIPOINT.NS
+RUBICON.NS
+DOMS.NS
+INDIAGLYCO.NS
+JUBLPHARMA.NS
+VIKRAMSOLR.NS
+UNITDSPR.NS
+QPOWER.NS
+TORNTPHARM.NS
+IKS.NS
+HBLENGINE.NS
+SUPRIYA.NS
+HINDUNILVR.NS
+ECLERX.NS
+TARIL.NS
+SYNGENE.NS
+CAMS.NS
+BAJAJ-AUTO.NS
+KIRLPNU.NS
+VOLTAMP.NS
+GVT&D.NS
+SCHAEFFLER.NS
+EICHERMOT.NS
+PIDILITIND.NS
+CDSL.NS
+RADICO.NS
+TDPOWERSYS.NS
+PERSISTENT.NS
+TRENT.NS
+BALUFORGE.NS
+Price DF shape: (122, 98)
+Last date: 2026-05-29 00:00:00
+Scores count: 98
+Price
+ADANIPOWER.NS    0.721876
+BALAMINES.NS     0.631086
+SHAILY.NS        0.502110
+ATGL.NS          0.498353
+TDPOWERSYS.NS    0.495774
+GRWRHITECH.NS    0.489555
+BSE.NS           0.480274
+SUPRIYA.NS       0.461968
+SCHNEIDER.NS     0.457218
+ACUTAAS.NS       0.433573
+Name: 2026-05-29 00:00:00, dtype: float64
+Price DF shape: (122, 98)
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+Telegram bot token missing
+EMAIL_SENDER missing
+E6 completed
+
+Master signal file updated.
+
+[ALERTS]
+SIGNALS: 26 signal(s) found — dispatching...
+TELEGRAM: credentials missing — set TELEGRAM_BOT_TOKEN in config.py
+EMAIL: credentials missing — set EMAIL_SENDER in config.py
+
+Result: {'signals': 26, 'telegram': False, 'email': False}
+
+============================================================
+Run: 2026-05-29 22:04:58
+============================================================
+Running E1...
+Downloading data...
+
+TODAY SIGNALS
+
+            Ticker          CMP       Target     StopLoss
+60    BALAMINES.NS  1775.599976  1869.706774  1722.331976
+38          BSE.NS  4146.100098  4365.843403  4021.717095
+29    SCHNEIDER.NS  1308.800049  1378.166451  1269.536047
+86      KIRLPNU.NS  1574.300049  1657.737951  1527.071047
+56   PNBHOUSING.NS  1030.500000  1085.116500   999.585000
+122         MCX.NS  2954.500000  3111.088500  2865.865000
+75       QPOWER.NS  1062.099976  1118.391274  1030.236976
+
+Used Capital (E1): ₹82725.0
+Remaining Capital (E1): ₹92275.0
+{"ok":true,"result":{"message_id":45,"from":{"id":8914697078,"is_bot":true,"first_name":"Quant","username":"laltun_bot"},"chat":{"id":5840693995,"first_name":"Avinaash","username":"Avinaash75","type":"private"},"date":1780072184,"text":"\ud83d\udea8 NEW SIGNAL\n\nEngine: E1\nTicker: BALAMINES.NS\nEntry: 1775.6\nSL: 1722.33\nTarget: 1869.71"}}
+Email sent successfully
+{"ok":true,"result":{"message_id":46,"from":{"id":8914697078,"is_bot":true,"first_name":"Quant","username":"laltun_bot"},"chat":{"id":5840693995,"first_name":"Avinaash","username":"Avinaash75","type":"private"},"date":1780072190,"text":"\ud83d\udea8 NEW SIGNAL\n\nEngine: E1\nTicker: BSE.NS\nEntry: 4146.1\nSL: 4021.72\nTarget: 4365.84"}}
+Email sent successfully
+{"ok":true,"result":{"message_id":47,"from":{"id":8914697078,"is_bot":true,"first_name":"Quant","username":"laltun_bot"},"chat":{"id":5840693995,"first_name":"Avinaash","username":"Avinaash75","type":"private"},"date":1780072196,"text":"\ud83d\udea8 NEW SIGNAL\n\nEngine: E1\nTicker: SCHNEIDER.NS\nEntry: 1308.8\nSL: 1269.54\nTarget: 1378.17"}}
+Email sent successfully
+{"ok":true,"result":{"message_id":48,"from":{"id":8914697078,"is_bot":true,"first_name":"Quant","username":"laltun_bot"},"chat":{"id":5840693995,"first_name":"Avinaash","username":"Avinaash75","type":"private"},"date":1780072202,"text":"\ud83d\udea8 NEW SIGNAL\n\nEngine: E1\nTicker: KIRLPNU.NS\nEntry: 1574.3\nSL: 1527.07\nTarget: 1657.74"}}
+Email sent successfully
+{"ok":true,"result":{"message_id":49,"from":{"id":8914697078,"is_bot":true,"first_name":"Quant","username":"laltun_bot"},"chat":{"id":5840693995,"first_name":"Avinaash","username":"Avinaash75","type":"private"},"date":1780072208,"text":"\ud83d\udea8 NEW SIGNAL\n\nEngine: E1\nTicker: PNBHOUSING.NS\nEntry: 1030.5\nSL: 999.58\nTarget: 1085.12"}}
+Email sent successfully
+{"ok":true,"result":{"message_id":50,"from":{"id":8914697078,"is_bot":true,"first_name":"Quant","username":"laltun_bot"},"chat":{"id":5840693995,"first_name":"Avinaash","username":"Avinaash75","type":"private"},"date":1780072214,"text":"\ud83d\udea8 NEW SIGNAL\n\nEngine: E1\nTicker: MCX.NS\nEntry: 2954.5\nSL: 2865.86\nTarget: 3111.09"}}
+Email sent successfully
+{"ok":true,"result":{"message_id":51,"from":{"id":8914697078,"is_bot":true,"first_name":"Quant","username":"laltun_bot"},"chat":{"id":5840693995,"first_name":"Avinaash","username":"Avinaash75","type":"private"},"date":1780072221,"text":"\ud83d\udea8 NEW SIGNAL\n\nEngine: E1\nTicker: QPOWER.NS\nEntry: 1062.1\nSL: 1030.24\nTarget: 1118.39"}}
+Email sent successfully
+E1 completed
+
+Running E2...
+Updating incremental data from 2026-05-29...
+No new data found.
+
+===== DEBUG SAMPLE =====
+Signal Date: 2026-05-29
+Total tickers in DB: 307
+Tickers available today: 307
+No signals found for the selected criteria.
+E2 completed
+
+Running E3...
+Downloading data...
+
+ENGINE-3 TRADE CANDIDATES
+
+          Ticker          CMP
+0      QPOWER.NS  1062.099976
+1         BSE.NS  4146.100098
+2    MAHABANK.NS    79.269997
+3  DATAPATTNS.NS  4043.100098
+
+Used Capital (E3): ₹17655.0
+Remaining Capital (E3): ₹82345.0
+E3 final signals: [{'Ticker': 'QPOWER.NS', 'Entry': 1062.1, 'SL': 1030.24, 'Target': 1118.39}, {'Ticker': 'BSE.NS', 'Entry': 4146.1, 'SL': 4021.72, 'Target': 4365.84}, {'Ticker': 'MAHABANK.NS', 'Entry': 79.27, 'SL': 76.89, 'Target': 83.47}, {'Ticker': 'DATAPATTNS.NS', 'Entry': 4043.1, 'SL': 3921.81, 'Target': 4257.38}]
+{"ok":true,"result":{"message_id":52,"from":{"id":8914697078,"is_bot":true,"first_name":"Quant","username":"laltun_bot"},"chat":{"id":5840693995,"first_name":"Avinaash","username":"Avinaash75","type":"private"},"date":1780072256,"text":"\ud83d\udea8 NEW SIGNAL\n\nEngine: E3\nTicker: QPOWER.NS\nEntry: 1062.1\nSL: 1030.24\nTarget: 1118.39"}}
+Email sent successfully
+{"ok":true,"result":{"message_id":53,"from":{"id":8914697078,"is_bot":true,"first_name":"Quant","username":"laltun_bot"},"chat":{"id":5840693995,"first_name":"Avinaash","username":"Avinaash75","type":"private"},"date":1780072261,"text":"\ud83d\udea8 NEW SIGNAL\n\nEngine: E3\nTicker: BSE.NS\nEntry: 4146.1\nSL: 4021.72\nTarget: 4365.84"}}
+Email sent successfully
+{"ok":true,"result":{"message_id":54,"from":{"id":8914697078,"is_bot":true,"first_name":"Quant","username":"laltun_bot"},"chat":{"id":5840693995,"first_name":"Avinaash","username":"Avinaash75","type":"private"},"date":1780072267,"text":"\ud83d\udea8 NEW SIGNAL\n\nEngine: E3\nTicker: MAHABANK.NS\nEntry: 79.27\nSL: 76.89\nTarget: 83.47"}}
+Email sent successfully
+{"ok":true,"result":{"message_id":55,"from":{"id":8914697078,"is_bot":true,"first_name":"Quant","username":"laltun_bot"},"chat":{"id":5840693995,"first_name":"Avinaash","username":"Avinaash75","type":"private"},"date":1780072273,"text":"\ud83d\udea8 NEW SIGNAL\n\nEngine: E3\nTicker: DATAPATTNS.NS\nEntry: 4043.1\nSL: 3921.81\nTarget: 4257.38"}}
+Email sent successfully
+E3 completed
+
+Running E4...
+{"ok":true,"result":{"message_id":56,"from":{"id":8914697078,"is_bot":true,"first_name":"Quant","username":"laltun_bot"},"chat":{"id":5840693995,"first_name":"Avinaash","username":"Avinaash75","type":"private"},"date":1780072324,"text":"\ud83d\udea8 NEW SIGNAL\n\nEngine: E4\nTicker: BALAMINES.NS\nEntry: 1775.6\nSL: 1704.58\nTarget: 1876.81"}}
+Email sent successfully
+{"ok":true,"result":{"message_id":57,"from":{"id":8914697078,"is_bot":true,"first_name":"Quant","username":"laltun_bot"},"chat":{"id":5840693995,"first_name":"Avinaash","username":"Avinaash75","type":"private"},"date":1780072334,"text":"\ud83d\udea8 NEW SIGNAL\n\nEngine: E4\nTicker: ESABINDIA.NS\nEntry: 6511.0\nSL: 6250.56\nTarget: 6882.13"}}
+Email sent successfully
+{"ok":true,"result":{"message_id":58,"from":{"id":8914697078,"is_bot":true,"first_name":"Quant","username":"laltun_bot"},"chat":{"id":5840693995,"first_name":"Avinaash","username":"Avinaash75","type":"private"},"date":1780072339,"text":"\ud83d\udea8 NEW SIGNAL\n\nEngine: E4\nTicker: BCLIND.NS\nEntry: 32.64\nSL: 31.33\nTarget: 34.5"}}
+Email sent successfully
+{"ok":true,"result":{"message_id":59,"from":{"id":8914697078,"is_bot":true,"first_name":"Quant","username":"laltun_bot"},"chat":{"id":5840693995,"first_name":"Avinaash","username":"Avinaash75","type":"private"},"date":1780072347,"text":"\ud83d\udea8 NEW SIGNAL\n\nEngine: E4\nTicker: KIRLPNU.NS\nEntry: 1574.3\nSL: 1511.33\nTarget: 1664.04"}}
+Email sent successfully
+{"ok":true,"result":{"message_id":60,"from":{"id":8914697078,"is_bot":true,"first_name":"Quant","username":"laltun_bot"},"chat":{"id":5840693995,"first_name":"Avinaash","username":"Avinaash75","type":"private"},"date":1780072371,"text":"\ud83d\udea8 NEW SIGNAL\n\nEngine: E4\nTicker: PNBHOUSING.NS\nEntry: 1030.5\nSL: 989.28\nTarget: 1089.24"}}
+Email sent successfully
+{"ok":true,"result":{"message_id":61,"from":{"id":8914697078,"is_bot":true,"first_name":"Quant","username":"laltun_bot"},"chat":{"id":5840693995,"first_name":"Avinaash","username":"Avinaash75","type":"private"},"date":1780072377,"text":"\ud83d\udea8 NEW SIGNAL\n\nEngine: E4\nTicker: GRINDWELL.NS\nEntry: 1839.8\nSL: 1766.21\nTarget: 1944.67"}}
+Email sent successfully
+E4 completed
+
+Running E5...
+{"ok":true,"result":{"message_id":62,"from":{"id":8914697078,"is_bot":true,"first_name":"Quant","username":"laltun_bot"},"chat":{"id":5840693995,"first_name":"Avinaash","username":"Avinaash75","type":"private"},"date":1780072403,"text":"\ud83d\udea8 NEW SIGNAL\n\nEngine: E5\nTicker: GRWRHITECH.NS\nEntry: 6117.9\nSL: 5383.75\nTarget:"}}
+Email sent successfully
+{"ok":true,"result":{"message_id":63,"from":{"id":8914697078,"is_bot":true,"first_name":"Quant","username":"laltun_bot"},"chat":{"id":5840693995,"first_name":"Avinaash","username":"Avinaash75","type":"private"},"date":1780072411,"text":"\ud83d\udea8 NEW SIGNAL\n\nEngine: E5\nTicker: BALAMINES.NS\nEntry: 1775.6\nSL: 1562.53\nTarget:"}}
+Email sent successfully
+{"ok":true,"result":{"message_id":64,"from":{"id":8914697078,"is_bot":true,"first_name":"Quant","username":"laltun_bot"},"chat":{"id":5840693995,"first_name":"Avinaash","username":"Avinaash75","type":"private"},"date":1780072417,"text":"\ud83d\udea8 NEW SIGNAL\n\nEngine: E5\nTicker: SUPRIYA.NS\nEntry: 968.7\nSL: 852.46\nTarget:"}}
+Email sent successfully
+{"ok":true,"result":{"message_id":65,"from":{"id":8914697078,"is_bot":true,"first_name":"Quant","username":"laltun_bot"},"chat":{"id":5840693995,"first_name":"Avinaash","username":"Avinaash75","type":"private"},"date":1780072426,"text":"\ud83d\udea8 NEW SIGNAL\n\nEngine: E5\nTicker: MARKSANS.NS\nEntry: 246.19\nSL: 216.65\nTarget:"}}
+Email sent successfully
+E5 completed
+
+Running E6...
+Columns in file: ['Ticker', 'Sector']
+Using column: Ticker
+BATAINDIA.NS
+TORNTPOWER.NS
+JKPAPER.NS
+PRIVISCL.NS
+SHAILY.NS
+INDHOTEL.NS
+ATGL.NS
+KPIGREEN.NS
+RAINBOW.NS
+FLUOROCHEM.NS
+MOTHERSON.NS
+HEROMOTOCO.NS
+M&M.NS
+AIAENG.NS
+HAPPYFORGE.NS
+GENUSPOWER.NS
+GLENMARK.NS
+METROBRAND.NS
+KPRMILL.NS
+LGBBROSLTD.NS
+ACUTAAS.NS
+NTPC.NS
+BEML.NS
+ATUL.NS
+ASHOKLEY.NS
+ACMESOLAR.NS
+VBL.NS
+ANURAS.NS
+KEC.NS
+SCHNEIDER.NS
+SBIN.NS
+AAVAS.NS
+ABCAPITAL.NS
+ADANIPOWER.NS
+ICICIGI.NS
+KEI.NS
+BEL.NS
+NAM-INDIA.NS
+BSE.NS
+COFORGE.NS
+VINATIORGA.NS
+EMCURE.NS
+KRN.NS
+GRINDWELL.NS
+VIJAYA.NS
+DATAPATTNS.NS
+MUTHOOTFIN.NS
+ZENTEC.NS
+ANGELONE.NS
+AUBANK.NS
+PFIZER.NS
+HSCL.NS
+INDIAGLYCO.NS
+PICCADIL.NS
+AETHER.NS
+SJS.NS
+PNBHOUSING.NS
+BERGEPAINT.NS
+NH.NS
+SCHNEIDER.NS
+HINDCOPPER.NS
+BALAMINES.NS
+JYOTICNC.NS
+GRWRHITECH.NS
+THYROCARE.NS
+GPPL.NS
+ALIVUS.NS
+ENGINERSIN.NS
+SHRIPISTON.NS
+JBCHEPHARM.NS
+CAPLIPOINT.NS
+RUBICON.NS
+DOMS.NS
+INDIAGLYCO.NS
+JUBLPHARMA.NS
+VIKRAMSOLR.NS
+UNITDSPR.NS
+QPOWER.NS
+TORNTPHARM.NS
+IKS.NS
+HBLENGINE.NS
+SUPRIYA.NS
+HINDUNILVR.NS
+ECLERX.NS
+TARIL.NS
+SYNGENE.NS
+CAMS.NS
+BAJAJ-AUTO.NS
+KIRLPNU.NS
+VOLTAMP.NS
+GVT&D.NS
+SCHAEFFLER.NS
+EICHERMOT.NS
+PIDILITIND.NS
+CDSL.NS
+RADICO.NS
+TDPOWERSYS.NS
+PERSISTENT.NS
+TRENT.NS
+BALUFORGE.NS
+Price DF shape: (122, 98)
+Last date: 2026-05-29 00:00:00
+Scores count: 98
+Price
+ADANIPOWER.NS    0.721876
+BALAMINES.NS     0.631086
+SHAILY.NS        0.502110
+ATGL.NS          0.498353
+TDPOWERSYS.NS    0.495774
+GRWRHITECH.NS    0.489555
+BSE.NS           0.480274
+SUPRIYA.NS       0.461968
+SCHNEIDER.NS     0.457218
+ACUTAAS.NS       0.433573
+Name: 2026-05-29 00:00:00, dtype: float64
+Price DF shape: (122, 98)
+{"ok":true,"result":{"message_id":66,"from":{"id":8914697078,"is_bot":true,"first_name":"Quant","username":"laltun_bot"},"chat":{"id":5840693995,"first_name":"Avinaash","username":"Avinaash75","type":"private"},"date":1780072468,"text":"\ud83d\udea8 NEW SIGNAL\n\nEngine: E6\nTicker: ADANIPOWER.NS\nEntry: 243.37\nSL: 236.07\nTarget:"}}
+Email sent successfully
+{"ok":true,"result":{"message_id":67,"from":{"id":8914697078,"is_bot":true,"first_name":"Quant","username":"laltun_bot"},"chat":{"id":5840693995,"first_name":"Avinaash","username":"Avinaash75","type":"private"},"date":1780072474,"text":"\ud83d\udea8 NEW SIGNAL\n\nEngine: E6\nTicker: BALAMINES.NS\nEntry: 1775.6\nSL: 1722.33\nTarget:"}}
+Email sent successfully
+{"ok":true,"result":{"message_id":68,"from":{"id":8914697078,"is_bot":true,"first_name":"Quant","username":"laltun_bot"},"chat":{"id":5840693995,"first_name":"Avinaash","username":"Avinaash75","type":"private"},"date":1780072481,"text":"\ud83d\udea8 NEW SIGNAL\n\nEngine: E6\nTicker: SHAILY.NS\nEntry: 2989.5\nSL: 2899.82\nTarget:"}}
+Email sent successfully
+{"ok":true,"result":{"message_id":69,"from":{"id":8914697078,"is_bot":true,"first_name":"Quant","username":"laltun_bot"},"chat":{"id":5840693995,"first_name":"Avinaash","username":"Avinaash75","type":"private"},"date":1780072487,"text":"\ud83d\udea8 NEW SIGNAL\n\nEngine: E6\nTicker: ATGL.NS\nEntry: 773.3\nSL: 750.1\nTarget:"}}
+Email sent successfully
+{"ok":true,"result":{"message_id":70,"from":{"id":8914697078,"is_bot":true,"first_name":"Quant","username":"laltun_bot"},"chat":{"id":5840693995,"first_name":"Avinaash","username":"Avinaash75","type":"private"},"date":1780072492,"text":"\ud83d\udea8 NEW SIGNAL\n\nEngine: E6\nTicker: TDPOWERSYS.NS\nEntry: 1318.6\nSL: 1279.04\nTarget:"}}
+Email sent successfully
+E6 completed
+
+Master signal file updated.
+
+[ALERTS]
+SIGNALS: 26 signal(s) found — dispatching...
+TELEGRAM: sent ok
+EMAIL: sent ok
+
+Result: {'signals': 26, 'telegram': True, 'email': True}
+
+============================================================
+Run: 2026-05-29 22:31:59
+============================================================
+Running E1...
+Downloading data...
+
+TODAY SIGNALS
+
+            Ticker          CMP       Target     StopLoss
+60    BALAMINES.NS  1775.599976  1869.706774  1722.331976
+38          BSE.NS  4146.100098  4365.843403  4021.717095
+29    SCHNEIDER.NS  1308.800049  1378.166451  1269.536047
+86      KIRLPNU.NS  1574.300049  1657.737951  1527.071047
+56   PNBHOUSING.NS  1030.500000  1085.116500   999.585000
+122         MCX.NS  2954.500000  3111.088500  2865.865000
+75       QPOWER.NS  1062.099976  1118.391274  1030.236976
+
+Used Capital (E1): ₹82725.0
+Remaining Capital (E1): ₹92275.0
+E1 completed
+
+Running E2...
+Updating incremental data from 2026-05-29...
+No new data found.
+
+===== DEBUG SAMPLE =====
+Signal Date: 2026-05-29
+Total tickers in DB: 307
+Tickers available today: 307
+No signals found for the selected criteria.
+E2 completed
+
+Running E3...
+Downloading data...
+
+ENGINE-3 TRADE CANDIDATES
+
+          Ticker          CMP
+0      QPOWER.NS  1062.099976
+1         BSE.NS  4146.100098
+2    MAHABANK.NS    79.269997
+3  DATAPATTNS.NS  4043.100098
+
+Used Capital (E3): ₹17655.0
+Remaining Capital (E3): ₹82345.0
+E3 final signals: [{'Ticker': 'QPOWER.NS', 'Entry': 1062.1, 'SL': 1030.24, 'Target': 1118.39}, {'Ticker': 'BSE.NS', 'Entry': 4146.1, 'SL': 4021.72, 'Target': 4365.84}, {'Ticker': 'MAHABANK.NS', 'Entry': 79.27, 'SL': 76.89, 'Target': 83.47}, {'Ticker': 'DATAPATTNS.NS', 'Entry': 4043.1, 'SL': 3921.81, 'Target': 4257.38}]
+E3 completed
+
+Running E4...
+E4 completed
+
+Running E5...
+E5 completed
+
+Running E6...
+Columns in file: ['Ticker', 'Sector']
+Using column: Ticker
+BATAINDIA.NS
+TORNTPOWER.NS
+JKPAPER.NS
+PRIVISCL.NS
+SHAILY.NS
+INDHOTEL.NS
+ATGL.NS
+KPIGREEN.NS
+RAINBOW.NS
+FLUOROCHEM.NS
+MOTHERSON.NS
+HEROMOTOCO.NS
+M&M.NS
+AIAENG.NS
+HAPPYFORGE.NS
+GENUSPOWER.NS
+GLENMARK.NS
+METROBRAND.NS
+KPRMILL.NS
+LGBBROSLTD.NS
+ACUTAAS.NS
+NTPC.NS
+BEML.NS
+ATUL.NS
+ASHOKLEY.NS
+ACMESOLAR.NS
+VBL.NS
+ANURAS.NS
+KEC.NS
+SCHNEIDER.NS
+SBIN.NS
+AAVAS.NS
+ABCAPITAL.NS
+ADANIPOWER.NS
+ICICIGI.NS
+KEI.NS
+BEL.NS
+NAM-INDIA.NS
+BSE.NS
+COFORGE.NS
+VINATIORGA.NS
+EMCURE.NS
+KRN.NS
+GRINDWELL.NS
+VIJAYA.NS
+DATAPATTNS.NS
+MUTHOOTFIN.NS
+ZENTEC.NS
+ANGELONE.NS
+AUBANK.NS
+PFIZER.NS
+HSCL.NS
+INDIAGLYCO.NS
+PICCADIL.NS
+AETHER.NS
+SJS.NS
+PNBHOUSING.NS
+BERGEPAINT.NS
+NH.NS
+SCHNEIDER.NS
+HINDCOPPER.NS
+BALAMINES.NS
+JYOTICNC.NS
+GRWRHITECH.NS
+THYROCARE.NS
+GPPL.NS
+ALIVUS.NS
+ENGINERSIN.NS
+SHRIPISTON.NS
+JBCHEPHARM.NS
+CAPLIPOINT.NS
+RUBICON.NS
+DOMS.NS
+INDIAGLYCO.NS
+JUBLPHARMA.NS
+VIKRAMSOLR.NS
+UNITDSPR.NS
+QPOWER.NS
+TORNTPHARM.NS
+IKS.NS
+HBLENGINE.NS
+SUPRIYA.NS
+HINDUNILVR.NS
+ECLERX.NS
+TARIL.NS
+SYNGENE.NS
+CAMS.NS
+BAJAJ-AUTO.NS
+KIRLPNU.NS
+VOLTAMP.NS
+GVT&D.NS
+SCHAEFFLER.NS
+EICHERMOT.NS
+PIDILITIND.NS
+CDSL.NS
+RADICO.NS
+TDPOWERSYS.NS
+PERSISTENT.NS
+TRENT.NS
+BALUFORGE.NS
+Price DF shape: (122, 98)
+Last date: 2026-05-29 00:00:00
+Scores count: 98
+Price
+ADANIPOWER.NS    0.721876
+BALAMINES.NS     0.631086
+SHAILY.NS        0.502110
+ATGL.NS          0.498353
+TDPOWERSYS.NS    0.495774
+GRWRHITECH.NS    0.489555
+BSE.NS           0.480274
+SUPRIYA.NS       0.461968
+SCHNEIDER.NS     0.457218
+ACUTAAS.NS       0.433573
+Name: 2026-05-29 00:00:00, dtype: float64
+Price DF shape: (122, 98)
+E6 completed
+
+Master signal file updated.
+
+[ALERTS]
+SIGNALS: 26 signal(s) found — dispatching...
+TELEGRAM: sent ok
+EMAIL: sent ok
+
+Result: {'signals': 26, 'telegram': True, 'email': True}
+
+============================================================
+Run: 2026-06-01 13:49:41
+============================================================
+Running E1...
+Downloading data...
+
+TODAY SIGNALS
+
+            Ticker          CMP       Target     StopLoss
+33   ADANIPOWER.NS   233.889999   246.286169   226.873299
+60    BALAMINES.NS  1715.300049  1806.210951  1663.841047
+6          ATGL.NS   737.500000   776.587500   715.375000
+29    SCHNEIDER.NS  1243.400024  1309.300226  1206.098024
+94   TDPOWERSYS.NS  1255.800049  1322.357451  1218.126047
+101      SUZLON.NS    54.500000    57.388500    52.865000
+56   PNBHOUSING.NS  1015.000000  1068.795000   984.550000
+
+Used Capital (E1): ₹92045.0
+Remaining Capital (E1): ₹82955.0
+E1 completed
+
+Running E2...
+Updating incremental data from 2026-05-29...
+Data update complete. Added 314 new rows.
+
+===== DEBUG SAMPLE =====
+Signal Date: 2026-06-01
+Total tickers in DB: 307
+Tickers available today: 307
+No signals found for the selected criteria.
+E2 completed
+
+Running E3...
+Downloading data...
+
+ENGINE-3 TRADE CANDIDATES
+
+          Ticker          CMP
+0  ADANIENSOL.NS  1508.400024
+1        BHEL.NS   406.350006
+2  ADANIGREEN.NS  1450.500000
+3         ABB.NS  7088.000000
+4    MAHABANK.NS    77.029999
+5  SHREEJISPG.NS   458.950012
+6    ADANIENT.NS  2906.600098
+
+Used Capital (E3): ₹17655.0
+Remaining Capital (E3): ₹82345.0
+E3 final signals: [{'Ticker': 'ADANIENSOL.NS', 'Entry': 1508.4, 'SL': 1463.15}, {'Ticker': 'BHEL.NS', 'Entry': 406.35, 'SL': 394.16}, {'Ticker': 'ADANIGREEN.NS', 'Entry': 1450.5, 'SL': 1406.98}, {'Ticker': 'ABB.NS', 'Entry': 7088.0, 'SL': 6875.36}, {'Ticker': 'MAHABANK.NS', 'Entry': 77.03, 'SL': 74.72}, {'Ticker': 'SHREEJISPG.NS', 'Entry': 458.95, 'SL': 445.18}, {'Ticker': 'ADANIENT.NS', 'Entry': 2906.6, 'SL': 2819.4}]
+E3 completed
+
+Running E4...
+E4 completed
+
+Running E5...
+E5 completed
+
+Running E6...
+Columns in file: ['Ticker', 'Sector']
+Using column: Ticker
+BATAINDIA.NS
+TORNTPOWER.NS
+JKPAPER.NS
+PRIVISCL.NS
+SHAILY.NS
+INDHOTEL.NS
+ATGL.NS
+KPIGREEN.NS
+RAINBOW.NS
+FLUOROCHEM.NS
+MOTHERSON.NS
+HEROMOTOCO.NS
+M&M.NS
+AIAENG.NS
+HAPPYFORGE.NS
+GENUSPOWER.NS
+GLENMARK.NS
+METROBRAND.NS
+KPRMILL.NS
+LGBBROSLTD.NS
+ACUTAAS.NS
+NTPC.NS
+BEML.NS
+ATUL.NS
+ASHOKLEY.NS
+ACMESOLAR.NS
+VBL.NS
+ANURAS.NS
+KEC.NS
+SCHNEIDER.NS
+SBIN.NS
+AAVAS.NS
+ABCAPITAL.NS
+ADANIPOWER.NS
+ICICIGI.NS
+KEI.NS
+BEL.NS
+NAM-INDIA.NS
+BSE.NS
+COFORGE.NS
+VINATIORGA.NS
+EMCURE.NS
+KRN.NS
+GRINDWELL.NS
+VIJAYA.NS
+DATAPATTNS.NS
+MUTHOOTFIN.NS
+ZENTEC.NS
+ANGELONE.NS
+AUBANK.NS
+PFIZER.NS
+HSCL.NS
+INDIAGLYCO.NS
+PICCADIL.NS
+AETHER.NS
+SJS.NS
+PNBHOUSING.NS
+BERGEPAINT.NS
+NH.NS
+SCHNEIDER.NS
+HINDCOPPER.NS
+BALAMINES.NS
+JYOTICNC.NS
+GRWRHITECH.NS
+THYROCARE.NS
+GPPL.NS
+ALIVUS.NS
+ENGINERSIN.NS
+SHRIPISTON.NS
+JBCHEPHARM.NS
+CAPLIPOINT.NS
+RUBICON.NS
+DOMS.NS
+INDIAGLYCO.NS
+JUBLPHARMA.NS
+VIKRAMSOLR.NS
+UNITDSPR.NS
+QPOWER.NS
+TORNTPHARM.NS
+IKS.NS
+HBLENGINE.NS
+SUPRIYA.NS
+HINDUNILVR.NS
+ECLERX.NS
+TARIL.NS
+SYNGENE.NS
+CAMS.NS
+BAJAJ-AUTO.NS
+KIRLPNU.NS
+VOLTAMP.NS
+GVT&D.NS
+SCHAEFFLER.NS
+EICHERMOT.NS
+PIDILITIND.NS
+CDSL.NS
+RADICO.NS
+TDPOWERSYS.NS
+PERSISTENT.NS
+TRENT.NS
+BALUFORGE.NS
+Price DF shape: (124, 98)
+Last date: 2026-06-01 00:00:00
+Scores count: 98
+Price
+ADANIPOWER.NS    0.695224
+SHAILY.NS        0.612075
+BALAMINES.NS     0.606748
+SUPRIYA.NS       0.543030
+BSE.NS           0.535028
+ANGELONE.NS      0.510140
+ATGL.NS          0.495790
+RUBICON.NS       0.456167
+GRWRHITECH.NS    0.448402
+SCHNEIDER.NS     0.423958
+Name: 2026-06-01 00:00:00, dtype: float64
+Price DF shape: (124, 98)
+E6 completed
+
+Running G1...
+--- V7.0 BREADTH SCREENER (6-SLOT PRODUCTION) ---
+Syncing data for 307 symbols...
+=====================================================================================
+DATE: 2026-06-01 | BREADTH: 🔴 NEGATIVE
+=====================================================================================
+
+ACTION: RISK OFF. Do not initiate new trades today.
+
+G1 completed
+
+Master signal file updated.
+Traceback (most recent call last):
+  File "C:\Users\DELL\Quant_Center\data\download_prices.py", line 1, in <module>
+    import pandas as pd
+ModuleNotFoundError: No module named 'pandas'
+
+============================================================
+Run: 2026-06-08 17:58:23
+============================================================
+Running E1...
+Downloading data...
+
+TODAY SIGNALS
+
+            Ticker          CMP       Target     StopLoss
+131  ATLANTAELE.NS  1954.599976  2058.193774  1895.961976
+279  UNIVCABLES.NS  1158.300049  1219.689951  1123.551047
+227       SUVEN.NS   233.550003   245.928153   226.543503
+94   TDPOWERSYS.NS  1225.800049  1290.767451  1189.026047
+70      RUBICON.NS  1181.400024  1244.014226  1145.958024
+305     OLECTRA.NS  1240.000000  1305.720000  1202.800000
+125   KIRLOSENG.NS  1854.000000  1952.262000  1798.380000
+
+Used Capital (E1): ₹68821.0
+Remaining Capital (E1): ₹106179.0
+E1 completed
+
+Running E2...
+Updating incremental data from 2026-06-01...
+Data update complete. Added 1570 new rows.
+
+===== DEBUG SAMPLE =====
+Signal Date: 2026-06-08
+Total tickers in DB: 307
+Tickers available today: 307
+No signals found for the selected criteria.
+E2 completed
+
+Running E3...
+Downloading data...
+
+ENGINE-3 TRADE CANDIDATES
+
+          Ticker           CMP
+0   BALAMINES.NS   2090.899902
+1  ADANIPOWER.NS    225.850006
+2    APARINDS.NS  13276.000000
+3         BSE.NS   3916.800049
+4         SCI.NS    293.100006
+5         ABB.NS   6958.000000
+
+Used Capital (E3): ₹34305.0
+Remaining Capital (E3): ₹65695.0
+E3 final signals: [{'Ticker': 'BALAMINES.NS', 'Entry': 2090.9, 'SL': 2028.17}, {'Ticker': 'ADANIPOWER.NS', 'Entry': 225.85, 'SL': 219.07}, {'Ticker': 'APARINDS.NS', 'Entry': 13276.0, 'SL': 12877.72}, {'Ticker': 'BSE.NS', 'Entry': 3916.8, 'SL': 3799.3}, {'Ticker': 'SCI.NS', 'Entry': 293.1, 'SL': 284.31}, {'Ticker': 'ABB.NS', 'Entry': 6958.0, 'SL': 6749.26}]
+E3 completed
+
+Running E4...
+E4 completed
+
+Running E5...
+E5 completed
+
+Running E6...
+Columns in file: ['Ticker', 'Sector']
+Using column: Ticker
+BATAINDIA.NS
+TORNTPOWER.NS
+JKPAPER.NS
+PRIVISCL.NS
+SHAILY.NS
+INDHOTEL.NS
+ATGL.NS
+KPIGREEN.NS
+RAINBOW.NS
+FLUOROCHEM.NS
+MOTHERSON.NS
+HEROMOTOCO.NS
+M&M.NS
+AIAENG.NS
+HAPPYFORGE.NS
+GENUSPOWER.NS
+GLENMARK.NS
+METROBRAND.NS
+KPRMILL.NS
+LGBBROSLTD.NS
+ACUTAAS.NS
+NTPC.NS
+BEML.NS
+ATUL.NS
+ASHOKLEY.NS
+ACMESOLAR.NS
+VBL.NS
+ANURAS.NS
+KEC.NS
+SCHNEIDER.NS
+SBIN.NS
+AAVAS.NS
+ABCAPITAL.NS
+ADANIPOWER.NS
+ICICIGI.NS
+KEI.NS
+BEL.NS
+NAM-INDIA.NS
+BSE.NS
+COFORGE.NS
+VINATIORGA.NS
+EMCURE.NS
+KRN.NS
+GRINDWELL.NS
+VIJAYA.NS
+DATAPATTNS.NS
+MUTHOOTFIN.NS
+ZENTEC.NS
+ANGELONE.NS
+AUBANK.NS
+PFIZER.NS
+HSCL.NS
+INDIAGLYCO.NS
+PICCADIL.NS
+AETHER.NS
+SJS.NS
+PNBHOUSING.NS
+BERGEPAINT.NS
+NH.NS
+SCHNEIDER.NS
+HINDCOPPER.NS
+BALAMINES.NS
+JYOTICNC.NS
+GRWRHITECH.NS
+THYROCARE.NS
+GPPL.NS
+ALIVUS.NS
+ENGINERSIN.NS
+SHRIPISTON.NS
+JBCHEPHARM.NS
+CAPLIPOINT.NS
+RUBICON.NS
+DOMS.NS
+INDIAGLYCO.NS
+JUBLPHARMA.NS
+VIKRAMSOLR.NS
+UNITDSPR.NS
+QPOWER.NS
+TORNTPHARM.NS
+IKS.NS
+HBLENGINE.NS
+SUPRIYA.NS
+HINDUNILVR.NS
+ECLERX.NS
+TARIL.NS
+SYNGENE.NS
+CAMS.NS
+BAJAJ-AUTO.NS
+KIRLPNU.NS
+VOLTAMP.NS
+GVT&D.NS
+SCHAEFFLER.NS
+EICHERMOT.NS
+PIDILITIND.NS
+CDSL.NS
+RADICO.NS
+TDPOWERSYS.NS
+PERSISTENT.NS
+TRENT.NS
+BALUFORGE.NS
+Price DF shape: (124, 98)
+Last date: 2026-06-08 00:00:00
+Scores count: 98
+Price
+BALAMINES.NS     1.035137
+SHAILY.NS        0.632609
+ADANIPOWER.NS    0.625522
+ACMESOLAR.NS     0.571633
+ATGL.NS          0.554027
+SUPRIYA.NS       0.519676
+TDPOWERSYS.NS    0.503404
+RUBICON.NS       0.497528
+ACUTAAS.NS       0.488487
+HSCL.NS          0.480073
+Name: 2026-06-08 00:00:00, dtype: float64
+Price DF shape: (124, 98)
+E6 completed
+
+Running G1...
+--- V7.0 BREADTH SCREENER (6-SLOT PRODUCTION) ---
+Syncing data for 307 symbols...
+=====================================================================================
+DATE: 2026-06-08 | BREADTH: 🔴 NEGATIVE
+=====================================================================================
+
+ACTION: RISK OFF. Do not initiate new trades today.
+
+G1 completed
+
+Master signal file updated.
+
+============================================================
+Run: 2026-06-15 14:22:36
+============================================================
+Running E1...
+Downloading data...
+
+TODAY SIGNALS
+
+            Ticker          CMP       Target     StopLoss
+224     WELCORP.NS  1381.000000  1454.193000  1339.570000
+116   INOXINDIA.NS  1807.000000  1902.771000  1752.790000
+271    MARKSANS.NS   249.869995   263.113105   242.373895
+51         HSCL.NS   678.700012   714.671113   658.339012
+240  LAURUSLABS.NS  1389.099976  1462.722274  1347.426976
+201    TATACOMM.NS  1951.199951  2054.613549  1892.663953
+44       VIJAYA.NS  1275.699951  1343.312049  1237.428953
+
+Used Capital (E1): ₹25550.0
+Remaining Capital (E1): ₹149450.0
+E1 completed
+
+Running E2...
+Updating incremental data from 2026-06-08...
+Data update complete. Added 1570 new rows.
+
+===== DEBUG SAMPLE =====
+Signal Date: 2026-06-15
+Total tickers in DB: 307
+Tickers available today: 307
+No signals found for the selected criteria.
+E2 completed
+
+Running E3...
+Downloading data...
+
+ENGINE-3 TRADE CANDIDATES
+
+          Ticker           CMP
+0     ACUTAAS.NS   3100.000000
+1  ADANIENSOL.NS   1502.300049
+2   SOLARINDS.NS  17479.000000
+3        HSCL.NS    678.599976
+
+Used Capital (E3): ₹20340.0
+Remaining Capital (E3): ₹79660.0
+E3 final signals: [{'Ticker': 'ACUTAAS.NS', 'Entry': 3100.0, 'SL': 3007.0}, {'Ticker': 'ADANIENSOL.NS', 'Entry': 1502.3, 'SL': 1457.23}, {'Ticker': 'SOLARINDS.NS', 'Entry': 17479.0, 'SL': 16954.63}, {'Ticker': 'HSCL.NS', 'Entry': 678.6, 'SL': 658.24}]
+E3 completed
+
+Running E4...
+E4 completed
+
+Running E5...
+E5 completed
+
+Running E6...
+Columns in file: ['Ticker', 'Sector']
+Using column: Ticker
+BATAINDIA.NS
+TORNTPOWER.NS
+JKPAPER.NS
+PRIVISCL.NS
+SHAILY.NS
+INDHOTEL.NS
+ATGL.NS
+KPIGREEN.NS
+RAINBOW.NS
+FLUOROCHEM.NS
+MOTHERSON.NS
+HEROMOTOCO.NS
+M&M.NS
+AIAENG.NS
+HAPPYFORGE.NS
+GENUSPOWER.NS
+GLENMARK.NS
+METROBRAND.NS
+KPRMILL.NS
+LGBBROSLTD.NS
+ACUTAAS.NS
+NTPC.NS
+BEML.NS
+ATUL.NS
+ASHOKLEY.NS
+ACMESOLAR.NS
+VBL.NS
+ANURAS.NS
+KEC.NS
+SCHNEIDER.NS
+SBIN.NS
+AAVAS.NS
+ABCAPITAL.NS
+ADANIPOWER.NS
+ICICIGI.NS
+KEI.NS
+BEL.NS
+NAM-INDIA.NS
+BSE.NS
+COFORGE.NS
+VINATIORGA.NS
+EMCURE.NS
+KRN.NS
+GRINDWELL.NS
+VIJAYA.NS
+DATAPATTNS.NS
+MUTHOOTFIN.NS
+ZENTEC.NS
+ANGELONE.NS
+AUBANK.NS
+PFIZER.NS
+HSCL.NS
+INDIAGLYCO.NS
+PICCADIL.NS
+AETHER.NS
+SJS.NS
+PNBHOUSING.NS
+BERGEPAINT.NS
+NH.NS
+SCHNEIDER.NS
+HINDCOPPER.NS
+BALAMINES.NS
+JYOTICNC.NS
+GRWRHITECH.NS
+THYROCARE.NS
+GPPL.NS
+ALIVUS.NS
+ENGINERSIN.NS
+SHRIPISTON.NS
+JBCHEPHARM.NS
+CAPLIPOINT.NS
+RUBICON.NS
+DOMS.NS
+INDIAGLYCO.NS
+JUBLPHARMA.NS
+VIKRAMSOLR.NS
+UNITDSPR.NS
+QPOWER.NS
+TORNTPHARM.NS
+IKS.NS
+HBLENGINE.NS
+SUPRIYA.NS
+HINDUNILVR.NS
+ECLERX.NS
+TARIL.NS
+SYNGENE.NS
+CAMS.NS
+BAJAJ-AUTO.NS
+KIRLPNU.NS
+VOLTAMP.NS
+GVT&D.NS
+SCHAEFFLER.NS
+EICHERMOT.NS
+PIDILITIND.NS
+CDSL.NS
+RADICO.NS
+TDPOWERSYS.NS
+PERSISTENT.NS
+TRENT.NS
+BALUFORGE.NS
+Price DF shape: (124, 98)
+Last date: 2026-06-15 00:00:00
+Scores count: 98
+Price
+BALAMINES.NS     1.122051
+RUBICON.NS       0.733316
+GRWRHITECH.NS    0.680996
+SUPRIYA.NS       0.677111
+ANGELONE.NS      0.641066
+QPOWER.NS        0.584600
+KIRLPNU.NS       0.549538
+HSCL.NS          0.519902
+THYROCARE.NS     0.502350
+KRN.NS           0.461864
+Name: 2026-06-15 00:00:00, dtype: float64
+Price DF shape: (124, 98)
+E6 completed
+
+Running G1...
+--- V7.0 BREADTH SCREENER (6-SLOT PRODUCTION) ---
+Syncing data for 307 symbols...
+G1 completed
+
+Master signal file updated.
