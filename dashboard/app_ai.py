@@ -420,7 +420,7 @@ st.markdown(
 if "engine_result" not in st.session_state:
     st.session_state.engine_result = None
 
-rc1, rc2, _ = st.columns([1, 1, 8])
+rc1, rc2, rc3, _ = st.columns([1, 1, 1.3, 7.7])
 with rc1:
     if st.button("🔄 Refresh data", key="global_refresh"):
         st.session_state.engine_result = None
@@ -450,6 +450,45 @@ with rc2:
                 "hint": "",
             }
         else:
+            # ── step 1b: refresh result calendar before engines fire ───
+            _rc_updater = None
+            for _rc_cand in [
+                _app_root / "core" / "result_calendar_updater.py",
+                _app_root / "result_calendar_updater.py",
+                _orch.parent / "result_calendar_updater.py",
+            ]:
+                if _rc_cand.exists():
+                    _rc_updater = _rc_cand
+                    break
+
+            if _rc_updater:
+                with st.spinner("📅 Refreshing result calendar (NSE upcoming events)…"):
+                    _rc_res = subprocess.run(
+                        [sys.executable, str(_rc_updater)],
+                        capture_output=True,
+                        text=True,
+                        encoding="utf-8",
+                        cwd=str(_rc_updater.parent),
+                        timeout=60,
+                        env=_run_env,
+                    )
+                _rc_ok  = _rc_res.returncode == 0
+                _rc_out = (_rc_res.stdout or "").strip()
+                _blocked_n = 0
+                for _ln in _rc_out.splitlines():
+                    for _tok in _ln.split():
+                        if _tok.isdigit() and "block" in _ln.lower():
+                            _blocked_n = int(_tok); break
+                if _rc_ok:
+                    st.toast(f"📅 Result calendar refreshed"
+                             + (f" · {_blocked_n} ticker(s) to avoid" if _blocked_n else ""))
+                else:
+                    st.toast("⚠️ Result calendar refresh failed — using cached calendar",
+                             icon="⚠️")
+            else:
+                st.toast("ℹ️ result_calendar_updater.py not found — calendar not refreshed",
+                         icon="ℹ️")
+
             # ── step 2: run engines ────────────────────────────────────
             with st.spinner("⚙️ Running all 6 engines…"):
                 _result = subprocess.run(
@@ -546,6 +585,101 @@ with rc2:
                 "kind": "warning" if _failed else "success",
                 "main": _main_msg,
                 "hint": _hint,
+            }
+
+        st.rerun()
+
+with rc3:
+    if st.button("▶ Run S1 (3:15 PM)", key="run_s1",
+                 help="Claude1 swing system · downloads data · runs screener · "
+                      "appends signals to queue · sends Telegram + Email"):
+
+        _app_root = Path(__file__).resolve().parent.parent
+        _run_env  = {**os.environ, "PYTHONIOENCODING": "utf-8"}
+        _claude1  = _app_root / "engines" / "claude_system1_live.py"
+
+        if not _claude1.exists():
+            st.session_state.engine_result = {
+                "kind": "error",
+                "main": f"claude_system1_live.py not found at {_claude1}",
+                "hint": "Copy Claude1 files into engines/ folder.",
+            }
+        else:
+            with st.spinner("⚙️ S1 pipeline running… (~5 min for data download)"):
+                _s1_res = subprocess.run(
+                    [sys.executable, str(_claude1)],
+                    capture_output=True,
+                    text=True,
+                    encoding="utf-8",
+                    cwd=str(_claude1.parent),
+                    timeout=900,
+                    env=_run_env,
+                )
+
+            _s1_out  = (_s1_res.stdout or "").strip()
+            _s1_err  = (_s1_res.stderr or "").strip()
+            _s1_full = (_s1_out + ("\n" + _s1_err if _s1_err else "")).strip()
+            _s1_ok   = (_s1_res.returncode == 0) and ("Pipeline complete" in _s1_out)
+
+            _s1_count = 0
+            for _line in _s1_out.splitlines():
+                if "S1 signals in master queue" in _line or "Appended" in _line:
+                    for _tok in _line.split():
+                        if _tok.isdigit():
+                            _s1_count = int(_tok); break
+                    if _s1_count: break
+
+            try:
+                _log_path = _app_root / "signals" / "engine_run.log"
+                _log_path.parent.mkdir(parents=True, exist_ok=True)
+                _ts = pd.Timestamp.now().strftime("%Y-%m-%d %H:%M:%S")
+                with open(_log_path, "a", encoding="utf-8") as _lf:
+                    _lf.write(f"\n{'='*60}\nS1 Run: {_ts}\n{'='*60}\n{_s1_full}\n")
+            except Exception:
+                pass
+
+            _tg_ok = _em_ok = _alert_run = False
+            if _s1_ok and _s1_count > 0:
+                _sa = _app_root / "core" / "signal_alerts.py"
+                if _sa.exists():
+                    _alert_run = True
+                    with st.spinner("📨 Sending Telegram + Email…"):
+                        _sa_res = subprocess.run(
+                            [sys.executable, str(_sa)],
+                            capture_output=True,
+                            text=True,
+                            encoding="utf-8",
+                            cwd=str(_sa.parent),
+                            timeout=90,
+                            env=_run_env,
+                        )
+                    _sa_out = (_sa_res.stdout or "").strip()
+                    _tg_ok  = "TELEGRAM: sent ok" in _sa_out
+                    _em_ok  = "EMAIL: sent ok"     in _sa_out
+                    try:
+                        with open(_log_path, "a", encoding="utf-8") as _lf:
+                            _lf.write(f"\n[S1 ALERTS]\n{_sa_out}\n")
+                    except Exception:
+                        pass
+
+            if not _s1_ok:
+                _main_msg = "❌ S1 pipeline failed — see signals/engine_run.log"
+                _kind = "error"
+            elif _s1_count == 0:
+                _main_msg = "⬜ S1 pipeline ok · 0 signals today · nothing appended"
+                _kind = "warning"
+            else:
+                _main_msg = f"✅ S1 ok · {_s1_count} signal(s) appended"
+                if _alert_run:
+                    _main_msg += "   ·   " + ("📱 ✓" if _tg_ok else "📱 ✗")
+                    _main_msg += " " + ("📧 ✓" if _em_ok else "📧 ✗")
+                _main_msg += "   ·   click Refresh data to see in queue"
+                _kind = "success"
+
+            st.session_state.engine_result = {
+                "kind": _kind,
+                "main": _main_msg,
+                "hint": "",
             }
 
         st.rerun()
@@ -3124,6 +3258,62 @@ def _exit_paper_trade(ticker: str, exit_price=None) -> bool:
     df.to_csv(AI_PAPER_TRADES_FILE, index=False)
     return True
 
+def _auto_exit_paper_trades() -> int:
+    """
+    Checks all OPEN paper trades against live CMP every render.
+    Auto-books exits when TP or SL is hit. Writes to CSV permanently.
+    Returns count of trades auto-exited.
+    """
+    if not AI_PAPER_TRADES_FILE.exists():
+        return 0
+    try:
+        df = pd.read_csv(AI_PAPER_TRADES_FILE)
+    except Exception:
+        return 0
+
+    open_mask = df["Status"] == "OPEN"
+    if not open_mask.any():
+        return 0
+
+    for col in ["Entry", "SL", "Target", "Qty"]:
+        df[col] = pd.to_numeric(df[col], errors="coerce")
+
+    # Cast to object so string date/price writes into NaN float columns
+    df["ExitPrice"] = df["ExitPrice"].astype(object)
+    df["ExitDate"]  = df["ExitDate"].astype(object)
+
+    open_tickers = tuple(df.loc[open_mask, "Ticker"].dropna().unique().tolist())
+    live_px = _paper_cmp(open_tickers)
+    if not live_px:
+        return 0
+
+    n_exited  = 0
+    exit_date = pd.Timestamp.now().strftime("%Y-%m-%d")
+
+    for idx in df[open_mask].index:
+        ticker = df.loc[idx, "Ticker"]
+        cmp    = live_px.get(ticker, np.nan)
+        if pd.isna(cmp):
+            continue
+        target = df.loc[idx, "Target"]
+        sl     = df.loc[idx, "SL"]
+        if pd.notna(target) and cmp >= target:
+            df.loc[idx, "Status"]    = "TP ✓"
+            df.loc[idx, "ExitPrice"] = round(float(cmp), 2)
+            df.loc[idx, "ExitDate"]  = exit_date
+            n_exited += 1
+        elif pd.notna(sl) and cmp <= sl:
+            df.loc[idx, "Status"]    = "SL ✗"
+            df.loc[idx, "ExitPrice"] = round(float(cmp), 2)
+            df.loc[idx, "ExitDate"]  = exit_date
+            n_exited += 1
+
+    if n_exited > 0:
+        df.to_csv(AI_PAPER_TRADES_FILE, index=False)
+
+    return n_exited
+
+
 @st.cache_data(ttl=180, show_spinner=False)
 def _paper_cmp(tickers_tuple: tuple) -> dict:
     """Batch live price fetch for open paper trades. Cached 3 min."""
@@ -3174,13 +3364,13 @@ def _enrich_paper_trades(df: pd.DataFrame) -> pd.DataFrame:
     df["P&L ₹"]    = ((df["CMP"] - df["Entry"]) * df["Qty"]).round(0)
     today          = pd.Timestamp.today().normalize()
     df["Days"]     = (
-        (today - pd.to_datetime(df["AddedDate"], errors="coerce"))
+        (today - pd.to_datetime(df["AddedDate"], dayfirst=True, errors="coerce"))
         .dt.days.fillna(0).astype(int)
     )
 
     def _outcome(row):
-        if row["Status"] in ("EXITED", "CLOSED"):
-            return "EXITED"
+        if row["Status"] in ("TP ✓", "SL ✗", "EXITED", "CLOSED"):
+            return row["Status"]
         cmp = row["CMP"]
         if pd.isna(cmp):
             return "OPEN"
@@ -3644,6 +3834,9 @@ with tab8:
             "TP/SL status flagged automatically."
         )
 
+        _n_auto = _auto_exit_paper_trades()
+        if _n_auto > 0:
+            st.toast(f"✅ {_n_auto} paper trade(s) auto-booked — TP or SL hit")
         _pt_raw = _load_paper_trades()
 
         if _pt_raw.empty:
@@ -3686,7 +3879,7 @@ with tab8:
             })
 
             _ptfmt = {}
-            if "Date"     in _disp: _ptfmt["Date"]     = lambda x: pd.Timestamp(x).strftime("%d-%b") if pd.notna(x) else "—"
+            if "Date"     in _disp: _ptfmt["Date"]     = lambda x: pd.to_datetime(x, dayfirst=True).strftime("%d-%b") if pd.notna(x) else "—"
             if "Score"    in _disp: _ptfmt["Score"]    = "{:.1f}"
             for _fc in ["Entry ₹","CMP ₹","SL ₹","Target ₹"]:
                 if _fc in _disp: _ptfmt[_fc] = "₹{:,.2f}"

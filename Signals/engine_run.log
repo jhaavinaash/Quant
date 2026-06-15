@@ -1686,3 +1686,1090 @@ Syncing data for 307 symbols...
 G1 completed
 
 Master signal file updated.
+
+============================================================
+Run: 2026-06-15 20:06:24
+============================================================
+Running E1...
+Downloading data...
+
+TODAY SIGNALS
+
+            Ticker          CMP       Target     StopLoss
+224     WELCORP.NS  1379.699951  1452.824049  1338.308953
+116   INOXINDIA.NS  1786.400024  1881.079226  1732.808024
+271    MARKSANS.NS   249.759995   262.997274   242.267195
+51         HSCL.NS   668.900024   704.351726   648.833024
+240  LAURUSLABS.NS  1389.099976  1462.722274  1347.426976
+201    TATACOMM.NS  1933.900024  2036.396726  1875.883024
+20      ACUTAAS.NS  3096.699951  3260.825049  3003.798953
+
+Used Capital (E1): ₹36846.0
+Remaining Capital (E1): ₹138154.0
+E1 completed
+
+Running E2...
+Updating incremental data from 2026-06-15...
+No new data found.
+
+===== DEBUG SAMPLE =====
+Signal Date: 2026-06-15
+Total tickers in DB: 307
+Tickers available today: 307
+No signals found for the selected criteria.
+E2 completed
+
+Running E3...
+Downloading data...
+
+ENGINE-3 TRADE CANDIDATES
+
+          Ticker           CMP
+0   BALAMINES.NS   2108.100098
+1     ACUTAAS.NS   3096.699951
+2       GVT&D.NS   4805.500000
+3  ADANIENSOL.NS   1491.900024
+4   SOLARINDS.NS  17277.000000
+5        HSCL.NS    668.900024
+
+Used Capital (E3): ₹20340.0
+Remaining Capital (E3): ₹79660.0
+E3 final signals: [{'Ticker': 'BALAMINES.NS', 'Entry': 2108.1, 'SL': 2044.86}, {'Ticker': 'ACUTAAS.NS', 'Entry': 3096.7, 'SL': 3003.8}, {'Ticker': 'GVT&D.NS', 'Entry': 4805.5, 'SL': 4661.34}, {'Ticker': 'ADANIENSOL.NS', 'Entry': 1491.9, 'SL': 1447.14}, {'Ticker': 'SOLARINDS.NS', 'Entry': 17277.0, 'SL': 16758.69}, {'Ticker': 'HSCL.NS', 'Entry': 668.9, 'SL': 648.83}]
+E3 completed
+
+Running E4...
+E4 completed
+
+Running E5...
+E5 completed
+
+Running E6...
+Columns in file: ['Ticker', 'Sector']
+Using column: Ticker
+BATAINDIA.NS
+TORNTPOWER.NS
+JKPAPER.NS
+PRIVISCL.NS
+SHAILY.NS
+INDHOTEL.NS
+ATGL.NS
+KPIGREEN.NS
+RAINBOW.NS
+FLUOROCHEM.NS
+MOTHERSON.NS
+HEROMOTOCO.NS
+M&M.NS
+AIAENG.NS
+HAPPYFORGE.NS
+GENUSPOWER.NS
+GLENMARK.NS
+METROBRAND.NS
+KPRMILL.NS
+LGBBROSLTD.NS
+ACUTAAS.NS
+NTPC.NS
+BEML.NS
+ATUL.NS
+ASHOKLEY.NS
+ACMESOLAR.NS
+VBL.NS
+ANURAS.NS
+KEC.NS
+SCHNEIDER.NS
+SBIN.NS
+AAVAS.NS
+ABCAPITAL.NS
+ADANIPOWER.NS
+ICICIGI.NS
+KEI.NS
+BEL.NS
+NAM-INDIA.NS
+BSE.NS
+COFORGE.NS
+VINATIORGA.NS
+EMCURE.NS
+KRN.NS
+GRINDWELL.NS
+VIJAYA.NS
+DATAPATTNS.NS
+MUTHOOTFIN.NS
+ZENTEC.NS
+ANGELONE.NS
+AUBANK.NS
+PFIZER.NS
+HSCL.NS
+INDIAGLYCO.NS
+PICCADIL.NS
+AETHER.NS
+SJS.NS
+PNBHOUSING.NS
+BERGEPAINT.NS
+NH.NS
+SCHNEIDER.NS
+HINDCOPPER.NS
+BALAMINES.NS
+JYOTICNC.NS
+GRWRHITECH.NS
+THYROCARE.NS
+GPPL.NS
+ALIVUS.NS
+ENGINERSIN.NS
+SHRIPISTON.NS
+JBCHEPHARM.NS
+CAPLIPOINT.NS
+RUBICON.NS
+DOMS.NS
+INDIAGLYCO.NS
+JUBLPHARMA.NS
+VIKRAMSOLR.NS
+UNITDSPR.NS
+QPOWER.NS
+TORNTPHARM.NS
+IKS.NS
+HBLENGINE.NS
+SUPRIYA.NS
+HINDUNILVR.NS
+ECLERX.NS
+TARIL.NS
+SYNGENE.NS
+CAMS.NS
+BAJAJ-AUTO.NS
+KIRLPNU.NS
+VOLTAMP.NS
+GVT&D.NS
+SCHAEFFLER.NS
+EICHERMOT.NS
+PIDILITIND.NS
+CDSL.NS
+RADICO.NS
+TDPOWERSYS.NS
+PERSISTENT.NS
+TRENT.NS
+BALUFORGE.NS
+Price DF shape: (124, 98)
+Last date: 2026-06-15 00:00:00
+Scores count: 98
+Price
+BALAMINES.NS     1.107257
+RUBICON.NS       0.787291
+GRWRHITECH.NS    0.677148
+SUPRIYA.NS       0.662663
+ANGELONE.NS      0.635495
+QPOWER.NS        0.584600
+KIRLPNU.NS       0.550585
+HSCL.NS          0.498618
+THYROCARE.NS     0.480785
+TDPOWERSYS.NS    0.464179
+Name: 2026-06-15 00:00:00, dtype: float64
+Price DF shape: (124, 98)
+E6 completed
+
+Running G1...
+--- V7.0 BREADTH SCREENER (6-SLOT PRODUCTION) ---
+Syncing data for 307 symbols...
+G1 completed
+
+Master signal file updated.
+
+============================================================
+S1 Run: 2026-06-15 20:35:29
+============================================================
+[  1/314] BATAINDIA.NS              OK — 1237 rows — last date: 2026-06-15 — close: 680.30
+[  2/314] TORNTPOWER.NS             OK — 1237 rows — last date: 2026-06-15 — close: 1389.70
+[  3/314] JKPAPER.NS                OK — 1236 rows — last date: 2026-06-15 — close: 356.55
+[  4/314] PRIVISCL.NS               OK — 1236 rows — last date: 2026-06-15 — close: 3469.10
+[  5/314] SHAILY.NS                 OK — 1038 rows — last date: 2026-06-15 — close: 2948.10
+[  6/314] INDHOTEL.NS               OK — 1237 rows — last date: 2026-06-15 — close: 689.85
+[  7/314] ATGL.NS                   OK — 1237 rows — last date: 2026-06-15 — close: 720.05
+[  8/314] KPIGREEN.NS               OK — 1209 rows — last date: 2026-06-15 — close: 405.30
+[  9/314] RAINBOW.NS                OK — 1014 rows — last date: 2026-06-15 — close: 1418.60
+[ 10/314] FLUOROCHEM.NS             OK — 1237 rows — last date: 2026-06-15 — close: 3685.10
+[ 11/314] MOTHERSON.NS              OK — 1237 rows — last date: 2026-06-15 — close: 148.12
+[ 12/314] HEROMOTOCO.NS             OK — 1237 rows — last date: 2026-06-15 — close: 5024.00
+[ 13/314] M&M.NS                    OK — 1237 rows — last date: 2026-06-15 — close: 3134.30
+[ 14/314] AIAENG.NS                 OK — 1235 rows — last date: 2026-06-15 — close: 4469.20
+[ 15/314] HAPPYFORGE.NS             OK — 610 rows — last date: 2026-06-15 — close: 1354.00
+[ 16/314] GENUSPOWER.NS             OK — 1237 rows — last date: 2026-06-15 — close: 320.70
+[ 17/314] GLENMARK.NS               OK — 1237 rows — last date: 2026-06-15 — close: 2156.60
+[ 18/314] METROBRAND.NS             OK — 1106 rows — last date: 2026-06-15 — close: 1004.50
+[ 19/314] KPRMILL.NS                OK — 1237 rows — last date: 2026-06-15 — close: 1055.45
+[ 20/314] LGBBROSLTD.NS             OK — 1237 rows — last date: 2026-06-15 — close: 1546.50
+[ 21/314] ACUTAAS.NS                OK — 1176 rows — last date: 2026-06-15 — close: 3096.70
+[ 22/314] NTPC.NS                   OK — 1237 rows — last date: 2026-06-15 — close: 348.10
+[ 23/314] BEML.NS                   OK — 1237 rows — last date: 2026-06-15 — close: 1778.80
+[ 24/314] ATUL.NS                   OK — 1237 rows — last date: 2026-06-15 — close: 6569.00
+[ 25/314] ASHOKLEY.NS               OK — 1237 rows — last date: 2026-06-15 — close: 157.70
+[ 26/314] ACMESOLAR.NS              OK — 393 rows — last date: 2026-06-15 — close: 347.25
+[ 27/314] VBL.NS                    OK — 1237 rows — last date: 2026-06-15 — close: 541.00
+[ 28/314] ANURAS.NS                 OK — 1236 rows — last date: 2026-06-15 — close: 1269.50
+[ 29/314] KEC.NS                    OK — 1237 rows — last date: 2026-06-15 — close: 512.75
+[ 30/314] SCHNEIDER.NS              OK — 1237 rows — last date: 2026-06-15 — close: 1216.20
+[ 31/314] SBIN.NS                   OK — 1237 rows — last date: 2026-06-15 — close: 1020.85
+[ 32/314] AAVAS.NS                  OK — 1237 rows — last date: 2026-06-15 — close: 1405.20
+[ 33/314] ABCAPITAL.NS              OK — 1237 rows — last date: 2026-06-15 — close: 368.20
+[ 34/314] ADANIPOWER.NS             OK — 1237 rows — last date: 2026-06-15 — close: 220.52
+[ 35/314] ICICIGI.NS                OK — 1237 rows — last date: 2026-06-15 — close: 1734.10
+[ 36/314] KEI.NS                    OK — 1237 rows — last date: 2026-06-15 — close: 5460.50
+[ 37/314] BEL.NS                    OK — 1237 rows — last date: 2026-06-15 — close: 409.55
+[ 38/314] NAM-INDIA.NS              OK — 1237 rows — last date: 2026-06-15 — close: 1140.10
+[ 39/314] BSE.NS                    OK — 1237 rows — last date: 2026-06-15 — close: 4126.00
+[ 40/314] COFORGE.NS                OK — 1237 rows — last date: 2026-06-15 — close: 1402.50
+[ 41/314] VINATIORGA.NS             OK — 1237 rows — last date: 2026-06-15 — close: 1354.10
+[ 42/314] EMCURE.NS                 OK — 479 rows — last date: 2026-06-15 — close: 1705.60
+[ 43/314] KRN.NS                    OK — 422 rows — last date: 2026-06-15 — close: 1256.00
+[ 44/314] GRINDWELL.NS              OK — 1236 rows — last date: 2026-06-15 — close: 2023.10
+[ 45/314] VIJAYA.NS                 OK — 1175 rows — last date: 2026-06-15 — close: 1283.20
+[ 46/314] DATAPATTNS.NS             OK — 1106 rows — last date: 2026-06-15 — close: 4425.50
+[ 47/314] MUTHOOTFIN.NS             OK — 1237 rows — last date: 2026-06-15 — close: 3160.10
+[ 48/314] ZENTEC.NS                 OK — 1237 rows — last date: 2026-06-15 — close: 1789.10
+[ 49/314] ANGELONE.NS               OK — 1237 rows — last date: 2026-06-15 — close: 352.30
+[ 50/314] AUBANK.NS                 OK — 1237 rows — last date: 2026-06-15 — close: 1033.60
+[ 51/314] PFIZER.NS                 OK — 1236 rows — last date: 2026-06-15 — close: 4518.00
+[ 52/314] HSCL.NS                   OK — 1237 rows — last date: 2026-06-15 — close: 668.90
+[ 53/314] INDIAGLYCO.NS             OK — 1237 rows — last date: 2026-06-15 — close: 978.90
+[ 54/314] PICCADIL.NS               OK — 237 rows — last date: 2026-06-15 — close: 573.40
+[ 55/314] AETHER.NS                 OK — 997 rows — last date: 2026-06-15 — close: 1149.60
+[ 56/314] SJS.NS                    OK — 1133 rows — last date: 2026-06-15 — close: 2203.80
+[ 57/314] PNBHOUSING.NS             OK — 1237 rows — last date: 2026-06-15 — close: 1017.30
+[ 58/314] BERGEPAINT.NS             OK — 1237 rows — last date: 2026-06-15 — close: 519.40
+[ 59/314] NH.NS                     OK — 1237 rows — last date: 2026-06-15 — close: 1872.40
+[ 60/314] SCHNEIDER.NS              OK — 1237 rows — last date: 2026-06-15 — close: 1216.20
+[ 61/314] HINDCOPPER.NS             OK — 1237 rows — last date: 2026-06-15 — close: 516.10
+[ 62/314] BALAMINES.NS              OK — 1237 rows — last date: 2026-06-15 — close: 2108.10
+[ 63/314] JYOTICNC.NS               OK — 596 rows — last date: 2026-06-15 — close: 688.95
+[ 64/314] GRWRHITECH.NS             OK — 1078 rows — last date: 2026-06-15 — close: 6320.50
+[ 65/314] THYROCARE.NS              OK — 1237 rows — last date: 2026-06-15 — close: 535.60
+[ 66/314] GPPL.NS                   OK — 1237 rows — last date: 2026-06-15 — close: 155.82
+[ 67/314] ALIVUS.NS                 OK — 1200 rows — last date: 2026-06-15 — close: 1051.20
+[ 68/314] ENGINERSIN.NS             OK — 1237 rows — last date: 2026-06-15 — close: 236.07
+[ 69/314] SHRIPISTON.NS             OK — 1236 rows — last date: 2026-06-15 — close: 3741.90
+[ 70/314] JBCHEPHARM.NS             OK — 1237 rows — last date: 2026-06-15 — close: 2217.80
+[ 71/314] CAPLIPOINT.NS             OK — 1236 rows — last date: 2026-06-15 — close: 2364.60
+[ 72/314] RUBICON.NS                OK — 162 rows — last date: 2026-06-15 — close: 1344.40
+[ 73/314] DOMS.NS                   OK — 613 rows — last date: 2026-06-15 — close: 2270.00
+[ 74/314] INDIAGLYCO.NS             OK — 1237 rows — last date: 2026-06-15 — close: 978.90
+[ 75/314] JUBLPHARMA.NS             OK — 1236 rows — last date: 2026-06-15 — close: 991.35
+[ 76/314] VIKRAMSOLR.NS             OK — 199 rows — last date: 2026-06-15 — close: 212.85
+[ 77/314] UNITDSPR.NS               OK — 1237 rows — last date: 2026-06-15 — close: 1271.50
+[ 78/314] QPOWER.NS                 OK — 322 rows — last date: 2026-06-15 — close: 1282.10
+[ 79/314] TORNTPHARM.NS             OK — 1237 rows — last date: 2026-06-15 — close: 4504.00
+[ 80/314] IKS.NS                    OK — 368 rows — last date: 2026-06-15 — close: 1675.20
+[ 81/314] HBLENGINE.NS              OK — 1237 rows — last date: 2026-06-15 — close: 793.10
+[ 82/314] SUPRIYA.NS                OK — 1103 rows — last date: 2026-06-15 — close: 955.20
+[ 83/314] HINDUNILVR.NS             OK — 1237 rows — last date: 2026-06-15 — close: 2156.10
+[ 84/314] ECLERX.NS                 OK — 1237 rows — last date: 2026-06-15 — close: 1406.10
+[ 85/314] TARIL.NS                  OK — 1237 rows — last date: 2026-06-15 — close: 317.30
+[ 86/314] SYNGENE.NS                OK — 1237 rows — last date: 2026-06-15 — close: 453.50
+[ 87/314] CAMS.NS                   OK — 1237 rows — last date: 2026-06-15 — close: 777.35
+[ 88/314] BAJAJ-AUTO.NS             OK — 1237 rows — last date: 2026-06-15 — close: 9943.00
+[ 89/314] KIRLPNU.NS                OK — 775 rows — last date: 2026-06-15 — close: 1629.20
+[ 90/314] VOLTAMP.NS                OK — 1237 rows — last date: 2026-06-15 — close: 9893.50
+[ 91/314] GVT&D.NS                  OK — 1237 rows — last date: 2026-06-15 — close: 4805.50
+[ 92/314] SCHAEFFLER.NS             OK — 1237 rows — last date: 2026-06-15 — close: 4041.20
+[ 93/314] EICHERMOT.NS              OK — 1237 rows — last date: 2026-06-15 — close: 7624.50
+[ 94/314] PIDILITIND.NS             OK — 1237 rows — last date: 2026-06-15 — close: 1571.00
+[ 95/314] CDSL.NS                   OK — 1237 rows — last date: 2026-06-15 — close: 1265.70
+[ 96/314] RADICO.NS                 OK — 1236 rows — last date: 2026-06-15 — close: 3592.00
+[ 97/314] TDPOWERSYS.NS             OK — 1237 rows — last date: 2026-06-15 — close: 1196.60
+[ 98/314] PERSISTENT.NS             OK — 1237 rows — last date: 2026-06-15 — close: 4890.50
+[ 99/314] TRENT.NS                  OK — 1237 rows — last date: 2026-06-15 — close: 2901.10
+[100/314] BALUFORGE.NS              OK — 529 rows — last date: 2026-06-15 — close: 448.65
+[101/314] BANCOINDIA.NS             OK — 1236 rows — last date: 2026-06-15 — close: 687.45
+[102/314] AJANTPHARM.NS             OK — 1236 rows — last date: 2026-06-15 — close: 3054.40
+[103/314] EMAMILTD.NS               OK — 1237 rows — last date: 2026-06-15 — close: 396.80
+[104/314] SUZLON.NS                 OK — 1237 rows — last date: 2026-06-15 — close: 55.57
+[105/314] KFINTECH.NS               OK — 854 rows — last date: 2026-06-15 — close: 847.55
+[106/314] NATCOPHARM.NS             OK — 1237 rows — last date: 2026-06-15 — close: 847.60
+[107/314] BLS.NS                    OK — 1237 rows — last date: 2026-06-15 — close: 263.90
+[108/314] SHREEJISPG.NS             OK — 199 rows — last date: 2026-06-15 — close: 476.10
+[109/314] HAL.NS                    OK — 1237 rows — last date: 2026-06-15 — close: 4284.70
+[110/314] INDIAMART.NS              OK — 1237 rows — last date: 2026-06-15 — close: 2048.70
+[111/314] CRISIL.NS                 OK — 1237 rows — last date: 2026-06-15 — close: 3982.10
+[112/314] WAAREEENER.NS             OK — 405 rows — last date: 2026-06-15 — close: 3050.90
+[113/314] ABSLAMC.NS                OK — 1157 rows — last date: 2026-06-15 — close: 1146.10
+[114/314] SUDEEPPHRM.NS             OK — 135 rows — last date: 2026-06-15 — close: 822.60
+[115/314] SYMPHONY.NS               OK — 1237 rows — last date: 2026-06-15 — close: 672.10
+[116/314] LOTUSDEV.NS               OK — 212 rows — last date: 2026-06-15 — close: 142.96
+[117/314] DLF.NS                    OK — 1237 rows — last date: 2026-06-15 — close: 614.45
+[118/314] INFY.NS                   OK — 1237 rows — last date: 2026-06-15 — close: 1134.90
+[119/314] INOXINDIA.NS              OK — 612 rows — last date: 2026-06-15 — close: 1786.40
+[120/314] TANLA.NS                  OK — 1237 rows — last date: 2026-06-15 — close: 521.70
+[121/314] ACE.NS                    OK — 1237 rows — last date: 2026-06-15 — close: 928.95
+[122/314] OFSS.NS                   OK — 1237 rows — last date: 2026-06-15 — close: 9373.00
+[123/314] PREMIERENE.NS             OK — 443 rows — last date: 2026-06-15 — close: 1045.40
+[124/314] TRAVELFOOD.NS             OK — 229 rows — last date: 2026-06-15 — close: 1314.10
+[125/314] MCX.NS                    OK — 1237 rows — last date: 2026-06-15 — close: 2895.60
+[126/314] MAZDOCK.NS                OK — 1237 rows — last date: 2026-06-15 — close: 2440.40
+[127/314] HDFCAMC.NS                OK — 1237 rows — last date: 2026-06-15 — close: 2622.90
+[128/314] KIRLOSENG.NS              OK — 1236 rows — last date: 2026-06-15 — close: 1933.80
+[129/314] PRUDENT.NS                OK — 1006 rows — last date: 2026-06-15 — close: 3003.70
+[130/314] MARICO.NS                 OK — 1237 rows — last date: 2026-06-15 — close: 809.65
+[131/314] ABBOTINDIA.NS             OK — 1237 rows — last date: 2026-06-15 — close: 26255.00
+[132/314] IMFA.NS                   OK — 1237 rows — last date: 2026-06-15 — close: 1442.80
+[133/314] IRCTC.NS                  OK — 1237 rows — last date: 2026-06-15 — close: 517.95
+[134/314] ATLANTAELE.NS             OK — 175 rows — last date: 2026-06-15 — close: 1828.30
+[135/314] JSLL.NS                   OK — 1018 rows — last date: 2026-06-15 — close: 609.00
+[136/314] BRITANNIA.NS              OK — 1237 rows — last date: 2026-06-15 — close: 5199.50
+[137/314] IEX.NS                    OK — 1237 rows — last date: 2026-06-15 — close: 122.95
+[138/314] GILLETTE.NS               OK — 1237 rows — last date: 2026-06-15 — close: 7722.50
+[139/314] ANANDRATHI.NS             OK — 1114 rows — last date: 2026-06-15 — close: 1781.60
+[140/314] HINDZINC.NS               OK — 1237 rows — last date: 2026-06-15 — close: 563.85
+[141/314] GLAXO.NS                  OK — 1237 rows — last date: 2026-06-15 — close: 2122.50
+[142/314] ESABINDIA.NS              OK — 1235 rows — last date: 2026-06-15 — close: 5760.50
+[143/314] WAAREERTL.NS              OK — 293 rows — last date: 2026-06-15 — close: 964.75
+[144/314] NESTLEIND.NS              OK — 1237 rows — last date: 2026-06-15 — close: 1374.70
+[145/314] PGHH.NS                   OK — 1236 rows — last date: 2026-06-15 — close: 8992.00
+[146/314] COLPAL.NS                 OK — 1237 rows — last date: 2026-06-15 — close: 2057.70
+[147/314] TIPSMUSIC.NS              OK — 1237 rows — last date: 2026-06-15 — close: 640.10
+[148/314] SANOFICONR.NS             OK — 434 rows — last date: 2026-06-15 — close: 4720.10
+[149/314] SBIN.NS                   OK — 1237 rows — last date: 2026-06-15 — close: 1020.85
+[150/314] BANKBARODA.NS             OK — 1237 rows — last date: 2026-06-15 — close: 276.05
+[151/314] PNB.NS                    OK — 1237 rows — last date: 2026-06-15 — close: 107.96
+[152/314] UNIONBANK.NS              OK — 1237 rows — last date: 2026-06-15 — close: 171.30
+[153/314] CANBK.NS                  OK — 1237 rows — last date: 2026-06-15 — close: 132.20
+[154/314] INDIANB.NS                OK — 1237 rows — last date: 2026-06-15 — close: 849.60
+[155/314] FEDERALBNK.NS             OK — 1237 rows — last date: 2026-06-15 — close: 317.10
+[156/314] ICICIBANK.NS              OK — 1237 rows — last date: 2026-06-15 — close: 1327.60
+[157/314] AXISBANK.NS               OK — 1237 rows — last date: 2026-06-15 — close: 1368.30
+[158/314] HDFCBANK.NS               OK — 1237 rows — last date: 2026-06-15 — close: 777.35
+[159/314] MAHABANK.NS               OK — 1237 rows — last date: 2026-06-15 — close: 89.12
+[160/314] POWERINDIA.NS             OK — 1237 rows — last date: 2026-06-15 — close: 34695.00
+[161/314] ABB.NS                    OK — 1237 rows — last date: 2026-06-15 — close: 6922.50
+[162/314] SIEMENS.NS                OK — 1236 rows — last date: 2026-06-15 — close: 3601.80
+[163/314] 360ONE.NS                 OK — 1236 rows — last date: 2026-06-15 — close: 1130.80
+[164/314] MOTILALOFS.NS             OK — 1237 rows — last date: 2026-06-15 — close: 939.45
+[165/314] SHRIRAMFIN.NS             OK — 1237 rows — last date: 2026-06-15 — close: 1000.65
+[166/314] BAJFINANCE.NS             OK — 1237 rows — last date: 2026-06-15 — close: 942.30
+[167/314] TMCV.NS                   OK — 147 rows — last date: 2026-06-15 — close: 406.60
+[168/314] TMPV.NS                   OK — 1237 rows — last date: 2026-06-15 — close: 396.40
+[169/314] NATIONALUM.NS             OK — 1237 rows — last date: 2026-06-15 — close: 382.35
+[170/314] TATASTEEL.NS              OK — 1237 rows — last date: 2026-06-15 — close: 197.28
+[171/314] JSWSTEEL.NS               OK — 1237 rows — last date: 2026-06-15 — close: 1296.50
+[172/314] TITAN.NS                  OK — 1237 rows — last date: 2026-06-15 — close: 4283.50
+[173/314] KALYANKJIL.NS             OK — 1237 rows — last date: 2026-06-15 — close: 383.00
+[174/314] TVSMOTOR.NS               OK — 1237 rows — last date: 2026-06-15 — close: 3459.50
+[175/314] ITC.NS                    OK — 1237 rows — last date: 2026-06-15 — close: 287.90
+[176/314] TATACONSUM.NS             OK — 1237 rows — last date: 2026-06-15 — close: 1100.40
+[177/314] TATACHEM.NS               OK — 1237 rows — last date: 2026-06-15 — close: 735.10
+[178/314] HGINFRA.NS                OK — 1237 rows — last date: 2026-06-15 — close: 575.20
+[179/314] LT.NS                     OK — 1237 rows — last date: 2026-06-15 — close: 4169.80
+[180/314] GMRAIRPORT.NS             OK — 1237 rows — last date: 2026-06-15 — close: 106.66
+[181/314] ADANIPORTS.NS             OK — 1237 rows — last date: 2026-06-15 — close: 1804.80
+[182/314] ADANIENSOL.NS             OK — 1237 rows — last date: 2026-06-15 — close: 1491.90
+[183/314] TATAPOWER.NS              OK — 1237 rows — last date: 2026-06-15 — close: 404.10
+[184/314] BPCL.NS                   OK — 1237 rows — last date: 2026-06-15 — close: 310.60
+[185/314] IOC.NS                    OK — 1237 rows — last date: 2026-06-15 — close: 144.49
+[186/314] ONGC.NS                   OK — 1237 rows — last date: 2026-06-15 — close: 243.65
+[187/314] HINDALCO.NS               OK — 1237 rows — last date: 2026-06-15 — close: 1013.90
+[188/314] TCS.NS                    OK — 1237 rows — last date: 2026-06-15 — close: 2162.00
+[189/314] HCLTECH.NS                OK — 1237 rows — last date: 2026-06-15 — close: 1119.30
+[190/314] TECHM.NS                  OK — 1237 rows — last date: 2026-06-15 — close: 1425.60
+[191/314] NETWEB.NS                 OK — 712 rows — last date: 2026-06-15 — close: 4612.30
+[192/314] MARUTI.NS                 OK — 1237 rows — last date: 2026-06-15 — close: 13805.00
+[193/314] CEATLTD.NS                OK — 1237 rows — last date: 2026-06-15 — close: 3455.30
+[194/314] MINDACORP.NS              OK — 1236 rows — last date: 2026-06-15 — close: 662.55
+[195/314] GABRIEL.NS                OK — 1237 rows — last date: 2026-06-15 — close: 1146.30
+[196/314] SONACOMS.NS               OK — 1231 rows — last date: 2026-06-15 — close: 596.35
+[197/314] CASTROLIND.NS             OK — 1237 rows — last date: 2026-06-15 — close: 185.54
+[198/314] PRICOLLTD.NS              OK — 1236 rows — last date: 2026-06-15 — close: 581.30
+[199/314] AMBER.NS                  OK — 1237 rows — last date: 2026-06-15 — close: 7620.00
+[200/314] CHENNPETRO.NS             OK — 1237 rows — last date: 2026-06-15 — close: 1210.60
+[201/314] DIXON.NS                  OK — 1237 rows — last date: 2026-06-15 — close: 11957.00
+[202/314] JKTYRE.NS                 OK — 1237 rows — last date: 2026-06-15 — close: 391.50
+[203/314] INDUSTOWER.NS             OK — 1237 rows — last date: 2026-06-15 — close: 413.25
+[204/314] BHARTIARTL.NS             OK — 1237 rows — last date: 2026-06-15 — close: 1841.20
+[205/314] TATACOMM.NS               OK — 1237 rows — last date: 2026-06-15 — close: 1933.90
+[206/314] COALINDIA.NS              OK — 1237 rows — last date: 2026-06-15 — close: 444.05
+[207/314] DIVISLAB.NS               OK — 1236 rows — last date: 2026-06-15 — close: 6608.50
+[208/314] ELECON.NS                 OK — 1237 rows — last date: 2026-06-15 — close: 560.35
+[209/314] RECLTD.NS                 OK — 1237 rows — last date: 2026-06-15 — close: 351.85
+[210/314] PFS.NS                    OK — 1237 rows — last date: 2026-06-15 — close: 30.78
+[211/314] KAYNES.NS                 OK — 881 rows — last date: 2026-06-15 — close: 3082.10
+[212/314] ICICIAMC.NS               OK — 120 rows — last date: 2026-06-15 — close: 3269.20
+[213/314] SRF.NS                    OK — 1237 rows — last date: 2026-06-15 — close: 2720.50
+[214/314] TATAELXSI.NS              OK — 1237 rows — last date: 2026-06-15 — close: 4068.20
+[215/314] IRCON.NS                  OK — 1237 rows — last date: 2026-06-15 — close: 137.74
+[216/314] CUMMINSIND.NS             OK — 1237 rows — last date: 2026-06-15 — close: 5754.00
+[217/314] VOLTAS.NS                 OK — 1237 rows — last date: 2026-06-15 — close: 1326.40
+[218/314] IREDA.NS                  OK — 629 rows — last date: 2026-06-15 — close: 124.82
+[219/314] INDIGO.NS                 OK — 1236 rows — last date: 2026-06-15 — close: 4880.40
+[220/314] BHEL.NS                   OK — 1237 rows — last date: 2026-06-15 — close: 382.85
+[221/314] BHARATFORG.NS             OK — 1236 rows — last date: 2026-06-15 — close: 2020.50
+[222/314] SOLARINDS.NS              OK — 1236 rows — last date: 2026-06-15 — close: 17277.00
+[223/314] RVNL.NS                   OK — 1237 rows — last date: 2026-06-15 — close: 239.70
+[224/314] TATACAP.NS                OK — 167 rows — last date: 2026-06-15 — close: 340.70
+[225/314] MUTHOOTFIN.NS             OK — 1237 rows — last date: 2026-06-15 — close: 3160.10
+[226/314] POONAWALLA.NS             OK — 1237 rows — last date: 2026-06-15 — close: 399.50
+[227/314] GROWW.NS                  OK — 147 rows — last date: 2026-06-15 — close: 207.34
+[228/314] BHARTIHEXA.NS             OK — 539 rows — last date: 2026-06-15 — close: 1475.60
+[229/314] WELCORP.NS                OK — 1237 rows — last date: 2026-06-15 — close: 1379.70
+[230/314] NUVAMA.NS                 OK — 671 rows — last date: 2026-06-15 — close: 1660.90
+[231/314] ADANIGREEN.NS             OK — 1237 rows — last date: 2026-06-15 — close: 1482.60
+[232/314] SUVEN.NS                  OK — 1237 rows — last date: 2026-06-15 — close: 269.85
+[233/314] APARINDS.NS               OK — 1237 rows — last date: 2026-06-15 — close: 15986.00
+[234/314] POLYCAB.NS                OK — 1237 rows — last date: 2026-06-15 — close: 9556.00
+[235/314] INDIGOPNTS.NS             OK — 1237 rows — last date: 2026-06-15 — close: 1005.30
+[236/314] JSWDULUX.NS               OK — 1237 rows — last date: 2026-06-15 — close: 3242.60
+[237/314] KANSAINER.NS              OK — 1235 rows — last date: 2026-06-15 — close: 216.45
+[238/314] ANANTRAJ.NS               OK — 1237 rows — last date: 2026-06-15 — close: 537.30
+[239/314] ADANIENT.NS               OK — 1237 rows — last date: 2026-06-15 — close: 2942.50
+[240/314] MANINDS.NS                OK — 1237 rows — last date: 2026-06-15 — close: 573.05
+[241/314] KSB.NS                    OK — 1237 rows — last date: 2026-06-15 — close: 855.30
+[242/314] THERMAX.NS                OK — 1236 rows — last date: 2026-06-15 — close: 4741.00
+[243/314] TECHNOE.NS                OK — 1237 rows — last date: 2026-06-15 — close: 1079.90
+[244/314] HAVELLS.NS                OK — 1237 rows — last date: 2026-06-15 — close: 1171.10
+[245/314] LAURUSLABS.NS             OK — 1237 rows — last date: 2026-06-15 — close: 1389.10
+[246/314] LUPIN.NS                  OK — 1237 rows — last date: 2026-06-15 — close: 2273.10
+[247/314] PIIND.NS                  OK — 1237 rows — last date: 2026-06-15 — close: 2834.50
+[248/314] CHOLAFIN.NS               OK — 1237 rows — last date: 2026-06-15 — close: 1653.60
+[249/314] PCBL.NS                   OK — 1237 rows — last date: 2026-06-15 — close: 303.10
+[250/314] DEEPAKNTR.NS              OK — 1236 rows — last date: 2026-06-15 — close: 1666.70
+[251/314] APLAPOLLO.NS              OK — 1237 rows — last date: 2026-06-15 — close: 1833.80
+[252/314] NHPC.NS                   OK — 1237 rows — last date: 2026-06-15 — close: 74.69
+[253/314] NTPCGREEN.NS              OK — 385 rows — last date: 2026-06-15 — close: 98.73
+[254/314] MAXHEALTH.NS              OK — 1237 rows — last date: 2026-06-15 — close: 1028.90
+[255/314] NAVA.NS                   OK — 1237 rows — last date: 2026-06-15 — close: 603.65
+[256/314] LALPATHLAB.NS             OK — 1237 rows — last date: 2026-06-15 — close: 1616.00
+[257/314] CAMPUS.NS                 OK — 1016 rows — last date: 2026-06-15 — close: 237.70
+[258/314] BALRAMCHIN.NS             OK — 1237 rows — last date: 2026-06-15 — close: 551.60
+[259/314] TRIVENI.NS                OK — 1237 rows — last date: 2026-06-15 — close: 398.35
+[260/314] HDFCLIFE.NS               OK — 1237 rows — last date: 2026-06-15 — close: 581.20
+[261/314] METROPOLIS.NS             OK — 1237 rows — last date: 2026-06-15 — close: 525.90
+[262/314] TCI.NS                    OK — 1236 rows — last date: 2026-06-15 — close: 948.45
+[263/314] RITES.NS                  OK — 1237 rows — last date: 2026-06-15 — close: 208.38
+[264/314] PRAJIND.NS                OK — 1237 rows — last date: 2026-06-15 — close: 336.95
+[265/314] KPIL.NS                   OK — 1236 rows — last date: 2026-06-15 — close: 1303.90
+[266/314] CERA.NS                   OK — 1236 rows — last date: 2026-06-15 — close: 6259.00
+[267/314] SYRMA.NS                  OK — 939 rows — last date: 2026-06-15 — close: 1301.10
+[268/314] EXIDEIND.NS               OK — 1237 rows — last date: 2026-06-15 — close: 394.85
+[269/314] ARE&M.NS                  OK — 1237 rows — last date: 2026-06-15 — close: 837.10
+[270/314] WSTCSTPAPR.NS             OK — 1236 rows — last date: 2026-06-15 — close: 510.45
+[271/314] LINDEINDIA.NS             OK — 1236 rows — last date: 2026-06-15 — close: 6940.00
+[272/314] NIACL.NS                  OK — 1237 rows — last date: 2026-06-15 — close: 160.37
+[273/314] IRB.NS                    OK — 1237 rows — last date: 2026-06-15 — close: 21.12
+[274/314] LODHA.NS                  OK — 1237 rows — last date: 2026-06-15 — close: 920.85
+[275/314] AADHARHFC.NS              OK — 518 rows — last date: 2026-06-15 — close: 488.95
+[276/314] MARKSANS.NS               OK — 1237 rows — last date: 2026-06-15 — close: 249.76
+[277/314] DABUR.NS                  OK — 1237 rows — last date: 2026-06-15 — close: 429.15
+[278/314] ZFCVINDIA.NS              OK — 1237 rows — last date: 2026-06-15 — close: 15092.00
+[279/314] SUNPHARMA.NS              OK — 1237 rows — last date: 2026-06-15 — close: 1806.00
+[280/314] WAAREEENER.NS             OK — 405 rows — last date: 2026-06-15 — close: 3050.90
+[281/314] USHAMART.NS               OK — 1237 rows — last date: 2026-06-15 — close: 494.95
+[282/314] MPHASIS.NS                OK — 1237 rows — last date: 2026-06-15 — close: 2309.70
+[283/314] MRPL.NS                   OK — 1237 rows — last date: 2026-06-15 — close: 168.95
+[284/314] OBEROIRLTY.NS             OK — 1236 rows — last date: 2026-06-15 — close: 1669.40
+[285/314] UNIVCABLES.NS             OK — 1237 rows — last date: 2026-06-15 — close: 1203.00
+[286/314] RRKABEL.NS                OK — 673 rows — last date: 2026-06-15 — close: 2187.40
+[287/314] FINCABLES.NS              OK — 1237 rows — last date: 2026-06-15 — close: 1044.10
+[288/314] ZYDUSLIFE.NS              OK — 1237 rows — last date: 2026-06-15 — close: 1088.10
+[289/314] BAJAJHFL.NS               OK — 434 rows — last date: 2026-06-15 — close: 86.59
+[290/314] CANFINHOME.NS             OK — 1237 rows — last date: 2026-06-15 — close: 864.40
+[291/314] APTUS.NS                  OK — 1190 rows — last date: 2026-06-15 — close: 272.70
+[292/314] UNOMINDA.NS               OK — 1237 rows — last date: 2026-06-15 — close: 1125.70
+[293/314] MGL.NS                    OK — 1236 rows — last date: 2026-06-15 — close: 1139.00
+[294/314] IGL.NS                    OK — 1237 rows — last date: 2026-06-15 — close: 169.62
+[295/314] ASIANPAINT.NS             OK — 1237 rows — last date: 2026-06-15 — close: 2739.30
+[296/314] BCLIND.NS                 OK — 1236 rows — last date: 2026-06-15 — close: 38.33
+[297/314] INDIAGLYCO.NS             OK — 1237 rows — last date: 2026-06-15 — close: 978.90
+[298/314] RADICO.NS                 OK — 1236 rows — last date: 2026-06-15 — close: 3592.00
+[299/314] GLOBUSSPR.NS              OK — 1236 rows — last date: 2026-06-15 — close: 859.80
+[300/314] TI.NS                     OK — 1237 rows — last date: 2026-06-15 — close: 435.75
+[301/314] FORCEMOT.NS               OK — 1196 rows — last date: 2026-06-15 — close: 18540.00
+[302/314] GODFRYPHLP.NS             OK — 1237 rows — last date: 2026-06-15 — close: 2239.20
+[303/314] VESUVIUS.NS               OK — 1236 rows — last date: 2026-06-15 — close: 454.65
+[304/314] MANORAMA.NS               OK — 977 rows — last date: 2026-06-15 — close: 1531.70
+[305/314] MOIL.NS                   OK — 1237 rows — last date: 2026-06-15 — close: 295.75
+[306/314] NMDC.NS                   OK — 1237 rows — last date: 2026-06-15 — close: 88.47
+[307/314] GMDCLTD.NS                OK — 1237 rows — last date: 2026-06-15 — close: 607.20
+[308/314] GRSE.NS                   OK — 1237 rows — last date: 2026-06-15 — close: 2669.20
+[309/314] SCI.NS                    OK — 1237 rows — last date: 2026-06-15 — close: 310.75
+[310/314] RELIANCE.NS               OK — 1237 rows — last date: 2026-06-15 — close: 1307.00
+[311/314] CHOICEIN.NS               OK — 1033 rows — last date: 2026-06-15 — close: 702.25
+[312/314] ALKEM.NS                  OK — 1236 rows — last date: 2026-06-15 — close: 5334.00
+[313/314] OLECTRA.NS                OK — 1237 rows — last date: 2026-06-15 — close: 1275.00
+[314/314] JBMA.NS                   OK — 1237 rows — last date: 2026-06-15 — close: 683.30
+
+─────────────────────────────────────────────
+✓ Downloaded : 314 stocks
+✗ Failed     : 0 stocks
+[  1/314] BATAINDIA.NS              ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[  2/314] TORNTPOWER.NS             ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[  3/314] JKPAPER.NS                ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[  4/314] PRIVISCL.NS               ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[  5/314] SHAILY.NS                 ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[  6/314] INDHOTEL.NS               ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[  7/314] ATGL.NS                   ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[  8/314] KPIGREEN.NS               ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[  9/314] RAINBOW.NS                ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 10/314] FLUOROCHEM.NS             ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 11/314] MOTHERSON.NS              ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 12/314] HEROMOTOCO.NS             ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 13/314] M&M.NS                    ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 14/314] AIAENG.NS                 ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 15/314] HAPPYFORGE.NS             ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 16/314] GENUSPOWER.NS             ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 17/314] GLENMARK.NS               ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 18/314] METROBRAND.NS             ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 19/314] KPRMILL.NS                ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 20/314] LGBBROSLTD.NS             ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 21/314] ACUTAAS.NS                ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 22/314] NTPC.NS                   ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 23/314] BEML.NS                   ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 24/314] ATUL.NS                   ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 25/314] ASHOKLEY.NS               ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 26/314] ACMESOLAR.NS              ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 27/314] VBL.NS                    ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 28/314] ANURAS.NS                 ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 29/314] KEC.NS                    ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 30/314] SCHNEIDER.NS              ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 31/314] SBIN.NS                   OK — 1235 rows
+[ 32/314] AAVAS.NS                  ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 33/314] ABCAPITAL.NS              ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 34/314] ADANIPOWER.NS             ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 35/314] ICICIGI.NS                ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 36/314] KEI.NS                    ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 37/314] BEL.NS                    ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 38/314] NAM-INDIA.NS              ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 39/314] BSE.NS                    ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 40/314] COFORGE.NS                ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 41/314] VINATIORGA.NS             ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 42/314] EMCURE.NS                 ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 43/314] KRN.NS                    ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 44/314] GRINDWELL.NS              ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 45/314] VIJAYA.NS                 ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 46/314] DATAPATTNS.NS             ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 47/314] MUTHOOTFIN.NS             OK — 1235 rows
+[ 48/314] ZENTEC.NS                 ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 49/314] ANGELONE.NS               ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 50/314] AUBANK.NS                 ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 51/314] PFIZER.NS                 ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 52/314] HSCL.NS                   ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 53/314] INDIAGLYCO.NS             OK — 1235 rows
+[ 54/314] PICCADIL.NS               ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 55/314] AETHER.NS                 ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 56/314] SJS.NS                    ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 57/314] PNBHOUSING.NS             ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 58/314] BERGEPAINT.NS             ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 59/314] NH.NS                     ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 60/314] SCHNEIDER.NS              ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 61/314] HINDCOPPER.NS             ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 62/314] BALAMINES.NS              ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 63/314] JYOTICNC.NS               ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 64/314] GRWRHITECH.NS             ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 65/314] THYROCARE.NS              ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 66/314] GPPL.NS                   ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 67/314] ALIVUS.NS                 ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 68/314] ENGINERSIN.NS             ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 69/314] SHRIPISTON.NS             ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 70/314] JBCHEPHARM.NS             ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 71/314] CAPLIPOINT.NS             ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 72/314] RUBICON.NS                ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 73/314] DOMS.NS                   ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 74/314] INDIAGLYCO.NS             ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 75/314] JUBLPHARMA.NS             ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 76/314] VIKRAMSOLR.NS             ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 77/314] UNITDSPR.NS               ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 78/314] QPOWER.NS                 ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 79/314] TORNTPHARM.NS             ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 80/314] IKS.NS                    ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 81/314] HBLENGINE.NS              ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 82/314] SUPRIYA.NS                ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 83/314] HINDUNILVR.NS             ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 84/314] ECLERX.NS                 ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 85/314] TARIL.NS                  ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 86/314] SYNGENE.NS                ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 87/314] CAMS.NS                   ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[ 88/314] BAJAJ-AUTO.NS             OK — 1235 rows
+[ 89/314] KIRLPNU.NS                OK — 773 rows
+[ 90/314] VOLTAMP.NS                OK — 1235 rows
+[ 91/314] GVT&D.NS                  OK — 1235 rows
+[ 92/314] SCHAEFFLER.NS             OK — 1235 rows
+[ 93/314] EICHERMOT.NS              OK — 1235 rows
+[ 94/314] PIDILITIND.NS             OK — 1235 rows
+[ 95/314] CDSL.NS                   OK — 1235 rows
+[ 96/314] RADICO.NS                 OK — 1234 rows
+[ 97/314] TDPOWERSYS.NS             OK — 1235 rows
+[ 98/314] PERSISTENT.NS             OK — 1235 rows
+[ 99/314] TRENT.NS                  OK — 1235 rows
+[100/314] BALUFORGE.NS              OK — 527 rows
+[101/314] BANCOINDIA.NS             OK — 1234 rows
+[102/314] AJANTPHARM.NS             OK — 1234 rows
+[103/314] EMAMILTD.NS               OK — 1235 rows
+[104/314] SUZLON.NS                 OK — 1235 rows
+[105/314] KFINTECH.NS               OK — 852 rows
+[106/314] NATCOPHARM.NS             OK — 1235 rows
+[107/314] BLS.NS                    OK — 1235 rows
+[108/314] SHREEJISPG.NS             OK — 197 rows
+[109/314] HAL.NS                    OK — 1235 rows
+[110/314] INDIAMART.NS              OK — 1235 rows
+[111/314] CRISIL.NS                 OK — 1235 rows
+[112/314] WAAREEENER.NS             OK — 403 rows
+[113/314] ABSLAMC.NS                OK — 1155 rows
+[114/314] SUDEEPPHRM.NS             OK — 133 rows
+[115/314] SYMPHONY.NS               OK — 1235 rows
+[116/314] LOTUSDEV.NS               OK — 210 rows
+[117/314] DLF.NS                    OK — 1235 rows
+[118/314] INFY.NS                   OK — 1235 rows
+[119/314] INOXINDIA.NS              OK — 610 rows
+[120/314] TANLA.NS                  OK — 1235 rows
+[121/314] ACE.NS                    OK — 1235 rows
+[122/314] OFSS.NS                   OK — 1235 rows
+[123/314] PREMIERENE.NS             OK — 441 rows
+[124/314] TRAVELFOOD.NS             OK — 227 rows
+[125/314] MCX.NS                    OK — 1235 rows
+[126/314] MAZDOCK.NS                OK — 1235 rows
+[127/314] HDFCAMC.NS                OK — 1235 rows
+[128/314] KIRLOSENG.NS              OK — 1234 rows
+[129/314] PRUDENT.NS                OK — 1004 rows
+[130/314] MARICO.NS                 OK — 1235 rows
+[131/314] ABBOTINDIA.NS             OK — 1235 rows
+[132/314] IMFA.NS                   OK — 1235 rows
+[133/314] IRCTC.NS                  OK — 1235 rows
+[134/314] ATLANTAELE.NS             OK — 173 rows
+[135/314] JSLL.NS                   OK — 1016 rows
+[136/314] BRITANNIA.NS              OK — 1235 rows
+[137/314] IEX.NS                    OK — 1235 rows
+[138/314] GILLETTE.NS               OK — 1235 rows
+[139/314] ANANDRATHI.NS             OK — 1112 rows
+[140/314] HINDZINC.NS               OK — 1235 rows
+[141/314] GLAXO.NS                  OK — 1235 rows
+[142/314] ESABINDIA.NS              OK — 1233 rows
+[143/314] WAAREERTL.NS              OK — 291 rows
+[144/314] NESTLEIND.NS              OK — 1235 rows
+[145/314] PGHH.NS                   OK — 1234 rows
+[146/314] COLPAL.NS                 OK — 1235 rows
+[147/314] TIPSMUSIC.NS              OK — 1235 rows
+[148/314] SANOFICONR.NS             OK — 432 rows
+[149/314] SBIN.NS                   ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[150/314] BANKBARODA.NS             OK — 1235 rows
+[151/314] PNB.NS                    OK — 1235 rows
+[152/314] UNIONBANK.NS              OK — 1235 rows
+[153/314] CANBK.NS                  OK — 1235 rows
+[154/314] INDIANB.NS                OK — 1235 rows
+[155/314] FEDERALBNK.NS             OK — 1235 rows
+[156/314] ICICIBANK.NS              OK — 1235 rows
+[157/314] AXISBANK.NS               OK — 1235 rows
+[158/314] HDFCBANK.NS               OK — 1235 rows
+[159/314] MAHABANK.NS               OK — 1235 rows
+[160/314] POWERINDIA.NS             OK — 1235 rows
+[161/314] ABB.NS                    OK — 1235 rows
+[162/314] SIEMENS.NS                OK — 1234 rows
+[163/314] 360ONE.NS                 OK — 1234 rows
+[164/314] MOTILALOFS.NS             OK — 1235 rows
+[165/314] SHRIRAMFIN.NS             OK — 1235 rows
+[166/314] BAJFINANCE.NS             OK — 1235 rows
+[167/314] TMCV.NS                   OK — 145 rows
+[168/314] TMPV.NS                   OK — 1235 rows
+[169/314] NATIONALUM.NS             OK — 1235 rows
+[170/314] TATASTEEL.NS              OK — 1235 rows
+[171/314] JSWSTEEL.NS               OK — 1235 rows
+[172/314] TITAN.NS                  OK — 1235 rows
+[173/314] KALYANKJIL.NS             OK — 1235 rows
+[174/314] TVSMOTOR.NS               OK — 1235 rows
+[175/314] ITC.NS                    OK — 1235 rows
+[176/314] TATACONSUM.NS             OK — 1235 rows
+[177/314] TATACHEM.NS               OK — 1235 rows
+[178/314] HGINFRA.NS                OK — 1235 rows
+[179/314] LT.NS                     OK — 1235 rows
+[180/314] GMRAIRPORT.NS             OK — 1235 rows
+[181/314] ADANIPORTS.NS             OK — 1235 rows
+[182/314] ADANIENSOL.NS             OK — 1235 rows
+[183/314] TATAPOWER.NS              OK — 1235 rows
+[184/314] BPCL.NS                   OK — 1235 rows
+[185/314] IOC.NS                    OK — 1235 rows
+[186/314] ONGC.NS                   OK — 1235 rows
+[187/314] HINDALCO.NS               OK — 1235 rows
+[188/314] TCS.NS                    OK — 1235 rows
+[189/314] HCLTECH.NS                OK — 1235 rows
+[190/314] TECHM.NS                  OK — 1235 rows
+[191/314] NETWEB.NS                 OK — 710 rows
+[192/314] MARUTI.NS                 OK — 1235 rows
+[193/314] CEATLTD.NS                OK — 1235 rows
+[194/314] MINDACORP.NS              OK — 1234 rows
+[195/314] GABRIEL.NS                OK — 1235 rows
+[196/314] SONACOMS.NS               OK — 1229 rows
+[197/314] CASTROLIND.NS             OK — 1235 rows
+[198/314] PRICOLLTD.NS              OK — 1234 rows
+[199/314] AMBER.NS                  OK — 1235 rows
+[200/314] CHENNPETRO.NS             OK — 1235 rows
+[201/314] DIXON.NS                  OK — 1235 rows
+[202/314] JKTYRE.NS                 OK — 1235 rows
+[203/314] INDUSTOWER.NS             OK — 1235 rows
+[204/314] BHARTIARTL.NS             OK — 1235 rows
+[205/314] TATACOMM.NS               OK — 1235 rows
+[206/314] COALINDIA.NS              OK — 1235 rows
+[207/314] DIVISLAB.NS               OK — 1234 rows
+[208/314] ELECON.NS                 OK — 1235 rows
+[209/314] RECLTD.NS                 OK — 1235 rows
+[210/314] PFS.NS                    OK — 1235 rows
+[211/314] KAYNES.NS                 OK — 879 rows
+[212/314] ICICIAMC.NS               OK — 118 rows
+[213/314] SRF.NS                    OK — 1235 rows
+[214/314] TATAELXSI.NS              OK — 1235 rows
+[215/314] IRCON.NS                  OK — 1235 rows
+[216/314] CUMMINSIND.NS             OK — 1235 rows
+[217/314] VOLTAS.NS                 OK — 1235 rows
+[218/314] IREDA.NS                  OK — 627 rows
+[219/314] INDIGO.NS                 OK — 1234 rows
+[220/314] BHEL.NS                   OK — 1235 rows
+[221/314] BHARATFORG.NS             OK — 1234 rows
+[222/314] SOLARINDS.NS              OK — 1234 rows
+[223/314] RVNL.NS                   OK — 1235 rows
+[224/314] TATACAP.NS                OK — 165 rows
+[225/314] MUTHOOTFIN.NS             ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[226/314] POONAWALLA.NS             OK — 1235 rows
+[227/314] GROWW.NS                  OK — 145 rows
+[228/314] BHARTIHEXA.NS             OK — 537 rows
+[229/314] WELCORP.NS                OK — 1235 rows
+[230/314] NUVAMA.NS                 OK — 669 rows
+[231/314] ADANIGREEN.NS             OK — 1235 rows
+[232/314] SUVEN.NS                  OK — 1235 rows
+[233/314] APARINDS.NS               OK — 1235 rows
+[234/314] POLYCAB.NS                OK — 1235 rows
+[235/314] INDIGOPNTS.NS             OK — 1235 rows
+[236/314] JSWDULUX.NS               OK — 1235 rows
+[237/314] KANSAINER.NS              OK — 1233 rows
+[238/314] ANANTRAJ.NS               OK — 1235 rows
+[239/314] ADANIENT.NS               OK — 1235 rows
+[240/314] MANINDS.NS                OK — 1235 rows
+[241/314] KSB.NS                    OK — 1235 rows
+[242/314] THERMAX.NS                OK — 1234 rows
+[243/314] TECHNOE.NS                OK — 1235 rows
+[244/314] HAVELLS.NS                OK — 1235 rows
+[245/314] LAURUSLABS.NS             OK — 1235 rows
+[246/314] LUPIN.NS                  OK — 1235 rows
+[247/314] PIIND.NS                  OK — 1235 rows
+[248/314] CHOLAFIN.NS               OK — 1235 rows
+[249/314] PCBL.NS                   OK — 1235 rows
+[250/314] DEEPAKNTR.NS              OK — 1234 rows
+[251/314] APLAPOLLO.NS              OK — 1235 rows
+[252/314] NHPC.NS                   OK — 1235 rows
+[253/314] NTPCGREEN.NS              OK — 383 rows
+[254/314] MAXHEALTH.NS              OK — 1235 rows
+[255/314] NAVA.NS                   OK — 1235 rows
+[256/314] LALPATHLAB.NS             OK — 1235 rows
+[257/314] CAMPUS.NS                 OK — 1014 rows
+[258/314] BALRAMCHIN.NS             OK — 1235 rows
+[259/314] TRIVENI.NS                OK — 1235 rows
+[260/314] HDFCLIFE.NS               OK — 1235 rows
+[261/314] METROPOLIS.NS             OK — 1235 rows
+[262/314] TCI.NS                    OK — 1234 rows
+[263/314] RITES.NS                  OK — 1235 rows
+[264/314] PRAJIND.NS                OK — 1235 rows
+[265/314] KPIL.NS                   OK — 1234 rows
+[266/314] CERA.NS                   OK — 1234 rows
+[267/314] SYRMA.NS                  OK — 937 rows
+[268/314] EXIDEIND.NS               OK — 1235 rows
+[269/314] ARE&M.NS                  OK — 1235 rows
+[270/314] WSTCSTPAPR.NS             OK — 1234 rows
+[271/314] LINDEINDIA.NS             OK — 1234 rows
+[272/314] NIACL.NS                  OK — 1235 rows
+[273/314] IRB.NS                    OK — 1235 rows
+[274/314] LODHA.NS                  OK — 1235 rows
+[275/314] AADHARHFC.NS              OK — 516 rows
+[276/314] MARKSANS.NS               OK — 1235 rows
+[277/314] DABUR.NS                  OK — 1235 rows
+[278/314] ZFCVINDIA.NS              OK — 1235 rows
+[279/314] SUNPHARMA.NS              OK — 1235 rows
+[280/314] WAAREEENER.NS             ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[281/314] USHAMART.NS               OK — 1235 rows
+[282/314] MPHASIS.NS                OK — 1235 rows
+[283/314] MRPL.NS                   OK — 1235 rows
+[284/314] OBEROIRLTY.NS             OK — 1234 rows
+[285/314] UNIVCABLES.NS             OK — 1235 rows
+[286/314] RRKABEL.NS                OK — 671 rows
+[287/314] FINCABLES.NS              OK — 1235 rows
+[288/314] ZYDUSLIFE.NS              OK — 1235 rows
+[289/314] BAJAJHFL.NS               OK — 432 rows
+[290/314] CANFINHOME.NS             OK — 1235 rows
+[291/314] APTUS.NS                  OK — 1188 rows
+[292/314] UNOMINDA.NS               OK — 1235 rows
+[293/314] MGL.NS                    OK — 1234 rows
+[294/314] IGL.NS                    OK — 1235 rows
+[295/314] ASIANPAINT.NS             OK — 1235 rows
+[296/314] BCLIND.NS                 OK — 1234 rows
+[297/314] INDIAGLYCO.NS             ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[298/314] RADICO.NS                 ERROR — Length mismatch: Expected axis has 15 elements, new values have 6 elements
+[299/314] GLOBUSSPR.NS              OK — 1234 rows
+[300/314] TI.NS                     OK — 1235 rows
+[301/314] FORCEMOT.NS               OK — 1194 rows
+[302/314] GODFRYPHLP.NS             OK — 1235 rows
+[303/314] VESUVIUS.NS               OK — 1234 rows
+[304/314] MANORAMA.NS               OK — 975 rows
+[305/314] MOIL.NS                   OK — 1235 rows
+[306/314] NMDC.NS                   OK — 1235 rows
+[307/314] GMDCLTD.NS                OK — 1235 rows
+[308/314] GRSE.NS                   OK — 1235 rows
+[309/314] SCI.NS                    OK — 1235 rows
+[310/314] RELIANCE.NS               OK — 1235 rows
+[311/314] CHOICEIN.NS               OK — 1031 rows
+[312/314] ALKEM.NS                  OK — 1234 rows
+[313/314] OLECTRA.NS                OK — 1235 rows
+[314/314] JBMA.NS                   OK — 1235 rows
+
+─────────────────────────────────────────────
+✓ Processed : 225 stocks
+✗ Failed    : 89 stocks
+Failed: ['BATAINDIA.NS', 'TORNTPOWER.NS', 'JKPAPER.NS', 'PRIVISCL.NS', 'SHAILY.NS', 'INDHOTEL.NS', 'ATGL.NS', 'KPIGREEN.NS', 'RAINBOW.NS', 'FLUOROCHEM.NS', 'MOTHERSON.NS', 'HEROMOTOCO.NS', 'M&M.NS', 'AIAENG.NS', 'HAPPYFORGE.NS', 'GENUSPOWER.NS', 'GLENMARK.NS', 'METROBRAND.NS', 'KPRMILL.NS', 'LGBBROSLTD.NS', 'ACUTAAS.NS', 'NTPC.NS', 'BEML.NS', 'ATUL.NS', 'ASHOKLEY.NS', 'ACMESOLAR.NS', 'VBL.NS', 'ANURAS.NS', 'KEC.NS', 'SCHNEIDER.NS', 'AAVAS.NS', 'ABCAPITAL.NS', 'ADANIPOWER.NS', 'ICICIGI.NS', 'KEI.NS', 'BEL.NS', 'NAM-INDIA.NS', 'BSE.NS', 'COFORGE.NS', 'VINATIORGA.NS', 'EMCURE.NS', 'KRN.NS', 'GRINDWELL.NS', 'VIJAYA.NS', 'DATAPATTNS.NS', 'ZENTEC.NS', 'ANGELONE.NS', 'AUBANK.NS', 'PFIZER.NS', 'HSCL.NS', 'PICCADIL.NS', 'AETHER.NS', 'SJS.NS', 'PNBHOUSING.NS', 'BERGEPAINT.NS', 'NH.NS', 'SCHNEIDER.NS', 'HINDCOPPER.NS', 'BALAMINES.NS', 'JYOTICNC.NS', 'GRWRHITECH.NS', 'THYROCARE.NS', 'GPPL.NS', 'ALIVUS.NS', 'ENGINERSIN.NS', 'SHRIPISTON.NS', 'JBCHEPHARM.NS', 'CAPLIPOINT.NS', 'RUBICON.NS', 'DOMS.NS', 'INDIAGLYCO.NS', 'JUBLPHARMA.NS', 'VIKRAMSOLR.NS', 'UNITDSPR.NS', 'QPOWER.NS', 'TORNTPHARM.NS', 'IKS.NS', 'HBLENGINE.NS', 'SUPRIYA.NS', 'HINDUNILVR.NS', 'ECLERX.NS', 'TARIL.NS', 'SYNGENE.NS', 'CAMS.NS', 'SBIN.NS', 'MUTHOOTFIN.NS', 'WAAREEENER.NS', 'INDIAGLYCO.NS', 'RADICO.NS']
+
+═════════════════════════════════════════════════════════════════
+  SCREENER — ROC10 | ADX25 | SL1.5x | Hold40 | Partial2.0x
+  Date          : 15 Jun 2026
+  Active sectors: 10
+  Top sectors   : Textile, CAPITAL MARKET, Cables, Transport, PSU Bank...
+═════════════════════════════════════════════════════════════════
+
+  ────────────────────────────────────────────────────────────
+  STOCK    : MAHABANK.NS  (PSU Bank)
+  Score    : 1.375  |  ADX: 29.6  |  Vol: 2.23x  |  ROC10: 11.81%
+  ────────────────────────────────────────────────────────────
+  Entry    : Rs.89.12  (buy at market open tomorrow)
+  SL       : Rs.85.03  (-4.59% from entry)
+  Target 1 : Rs.94.57  (+6.12%)  <-- book 50% here
+  Target 2 : Rs.98.66  (+10.7%)  <-- trail rest
+  ────────────────────────────────────────────────────────────
+  Shares   : 224 shares
+  Capital  : Rs.19,963
+  Risk     : Rs.916  (0.92% of capital)
+  ────────────────────────────────────────────────────────────
+
+  ────────────────────────────────────────────────────────────
+  STOCK    : MINDACORP.NS  (auto ancillary)
+  Score    : 1.199  |  ADX: 48.0  |  Vol: 1.88x  |  ROC10: 2.05%
+  ────────────────────────────────────────────────────────────
+  Entry    : Rs.662.55  (buy at market open tomorrow)
+  SL       : Rs.626.49  (-5.44% from entry)
+  Target 1 : Rs.710.63  (+7.26%)  <-- book 50% here
+  Target 2 : Rs.746.69  (+12.7%)  <-- trail rest
+  ────────────────────────────────────────────────────────────
+  Shares   : 30 shares
+  Capital  : Rs.19,876
+  Risk     : Rs.1,082  (1.08% of capital)
+  ────────────────────────────────────────────────────────────
+
+  ────────────────────────────────────────────────────────────
+  STOCK    : GROWW.NS  (CAPITAL MARKET)
+  Score    : 0.904  |  ADX: 28.3  |  Vol: 2.61x  |  ROC10: 7.62%
+  ────────────────────────────────────────────────────────────
+  Entry    : Rs.207.34  (buy at market open tomorrow)
+  SL       : Rs.197.03  (-4.97% from entry)
+  Target 1 : Rs.221.09  (+6.63%)  <-- book 50% here
+  Target 2 : Rs.231.4  (+11.6%)  <-- trail rest
+  ────────────────────────────────────────────────────────────
+  Shares   : 96 shares
+  Capital  : Rs.19,905
+  Risk     : Rs.990  (0.99% of capital)
+  ────────────────────────────────────────────────────────────
+
+  Saved -> results/screener_signal.csv
+═════════════════════════════════════════════════════════════════
+
+✓ Signal email sent → jhaavinaash@gmail.com
+
+  CLAUDE SYSTEM 1 — 15 Jun 2026 08:28 PM
+  Starting daily pipeline...
+
+═══════════════════════════════════════════════════════
+  Running data_downloader_live.py...
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+  Running indicator_engine.py...
+═══════════════════════════════════════════════════════
+
+═══════════════════════════════════════════════════════
+  Running screener.py...
+═══════════════════════════════════════════════════════
+  ✓ Appended 3 S1 signals to C:\Users\Avinaash\Quant\signals\master_signals.csv
+
+  ✓ Pipeline complete. 3 S1 signals in master queue.
+  ✓ Check dashboard Today Actions tab.
+
+============================================================
+Run: 2026-06-15 23:18:56
+============================================================
+Result-watch active: 42 ticker(s) blocked (results within 5d)
+
+Running E1...
+Downloading data...
+
+TODAY SIGNALS
+
+            Ticker          CMP       Target     StopLoss
+224     WELCORP.NS  1379.699951  1452.824049  1338.308953
+116   INOXINDIA.NS  1786.400024  1881.079226  1732.808024
+271    MARKSANS.NS   249.759995   262.997274   242.267195
+51         HSCL.NS   668.900024   704.351726   648.833024
+240  LAURUSLABS.NS  1389.099976  1462.722274  1347.426976
+201    TATACOMM.NS  1933.900024  2036.396726  1875.883024
+20      ACUTAAS.NS  3096.699951  3260.825049  3003.798953
+
+Used Capital (E1): ₹36846.0
+Remaining Capital (E1): ₹138154.0
+E1 completed — 2 signal(s) blocked for upcoming results
+
+Running E2...
+Updating incremental data from 2026-06-15...
+No new data found.
+
+===== DEBUG SAMPLE =====
+Signal Date: 2026-06-15
+Total tickers in DB: 307
+Tickers available today: 307
+No signals found for the selected criteria.
+E2 completed
+
+Running E3...
+Downloading data...
+
+ENGINE-3 TRADE CANDIDATES
+
+          Ticker           CMP
+0   BALAMINES.NS   2108.100098
+1     ACUTAAS.NS   3096.699951
+2       GVT&D.NS   4805.500000
+3  ADANIENSOL.NS   1491.900024
+4   SOLARINDS.NS  17277.000000
+5        HSCL.NS    668.900024
+
+Used Capital (E3): ₹20340.0
+Remaining Capital (E3): ₹79660.0
+E3 final signals: [{'Ticker': 'BALAMINES.NS', 'Entry': 2108.1, 'SL': 2044.86}, {'Ticker': 'ACUTAAS.NS', 'Entry': 3096.7, 'SL': 3003.8}, {'Ticker': 'GVT&D.NS', 'Entry': 4805.5, 'SL': 4661.34}, {'Ticker': 'ADANIENSOL.NS', 'Entry': 1491.9, 'SL': 1447.14}, {'Ticker': 'SOLARINDS.NS', 'Entry': 17277.0, 'SL': 16758.69}, {'Ticker': 'HSCL.NS', 'Entry': 668.9, 'SL': 648.83}]
+E3 completed
+
+Running E4...
+E4 completed
+
+Running E5...
+E5 completed — 1 signal(s) blocked for upcoming results
+
+Running E6...
+Columns in file: ['Ticker', 'Sector']
+Using column: Ticker
+BATAINDIA.NS
+TORNTPOWER.NS
+JKPAPER.NS
+PRIVISCL.NS
+SHAILY.NS
+INDHOTEL.NS
+ATGL.NS
+KPIGREEN.NS
+RAINBOW.NS
+FLUOROCHEM.NS
+MOTHERSON.NS
+HEROMOTOCO.NS
+M&M.NS
+AIAENG.NS
+HAPPYFORGE.NS
+GENUSPOWER.NS
+GLENMARK.NS
+METROBRAND.NS
+KPRMILL.NS
+LGBBROSLTD.NS
+ACUTAAS.NS
+NTPC.NS
+BEML.NS
+ATUL.NS
+ASHOKLEY.NS
+ACMESOLAR.NS
+VBL.NS
+ANURAS.NS
+KEC.NS
+SCHNEIDER.NS
+SBIN.NS
+AAVAS.NS
+ABCAPITAL.NS
+ADANIPOWER.NS
+ICICIGI.NS
+KEI.NS
+BEL.NS
+NAM-INDIA.NS
+BSE.NS
+COFORGE.NS
+VINATIORGA.NS
+EMCURE.NS
+KRN.NS
+GRINDWELL.NS
+VIJAYA.NS
+DATAPATTNS.NS
+MUTHOOTFIN.NS
+ZENTEC.NS
+ANGELONE.NS
+AUBANK.NS
+PFIZER.NS
+HSCL.NS
+INDIAGLYCO.NS
+PICCADIL.NS
+AETHER.NS
+SJS.NS
+PNBHOUSING.NS
+BERGEPAINT.NS
+NH.NS
+SCHNEIDER.NS
+HINDCOPPER.NS
+BALAMINES.NS
+JYOTICNC.NS
+GRWRHITECH.NS
+THYROCARE.NS
+GPPL.NS
+ALIVUS.NS
+ENGINERSIN.NS
+SHRIPISTON.NS
+JBCHEPHARM.NS
+CAPLIPOINT.NS
+RUBICON.NS
+DOMS.NS
+INDIAGLYCO.NS
+JUBLPHARMA.NS
+VIKRAMSOLR.NS
+UNITDSPR.NS
+QPOWER.NS
+TORNTPHARM.NS
+IKS.NS
+HBLENGINE.NS
+SUPRIYA.NS
+HINDUNILVR.NS
+ECLERX.NS
+TARIL.NS
+SYNGENE.NS
+CAMS.NS
+BAJAJ-AUTO.NS
+KIRLPNU.NS
+VOLTAMP.NS
+GVT&D.NS
+SCHAEFFLER.NS
+EICHERMOT.NS
+PIDILITIND.NS
+CDSL.NS
+RADICO.NS
+TDPOWERSYS.NS
+PERSISTENT.NS
+TRENT.NS
+BALUFORGE.NS
+Price DF shape: (124, 98)
+Last date: 2026-06-15 00:00:00
+Scores count: 98
+Price
+BALAMINES.NS     1.107257
+RUBICON.NS       0.787291
+GRWRHITECH.NS    0.677148
+SUPRIYA.NS       0.662663
+ANGELONE.NS      0.635495
+QPOWER.NS        0.584600
+KIRLPNU.NS       0.550585
+HSCL.NS          0.498618
+THYROCARE.NS     0.480785
+TDPOWERSYS.NS    0.464179
+Name: 2026-06-15 00:00:00, dtype: float64
+Price DF shape: (124, 98)
+E6 completed
+
+Running G1...
+--- V7.0 BREADTH SCREENER (6-SLOT PRODUCTION) ---
+Syncing data for 307 symbols...
+G1 completed
+
+Preserved 3 S1 signal(s) from today.
+Blocked 3 signal(s) for results — logged to blocked_signals.csv
+
+Master signal file updated.
