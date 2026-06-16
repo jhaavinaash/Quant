@@ -192,4 +192,11 @@ def build_result_calendar() -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-    build_result_calendar()
+    try:
+        build_result_calendar()
+    except Exception as exc:
+        # NSE endpoint down, nselib not installed, network timeout, etc.
+        # Exit 0 so callers (dashboard Run Engines button) treat this as
+        # non-fatal and proceed with the cached result_calendar.csv.
+        print(f"Result calendar refresh skipped: {exc}")
+        print("Engines will use the existing cached calendar.")

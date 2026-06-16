@@ -480,14 +480,38 @@ with rc2:
                         if _tok.isdigit() and "block" in _ln.lower():
                             _blocked_n = int(_tok); break
                 if _rc_ok:
-                    st.toast(f"📅 Result calendar refreshed"
-                             + (f" · {_blocked_n} ticker(s) to avoid" if _blocked_n else ""))
+                    # Read the actual written calendar to get real counts
+                    try:
+                        _cal_path = _app_root / "data" / "result_calendar.csv"
+                        _cal_df   = pd.read_csv(_cal_path) if _cal_path.exists() else pd.DataFrame()
+                        _cal_n    = len(_cal_df)
+                    except Exception:
+                        _cal_n = 0
+                    if _cal_n > 0:
+                        st.success(
+                            f"📅 Result calendar refreshed — "
+                            f"**{_cal_n} ticker(s) have results in next 5 days** · "
+                            f"their signals will be blocked. Check Alerts tab."
+                        )
+                    else:
+                        st.success(
+                            "📅 Result calendar refreshed — "
+                            "no results due in next 5 days for your universe."
+                        )
                 else:
-                    st.toast("⚠️ Result calendar refresh failed — using cached calendar",
-                             icon="⚠️")
+                    _rc_stderr  = (_rc_res.stderr or "").strip()
+                    _rc_stdout  = (_rc_res.stdout or "").strip()
+                    _err_detail = _rc_stderr or _rc_stdout or "No output captured"
+                    st.warning(
+                        f"⚠️ Result calendar refresh failed (exit {_rc_res.returncode}). "
+                        f"Engines running with cached calendar.\n\n"
+                        f"**Error:** `{_err_detail[-400:]}`"
+                    )
             else:
-                st.toast("ℹ️ result_calendar_updater.py not found — calendar not refreshed",
-                         icon="ℹ️")
+                st.warning(
+                    "⚠️ result_calendar_updater.py not found in core/ — "
+                    "calendar not refreshed. Place it alongside orchestrator.py."
+                )
 
             # ── step 2: run engines ────────────────────────────────────
             with st.spinner("⚙️ Running all 6 engines…"):
@@ -532,23 +556,30 @@ with rc2:
                 if _sa.exists():
                     _alert_run = True
                     with st.spinner("📨 Sending Telegram + Email alerts…"):
-                        _sa_res = subprocess.run(
-                            [sys.executable, str(_sa)],
-                            capture_output=True,
-                            text=True,
-                            encoding="utf-8",
-                            cwd=str(_sa.parent),
-                            timeout=30,
-                            env=_run_env,
-                        )
-                    _sa_out  = (_sa_res.stdout or "").strip()
-                    _tg_ok   = "TELEGRAM: sent ok" in _sa_out
-                    _em_ok   = "EMAIL: sent ok"     in _sa_out
-                    _no_sigs = "no signals for today" in _sa_out
+                        try:
+                            import importlib.util as _ilu
+                            _spec    = _ilu.spec_from_file_location("signal_alerts", str(_sa))
+                            _sa_mod  = _ilu.module_from_spec(_spec)
+                            if str(_app_root) not in sys.path:
+                                sys.path.insert(0, str(_app_root))
+                            if str(_sa.parent) not in sys.path:
+                                sys.path.insert(0, str(_sa.parent))
+                            _spec.loader.exec_module(_sa_mod)
+                            _sa_result = _sa_mod.dispatch_signals()
+                            _tg_ok    = bool(_sa_result.get("telegram", False))
+                            _em_ok    = bool(_sa_result.get("email",    False))
+                            _no_sigs  = _sa_result.get("signals", 1) == 0
+                            _sa_log   = (f"signals={_sa_result.get('signals',0)} "
+                                         f"tg={_tg_ok} email={_em_ok}")
+                        except Exception as _sa_exc:
+                            _tg_ok   = False
+                            _em_ok   = False
+                            _no_sigs = False
+                            _sa_log  = f"dispatch_signals() exception: {_sa_exc}"
                     try:
                         if _log_path:
                             with open(_log_path, "a", encoding="utf-8") as _lf:
-                                _lf.write(f"\n[ALERTS]\n{_sa_out}\n")
+                                _lf.write(f"\n[ALERTS] {_sa_log}\n")
                     except Exception:
                         pass
 
@@ -644,21 +675,27 @@ with rc3:
                 if _sa.exists():
                     _alert_run = True
                     with st.spinner("📨 Sending Telegram + Email…"):
-                        _sa_res = subprocess.run(
-                            [sys.executable, str(_sa)],
-                            capture_output=True,
-                            text=True,
-                            encoding="utf-8",
-                            cwd=str(_sa.parent),
-                            timeout=90,
-                            env=_run_env,
-                        )
-                    _sa_out = (_sa_res.stdout or "").strip()
-                    _tg_ok  = "TELEGRAM: sent ok" in _sa_out
-                    _em_ok  = "EMAIL: sent ok"     in _sa_out
+                        try:
+                            import importlib.util as _ilu
+                            _spec   = _ilu.spec_from_file_location("signal_alerts", str(_sa))
+                            _sa_mod = _ilu.module_from_spec(_spec)
+                            if str(_app_root) not in sys.path:
+                                sys.path.insert(0, str(_app_root))
+                            if str(_sa.parent) not in sys.path:
+                                sys.path.insert(0, str(_sa.parent))
+                            _spec.loader.exec_module(_sa_mod)
+                            _sa_result = _sa_mod.dispatch_signals()
+                            _tg_ok  = bool(_sa_result.get("telegram", False))
+                            _em_ok  = bool(_sa_result.get("email",    False))
+                            _sa_log = (f"S1 signals={_sa_result.get('signals',0)} "
+                                       f"tg={_tg_ok} email={_em_ok}")
+                        except Exception as _sa_exc:
+                            _tg_ok  = False
+                            _em_ok  = False
+                            _sa_log = f"S1 dispatch exception: {_sa_exc}"
                     try:
                         with open(_log_path, "a", encoding="utf-8") as _lf:
-                            _lf.write(f"\n[S1 ALERTS]\n{_sa_out}\n")
+                            _lf.write(f"\n[S1 ALERTS] {_sa_log}\n")
                     except Exception:
                         pass
 

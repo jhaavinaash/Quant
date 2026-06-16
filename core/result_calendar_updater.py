@@ -1,15 +1,11 @@
 """
 result_calendar_updater.py
 --------------------------
-Scans the stock universe for upcoming financial-results board meetings in the
-window [today .. today + LOOKAHEAD_DAYS] and writes result_calendar.csv.
+Fetches NSE upcoming results calendar using only `requests` + `pandas`
+(no nselib dependency). Writes result_calendar.csv to data/ folder.
 
-The signal generator reads result_calendar.csv and raises an
-"AVOID - results due" warning for any ticker whose result date is inside
-the window, so we don't take fresh positions into an earnings surprise.
-
-Run standalone:        python result_calendar_updater.py
-Or import and call:    from result_calendar_updater import get_results_within_window
+Run standalone:  python result_calendar_updater.py
+Or via dashboard Run Engines button (auto-called before engines fire).
 """
 
 import time
@@ -17,177 +13,148 @@ import datetime as dt
 from pathlib import Path
 
 import pandas as pd
-from nselib import capital_market
+import requests
 
-# ===================== CONFIG =====================
-BASE_DIR = Path(__file__).resolve().parent
+# ── Config ────────────────────────────────────────────────────────────
+BASE_DIR       = Path(__file__).resolve().parent          # core/
+UNIVERSE_FILE  = BASE_DIR.parent / "data" / "sector_map_fixed.csv"
+OUTPUT_FILE    = BASE_DIR.parent / "data" / "result_calendar.csv"
 
-UNIVERSE_FILE = BASE_DIR / "sector_map_fixed.csv"
-OUTPUT_FILE = BASE_DIR / "result_calendar.csv"
-
-LOOKAHEAD_DAYS = 5          # scan today .. today + 5 days
-MAX_RETRIES = 4             # NSE endpoints are flaky; retry a few times
-RETRY_BACKOFF_SEC = 3       # wait grows: 3s, 6s, 9s ...
-
-# Event-calendar "purpose" values we treat as an earnings event.
-# NSE lists many purposes (Dividend, Buy Back, AGM, Fund Raising ...);
-# we only care about the ones that move the stock on a surprise.
+LOOKAHEAD_DAYS = 5
 RESULT_KEYWORDS = ("result", "financial result")
 
+NSE_HEADERS = {
+    "User-Agent": (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/120.0.0.0 Safari/537.36"
+    ),
+    "Accept":          "application/json, text/plain, */*",
+    "Accept-Language": "en-US,en;q=0.9",
+    "Referer":         "https://www.nseindia.com/",
+}
 
-# ===================== UNIVERSE =====================
-def load_universe(path: Path) -> set:
-    """Load the ticker universe and return a set of bare NSE symbols (no .NS)."""
+
+# ── Universe ─────────────────────────────────────────────────────────
+def load_universe() -> set:
     try:
-        u = pd.read_csv(path, encoding="utf-16")
-    except Exception:
-        u = pd.read_csv(path)
-
-    u.columns = u.columns.str.strip().str.lower()
-    if "ticker" not in u.columns:
-        raise KeyError(
-            f"'ticker' column not found in {path.name}. "
-            f"Columns present: {list(u.columns)}"
-        )
-
-    tickers = (
-        u["ticker"].astype(str).str.strip().str.upper().str.replace(".NS", "", regex=False)
-    )
-    return set(t for t in tickers if t and t != "NAN")
+        u = pd.read_csv(UNIVERSE_FILE)
+    except Exception as e:
+        raise FileNotFoundError(f"Universe file not found at {UNIVERSE_FILE}: {e}")
+    col = next((c for c in u.columns if c.strip().lower() == "ticker"), u.columns[0])
+    tickers = u[col].astype(str).str.strip().str.upper().str.replace(".NS", "", regex=False)
+    return set(t for t in tickers if t and t != "NAN" and "DUMMY" not in t)
 
 
-# ===================== NSE FETCH =====================
-def pick_column(df: pd.DataFrame, candidates) -> str | None:
-    """Find a column by case-insensitive match against a list of candidates."""
-    lookup = {c.lower(): c for c in df.columns}
-    for cand in candidates:
-        if cand.lower() in lookup:
-            return lookup[cand.lower()]
-    return None
-
-
-def fetch_event_calendar(from_date: str, to_date: str) -> pd.DataFrame:
+# ── NSE session ───────────────────────────────────────────────────────
+def get_nse_session() -> requests.Session:
     """
-    Fetch the NSE corporate event calendar with retries.
-
-    IMPORTANT: this uses event_calendar_for_equity, NOT
-    financial_results_for_equity. The latter downloads and parses an XBRL
-    file *per company* (thousands of HTTP calls in earnings season) and
-    returns parsed P&L data - not a calendar. event_calendar_for_equity hits
-    the lightweight /api/event-calendar endpoint and returns one clean row
-    per upcoming event.
+    Hit NSE homepage first to get cookies, then return the primed session.
+    NSE API calls fail without a valid session cookie.
     """
-    last_err = None
-    for attempt in range(1, MAX_RETRIES + 1):
+    s = requests.Session()
+    s.headers.update(NSE_HEADERS)
+    try:
+        s.get("https://www.nseindia.com/", timeout=15)
+    except Exception as e:
+        raise ConnectionError(f"Could not reach NSE homepage: {e}")
+    return s
+
+
+# ── Fetch event calendar ──────────────────────────────────────────────
+def fetch_event_calendar(session: requests.Session,
+                         from_date: str, to_date: str) -> pd.DataFrame:
+    """
+    Call NSE /api/event-calendar and return a DataFrame.
+    from_date / to_date in DD-MM-YYYY format.
+    """
+    url = "https://www.nseindia.com/api/event-calendar"
+    params = {"fromDate": from_date, "toDate": to_date}
+
+    for attempt in range(1, 4):
         try:
-            df = capital_market.event_calendar_for_equity(
-                from_date=from_date,
-                to_date=to_date,
-            )
-            if df is None or df.empty:
-                # No events in window is a valid outcome, not an error.
+            r = session.get(url, params=params, timeout=15)
+            r.raise_for_status()
+            data = r.json()
+            if not data:
                 return pd.DataFrame()
-            return df
+            return pd.DataFrame(data)
         except Exception as e:
-            last_err = e
-            print(f"  NSE fetch attempt {attempt}/{MAX_RETRIES} failed: "
-                  f"{type(e).__name__}: {e}")
-            if attempt < MAX_RETRIES:
-                time.sleep(RETRY_BACKOFF_SEC * attempt)
+            print(f"  Attempt {attempt}/3 failed: {e}")
+            if attempt < 3:
+                time.sleep(3 * attempt)
 
-    raise RuntimeError(
-        f"Could not fetch NSE event calendar after {MAX_RETRIES} attempts. "
-        f"Last error: {type(last_err).__name__}: {last_err}"
-    )
+    raise RuntimeError("NSE event calendar unreachable after 3 attempts.")
 
 
-# ===================== CORE =====================
-def get_results_within_window(lookahead_days: int = LOOKAHEAD_DAYS) -> pd.DataFrame:
-    """
-    Return a DataFrame [Ticker, ResultDate, DaysUntil, Purpose] of universe
-    stocks with a results event in the next `lookahead_days` days.
-    """
-    universe = load_universe(UNIVERSE_FILE)
-    print(f"Universe loaded: {len(universe)} tickers")
+# ── Core ──────────────────────────────────────────────────────────────
+def build_result_calendar() -> pd.DataFrame:
+    universe = load_universe()
+    print(f"Universe: {len(universe)} tickers")
 
-    today = dt.date.today()
-    end = today + dt.timedelta(days=lookahead_days)
-    from_date = today.strftime("%d-%m-%Y")
-    to_date = end.strftime("%d-%m-%Y")
-    print(f"Scanning NSE event calendar {from_date} -> {to_date}\n")
+    today    = dt.date.today()
+    end      = today + dt.timedelta(days=LOOKAHEAD_DAYS)
+    from_str = today.strftime("%d-%m-%Y")
+    to_str   = end.strftime("%d-%m-%Y")
+    print(f"Scanning NSE events {from_str} → {to_str}")
 
-    df = fetch_event_calendar(from_date, to_date)
+    session = get_nse_session()
+    df      = fetch_event_calendar(session, from_str, to_str)
+
+    OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)
+    empty_cols = ["Ticker", "ResultDate", "DaysUntil", "Purpose"]
+
     if df.empty:
-        print("No events returned by NSE for this window.")
-        return pd.DataFrame(columns=["Ticker", "ResultDate", "DaysUntil", "Purpose"])
+        pd.DataFrame(columns=empty_cols).to_csv(OUTPUT_FILE, index=False)
+        print("No events in window. Empty calendar written.")
+        return pd.DataFrame(columns=empty_cols)
 
-    # NSE column names vary slightly; detect them instead of hard-coding.
-    sym_col = pick_column(df, ["symbol", "Symbol"])
-    date_col = pick_column(df, ["bm_date", "BoardMeetingDate", "date", "eventDate"])
-    purpose_col = pick_column(df, ["purpose", "Purpose", "subject", "description"])
+    # NSE column names vary — detect flexibly
+    col_map = {c.lower(): c for c in df.columns}
+    sym_col  = next((col_map[k] for k in ("symbol","sym") if k in col_map), None)
+    date_col = next((col_map[k] for k in ("bm_date","date","eventdate","boardmeetingdate")
+                     if k in col_map), None)
+    purp_col = next((col_map[k] for k in ("purpose","subject","description")
+                     if k in col_map), None)
 
-    if sym_col is None or date_col is None:
-        raise KeyError(
-            "Could not locate symbol/date columns in NSE response. "
-            f"Columns returned: {list(df.columns)}"
-        )
+    if not sym_col or not date_col:
+        raise KeyError(f"Cannot find symbol/date columns. Got: {list(df.columns)}")
 
     rows = []
     for _, r in df.iterrows():
-        symbol = str(r.get(sym_col, "")).strip().upper()
+        symbol  = str(r.get(sym_col, "")).strip().upper()
         if symbol not in universe:
             continue
-
-        purpose = str(r.get(purpose_col, "")) if purpose_col else ""
-        if purpose_col and not any(k in purpose.lower() for k in RESULT_KEYWORDS):
-            continue  # skip dividends, AGMs, buybacks, etc.
-
-        raw_date = r.get(date_col)
-        if pd.isna(raw_date):
+        purpose = str(r.get(purp_col, "")) if purp_col else ""
+        if purp_col and not any(k in purpose.lower() for k in RESULT_KEYWORDS):
             continue
         try:
-            result_date = pd.to_datetime(raw_date, dayfirst=True).date()
+            result_date = pd.to_datetime(r[date_col], dayfirst=True).date()
         except Exception:
             continue
-
         if not (today <= result_date <= end):
             continue
-
         rows.append({
-            "Ticker": f"{symbol}.NS",
+            "Ticker":     f"{symbol}.NS",
             "ResultDate": result_date,
-            "DaysUntil": (result_date - today).days,
-            "Purpose": purpose.strip() or "Financial Results",
+            "DaysUntil":  (result_date - today).days,
+            "Purpose":    purpose.strip() or "Financial Results",
         })
 
-    out = pd.DataFrame(rows)
-    if out.empty:
-        return out
+    if not rows:
+        pd.DataFrame(columns=empty_cols).to_csv(OUTPUT_FILE, index=False)
+        print("No result events for universe in this window.")
+        return pd.DataFrame(columns=empty_cols)
 
-    return (
-        out.sort_values(["ResultDate", "Ticker"])
-           .drop_duplicates(subset=["Ticker"], keep="first")
-           .reset_index(drop=True)
-    )
-
-
-def build_result_calendar() -> pd.DataFrame:
-    """Build the calendar, save it to OUTPUT_FILE, and print a summary."""
-    out = get_results_within_window()
-
-    if out.empty:
-        # Still write an empty file so the signal generator never crashes
-        # on a missing file - an empty calendar just means "no avoids today".
-        pd.DataFrame(columns=["Ticker", "ResultDate", "DaysUntil", "Purpose"]) \
-          .to_csv(OUTPUT_FILE, index=False)
-        print("No matching result dates in the universe for this window.")
-        print(f"Wrote empty calendar: {OUTPUT_FILE}")
-        return out
+    out = (pd.DataFrame(rows)
+             .sort_values(["ResultDate", "Ticker"])
+             .drop_duplicates(subset=["Ticker"], keep="first")
+             .reset_index(drop=True))
 
     out.to_csv(OUTPUT_FILE, index=False)
     print(out.to_string(index=False))
     print(f"\nSaved: {OUTPUT_FILE}")
-    print(f"Tickers to AVOID (results within {LOOKAHEAD_DAYS}d): {len(out)}")
+    print(f"Tickers to block (results within {LOOKAHEAD_DAYS}d): {len(out)}")
     return out
 
 

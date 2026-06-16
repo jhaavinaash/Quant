@@ -137,10 +137,10 @@ def run_all():
                 if bare in result_block:
                     # Results due within window — skip this fresh entry
                     blocked_rows.append({
-                        "Date": datetime.now().strftime("%Y-%m-%d"),
+                        "Date":   datetime.now().strftime("%d-%m-%Y"),
                         "Engine": engine_name,
                         "Ticker": row.get("Ticker", ""),
-                        "Reason": f"Results within {RESULT_WINDOW_DAYS}d",
+                        "Reason": f"RESULT_WITHIN_{RESULT_WINDOW_DAYS}D",
                     })
                     n_blocked += 1
                     continue
