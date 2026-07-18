@@ -1,0 +1,27 @@
+FROM python:3.12-slim
+
+WORKDIR /app
+
+# Ensure Python stdout and stderr streams are sent straight to terminal without buffering
+ENV PYTHONUNBUFFERED=1
+
+# Install system dependencies for PostgreSQL compilation and Docker health checks
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    libpq-dev \
+    wget \
+    && rm -rf /var/lib/apt/lists/*
+
+# Upgrade pip to the latest version explicitly before installing requirements
+RUN pip install --no-cache-dir --upgrade pip
+
+# Copy python dependencies requirement profile
+COPY requirements.txt .
+
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+EXPOSE 8000
+
+# Execute server with hot-reload active for development environment agility
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]

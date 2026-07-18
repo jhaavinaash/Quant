@@ -94,18 +94,21 @@ Do this in **both** `quant` and `quant-center` when you changed files in that pr
 
 ---
 
-## Publish website files to Quant-Center (from `quant` repo)
+## Publish website repo (Quant-Center)
 
-If you edited the dashboard in the `quant` folder and need to copy changes to `quant-center`:
+After `git pull`, run once on **home PC**:
 
 ```powershell
 cd C:\Users\avinaash\quant
-.\scripts\sync_quant_center.ps1 -Target C:\Users\avinaash\quant-center
+.\scripts\publish_quant_center.ps1
 cd C:\Users\avinaash\quant-center
 git add .
-git commit -m "sync from quant"
+git commit -m "complete quant-center update"
 git push
 ```
+
+This copies the full website package from `quant-center-publish/` into your `quant-center` folder.
+
 
 ---
 

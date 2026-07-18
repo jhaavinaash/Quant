@@ -1,0 +1,3 @@
+Ticker,Sector,Score,Entry,SL,SL_pct,Partial_Target,Partial_pct,Full_Target,Full_pct,Shares,Capital_Used,Risk_Rs,Risk_Pct,ADX,Vol_Ratio,ROC10
+RRKABEL.NS,Cables,0.863,2201.1,2067.21,-6.08%,2379.62,+8.11%,2513.51,+14.19%,9,"Rs.19,810","Rs.1,205",1.21%,39.5,1.55,7.87
+MGL.NS,gas distribution,0.859,1185.6,1130.29,-4.67%,1259.34,+6.22%,1314.65,+10.88%,16,"Rs.18,970",Rs.885,0.88%,29.0,2.34,5.74
