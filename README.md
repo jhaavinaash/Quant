@@ -1,29 +1,22 @@
-# Quant Control MVP
+# Quant — trading engines & screener
 
-This is a practical first pass for your multi-engine control layer.
+Backend for the Quant Center system: engines, orchestrator, data, and signals.
 
-## What it does
-- runs engines with a central orchestrator
-- normalizes outputs into one master signal file
-- logs engine status
-- sends Telegram first, email second
-- shows a simple Streamlit dashboard
+**Website / dashboard** lives in a separate repo: [Quant-Center](https://github.com/jhaavinaash/Quant-Center)
 
-## Environment variables for alerts
-- TELEGRAM_BOT_TOKEN
-- TELEGRAM_CHAT_ID
-- EMAIL_SENDER
-- EMAIL_PASSWORD
-- EMAIL_RECEIVER
+## Setup (home or office)
 
-## Run
-1. Copy this folder into your project root.
-2. Make sure the canonical engine filenames match `config.py`.
-3. Run:
-   - `py core/orchestrator.py`
-   - `streamlit run dashboard/app.py`
+See **[SETUP.md](SETUP.md)** for full instructions.
 
-## Notes
-- The dashboard is intentionally practical, not flashy.
-- No WhatsApp integration is included.
-- No broker API execution is included.
+Quick start:
+
+```powershell
+cd C:\Users\avinaash\quant
+python -m venv venv
+.\venv\Scripts\activate
+pip install -r requirements.txt
+copy .env.example .env
+python core\orchestrator.py
+```
+
+Dashboard: clone `quant-center` and run `streamlit run dashboard\app_ai.py`

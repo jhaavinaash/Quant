@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.Python
+venv/
+.venv/
+env/
+.env
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Logs (keep folder via .gitkeep)
+logs/*.log
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Local overrides
+config_local.py

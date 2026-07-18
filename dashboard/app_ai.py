@@ -36,6 +36,10 @@ from core.ai_scanner import (
 )
 from config import UNIVERSE_FILE, RESULT_CALENDAR_FILE
 from config import (
+    BASE_DIR,
+    DATA_DIR,
+    SIGNALS_DIR,
+    ENGINE_DIR,
     DASHBOARD_TITLE,
     MASTER_SIGNALS_FILE,
     ENGINE_STATUS_FILE,
@@ -482,7 +486,7 @@ with rc2:
                 if _rc_ok:
                     # Read the actual written calendar to get real counts
                     try:
-                        _cal_path = _app_root / "data" / "result_calendar.csv"
+                        _cal_path = RESULT_CALENDAR_FILE
                         _cal_df   = pd.read_csv(_cal_path) if _cal_path.exists() else pd.DataFrame()
                         _cal_n    = len(_cal_df)
                     except Exception:
@@ -540,7 +544,7 @@ with rc2:
             # save run log
             _log_path = None
             try:
-                _log_path = _app_root / "signals" / "engine_run.log"
+                _log_path = SIGNALS_DIR / "engine_run.log"
                 _log_path.parent.mkdir(parents=True, exist_ok=True)
                 _ts = pd.Timestamp.now().strftime("%Y-%m-%d %H:%M:%S")
                 with open(_log_path, "a", encoding="utf-8") as _lf:
@@ -552,7 +556,9 @@ with rc2:
             _tg_ok = _em_ok = _no_sigs = _alert_run = False
 
             if _done:
-                _sa = _app_root / "core" / "signal_alerts.py"
+                _sa = BASE_DIR / "core" / "signal_alerts.py"
+                if not _sa.exists():
+                    _sa = BASE_DIR / "alerts" / "signal_alerts.py"
                 if _sa.exists():
                     _alert_run = True
                     with st.spinner("📨 Sending Telegram + Email alerts…"):
@@ -627,7 +633,7 @@ with rc3:
 
         _app_root = Path(__file__).resolve().parent.parent
         _run_env  = {**os.environ, "PYTHONIOENCODING": "utf-8"}
-        _claude1  = _app_root / "engines" / "claude_system1_live.py"
+        _claude1  = ENGINE_DIR / "claude_system1_live.py"
 
         if not _claude1.exists():
             st.session_state.engine_result = {
@@ -661,7 +667,7 @@ with rc3:
                     if _s1_count: break
 
             try:
-                _log_path = _app_root / "signals" / "engine_run.log"
+                _log_path = SIGNALS_DIR / "engine_run.log"
                 _log_path.parent.mkdir(parents=True, exist_ok=True)
                 _ts = pd.Timestamp.now().strftime("%Y-%m-%d %H:%M:%S")
                 with open(_log_path, "a", encoding="utf-8") as _lf:
@@ -671,7 +677,9 @@ with rc3:
 
             _tg_ok = _em_ok = _alert_run = False
             if _s1_ok and _s1_count > 0:
-                _sa = _app_root / "core" / "signal_alerts.py"
+                _sa = BASE_DIR / "core" / "signal_alerts.py"
+                if not _sa.exists():
+                    _sa = BASE_DIR / "alerts" / "signal_alerts.py"
                 if _sa.exists():
                     _alert_run = True
                     with st.spinner("📨 Sending Telegram + Email…"):
@@ -1882,11 +1890,8 @@ def _load_portfolio():
 # ACTION ENGINE HELPERS
 # =====================================================
 
-APP_DIR = Path(__file__).resolve().parent.parent
-DATA_DIR = APP_DIR / "data"
-
-SECTOR_MAP_FILE = DATA_DIR / "sector_map_fixed.csv"
-RESULT_CALENDAR_FILE = DATA_DIR / "result_calendar.csv"
+APP_DIR = BASE_DIR
+SECTOR_MAP_FILE = UNIVERSE_FILE
 
 ACTION_COLORS = {
     "ACCUMULATE": "#16a34a",
@@ -3232,7 +3237,7 @@ def _cached_scan():
 # AI PAPER TRADES — manual tracking of scanner signals
 # ═══════════════════════════════════════════════════════════════════
 
-AI_PAPER_TRADES_FILE = Path(__file__).resolve().parent.parent / "data" / "ai_paper_trades.csv"
+AI_PAPER_TRADES_FILE = DATA_DIR / "ai_paper_trades.csv"
 
 def _pt_cols():
     return [

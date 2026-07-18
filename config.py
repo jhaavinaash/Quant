@@ -1,22 +1,51 @@
 from pathlib import Path
 import os
 
+
+def _resolve_dir(base: Path, name: str) -> Path:
+    """Find a folder under base, matching name case-insensitively (Windows-safe)."""
+    direct = base / name
+    if direct.exists():
+        return direct
+    target = name.lower()
+    for child in base.iterdir():
+        if child.is_dir() and child.name.lower() == target:
+            return child
+    return direct
+
+
 BASE_DIR = Path(__file__).resolve().parent
 
+# Load local .env if present (home/office laptops)
+_env_file = BASE_DIR / ".env"
+if _env_file.exists():
+    for _line in _env_file.read_text(encoding="utf-8").splitlines():
+        _line = _line.strip()
+        if not _line or _line.startswith("#") or "=" not in _line:
+            continue
+        _key, _val = _line.split("=", 1)
+        os.environ.setdefault(_key.strip(), _val.strip().strip('"').strip("'"))
+
+DATA_DIR = _resolve_dir(BASE_DIR, "Data")
+SIGNALS_DIR = _resolve_dir(BASE_DIR, "Signals")
+PORTFOLIO_DIR = _resolve_dir(BASE_DIR, "Portfolio")
+ENGINE_DIR = _resolve_dir(BASE_DIR, "Engines")
+LOGS_DIR = _resolve_dir(BASE_DIR, "logs")
+LOGS_DIR.mkdir(parents=True, exist_ok=True)
+
 # --- Core files ---
-MASTER_SIGNALS_FILE = BASE_DIR / "signals" / "master_signals.csv"
-ENGINE_STATUS_FILE = BASE_DIR / "data" / "engine_status.csv"
-ALERT_LOG_FILE = BASE_DIR / "logs" / "alerts.log"
-BLOCKED_LOG_FILE = BASE_DIR / "portfolio" / "blocked_signals.csv"
-TRADES_LOG_FILE = BASE_DIR / "portfolio" / "trades_log.csv"
-RESULT_CALENDAR_FILE = BASE_DIR / "data" / "result_calendar.csv"
-PRICE_FILE = BASE_DIR / "data" / "stock_prices_clean.csv"
-UNIVERSE_FILE = BASE_DIR / "data" / "sector_map_fixed.csv"
+MASTER_SIGNALS_FILE = SIGNALS_DIR / "master_signals.csv"
+ENGINE_STATUS_FILE = DATA_DIR / "engine_status.csv"
+ALERT_LOG_FILE = LOGS_DIR / "alerts.log"
+BLOCKED_LOG_FILE = PORTFOLIO_DIR / "blocked_signals.csv"
+TRADES_LOG_FILE = PORTFOLIO_DIR / "trades_log.csv"
+RESULT_CALENDAR_FILE = DATA_DIR / "result_calendar.csv"
+PRICE_FILE = DATA_DIR / "stock_prices_clean.csv"
+UNIVERSE_FILE = DATA_DIR / "sector_map_fixed.csv"
+NIFTY500_UNIVERSE_FILE = DATA_DIR / "nifty500_universe.csv"
+FLASHER_TRACKED_FILE = DATA_DIR / "flasher_tracked_trades.csv"
 
 # --- Engines ---
-# Keep these as canonical names in your project folder.
-ENGINE_DIR = BASE_DIR / "engines"
-
 ENGINE_SPECS = [
     {"engine": "E1", "path": ENGINE_DIR / "mrpt_engine1_screener_fixed.py"},
     {"engine": "E2", "path": ENGINE_DIR / "engine2_screener.py"},
@@ -45,18 +74,18 @@ DEFAULT_MAX_POSITIONS = {
     "E6": 3,
 }
 
-# --- Alerts ---
-TELEGRAM_BOT_TOKEN = "8914697078:AAHEHuUehbua4YIRTK-v04QW9Y09UPQumIk"
-TELEGRAM_CHAT_ID   = "5840693995"
-EMAIL_SMTP_HOST    = "smtp.gmail.com"
-EMAIL_SMTP_PORT    = 587
-EMAIL_SENDER       = "jhaavinaash@gmail.com"
-EMAIL_PASSWORD     = "rzwr xdnw kbvo dyof"
-EMAIL_RECEIVER     = "jhaavinaash@gmail.com"
+# --- Alerts (set in .env — see .env.example) ---
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "")
+TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "")
+EMAIL_SMTP_HOST = os.getenv("EMAIL_SMTP_HOST", "smtp.gmail.com")
+EMAIL_SMTP_PORT = int(os.getenv("EMAIL_SMTP_PORT", "587"))
+EMAIL_SENDER = os.getenv("EMAIL_SENDER", "")
+EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD", "")
+EMAIL_RECEIVER = os.getenv("EMAIL_RECEIVER", "")
 
 # --- Dashboard ---
 DASHBOARD_TITLE = "Trading Control Center"
 REFRESH_SECONDS = int(os.getenv("DASHBOARD_REFRESH_SECONDS", "0"))
 
 # --- Google Sheets Portfolio ---
-PORTFOLIO_GSHEET_ID = "1j2_oAF4U4z0yGV2s4GA4MS1oLrql5hbG-YF5hmaENGs"
+PORTFOLIO_GSHEET_ID = os.getenv("PORTFOLIO_GSHEET_ID", "")

@@ -5,15 +5,16 @@ import pandas as pd
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(BASE_DIR))
-sys.path.insert(0, str(BASE_DIR / "engines"))
-from config import ENGINE_STATUS_FILE
+from config import ENGINE_STATUS_FILE, ENGINE_DIR, MASTER_SIGNALS_FILE
+sys.path.insert(0, str(ENGINE_DIR))
 try:
     from config import RESULT_CALENDAR_FILE, BLOCKED_LOG_FILE
 except Exception:
-    RESULT_CALENDAR_FILE = BASE_DIR / "data" / "result_calendar.csv"
-    BLOCKED_LOG_FILE = BASE_DIR / "portfolio" / "blocked_signals.csv"
+    from config import DATA_DIR, PORTFOLIO_DIR
+    RESULT_CALENDAR_FILE = DATA_DIR / "result_calendar.csv"
+    BLOCKED_LOG_FILE = PORTFOLIO_DIR / "blocked_signals.csv"
 
-SIGNALS_FILE = BASE_DIR / "signals" / "master_signals.csv"
+SIGNALS_FILE = MASTER_SIGNALS_FILE
 SIGNALS_FILE.parent.mkdir(parents=True, exist_ok=True)
 
 RESULT_WINDOW_DAYS = 5   # block fresh entries if results are within N days
