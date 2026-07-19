@@ -3291,12 +3291,15 @@ with tab7:
                     .format(fmt, na_rep="—")
                 )
             except AttributeError:
-                styled = (
-                    disp.style
-                    .apply(_bg, axis=1)
-                    .applymap(_num, subset=["P&L ₹", "Return %", "Sector Bias %"])
-                    .format(fmt, na_rep="—")
-                )
+                try:
+                    styled = (
+                        disp.style
+                        .apply(_bg, axis=1)
+                        .applymap(_num, subset=["P&L ₹", "Return %", "Sector Bias %"])
+                        .format(fmt, na_rep="—")
+                    )
+                except AttributeError:
+                    styled = disp
 
             st.dataframe(styled, use_container_width=True, hide_index=True)
 
@@ -3825,12 +3828,15 @@ with tab8:
                         .format(fmt, na_rep="—")
                     )
                 except AttributeError:
-                    styled = (
-                        df_sb.style
-                        .applymap(_score_color, subset=["Score"])
-                        .applymap(_pct_color,   subset=["1M %", "vs Nifty"])
-                        .format(fmt, na_rep="—")
-                    )
+                    try:
+                        styled = (
+                            df_sb.style
+                            .applymap(_score_color, subset=["Score"])
+                            .applymap(_pct_color,   subset=["1M %", "vs Nifty"])
+                            .format(fmt, na_rep="—")
+                        )
+                    except AttributeError:
+                        styled = df_sb
 
                 st.dataframe(styled, use_container_width=True, hide_index=True)
 
@@ -3978,12 +3984,15 @@ with tab8:
                         .format(fmt, na_rep="—")
                     )
                 except AttributeError:
-                    styled = (
-                        df_sec.style
-                        .applymap(_sec_color, subset=["Avg Score", "Top Stock Score"])
-                        .applymap(_mom_color, subset=["1M Momentum %"])
-                        .format(fmt, na_rep="—")
-                    )
+                    try:
+                        styled = (
+                            df_sec.style
+                            .applymap(_sec_color, subset=["Avg Score", "Top Stock Score"])
+                            .applymap(_mom_color, subset=["1M Momentum %"])
+                            .format(fmt, na_rep="—")
+                        )
+                    except AttributeError:
+                        styled = df_sec
 
                 st.dataframe(styled, use_container_width=True, hide_index=True)
 
