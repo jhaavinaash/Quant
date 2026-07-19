@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Market Mood Research — Objective-Drift Audit</title>
+  <style>
+:root {
+  --bg: #ffffff;
+  --text: #1a1a1a;
+  --muted: #555;
+  --border: #d9dee7;
+  --accent: #0f4c81;
+  --accent-light: #e8f1f8;
+  --valid: #1b6b3a;
+  --warn: #9a6700;
+  --discard: #a12622;
+  --code-bg: #f4f6f8;
+}
+* { box-sizing: border-box; }
+body {
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  line-height: 1.55;
+  color: var(--text);
+  background: #eef1f5;
+  margin: 0;
+  padding: 0;
+}
+.wrapper {
+  max-width: 980px;
+  margin: 0 auto;
+  background: var(--bg);
+  box-shadow: 0 2px 24px rgba(0,0,0,.08);
+}
+header {
+  background: linear-gradient(135deg, #0f4c81, #1a6fb0);
+  color: #fff;
+  padding: 2rem 2.5rem 1.5rem;
+}
+header h1 {
+  margin: 0 0 .5rem;
+  font-size: 1.75rem;
+  line-height: 1.25;
+}
+header .meta {
+  opacity: .92;
+  font-size: .95rem;
+}
+.download-bar {
+  background: var(--accent-light);
+  border-bottom: 1px solid var(--border);
+  padding: .75rem 2.5rem;
+  font-size: .92rem;
+}
+.download-bar strong { color: var(--accent); }
+main { padding: 2rem 2.5rem 3rem; }
+h2 {
+  color: var(--accent);
+  border-bottom: 2px solid var(--accent-light);
+  padding-bottom: .35rem;
+  margin-top: 2.25rem;
+}
+h3 { margin-top: 1.5rem; color: #243447; }
+h4 { margin-top: 1.25rem; color: #36465d; }
+p, li { font-size: 1rem; }
+blockquote {
+  margin: 1rem 0;
+  padding: .85rem 1rem;
+  border-left: 4px solid var(--accent);
+  background: var(--accent-light);
+  font-style: italic;
+}
+hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 2rem 0;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0 1.5rem;
+  font-size: .92rem;
+}
+th, td {
+  border: 1px solid var(--border);
+  padding: .55rem .65rem;
+  vertical-align: top;
+  text-align: left;
+}
+th {
+  background: #f0f4f8;
+  font-weight: 600;
+}
+tr:nth-child(even) td { background: #fafbfc; }
+code, pre {
+  font-family: Consolas, "Courier New", monospace;
+  font-size: .88rem;
+}
+pre {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: .85rem 1rem;
+  overflow-x: auto;
+  white-space: pre-wrap;
+}
+ul { padding-left: 1.25rem; }
+strong.valid { color: var(--valid); }
+strong.warn { color: var(--warn); }
+strong.discard { color: var(--discard); }
+footer {
+  border-top: 1px solid var(--border);
+  padding: 1rem 2.5rem 1.5rem;
+  color: var(--muted);
+  font-size: .85rem;
+}
+@media print {
+  body { background: #fff; }
+  .wrapper { box-shadow: none; max-width: none; }
+  .download-bar { display: none; }
+  header { background: #0f4c81; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  h2 { break-after: avoid; }
+  table, pre, blockquote { break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      <h1>Market Mood Research — Objective-Drift Audit</h1>
+      <div class="meta">Quant Center · Independent Research Audit · July 2026</div>
+    </header>
+    <div class="download-bar">
+      <strong>How to save:</strong> Press <kbd>Ctrl+P</kbd> (or <kbd>Cmd+P</kbd> on Mac) and choose
+      <strong>Save as PDF</strong>, or use your browser's <strong>Save Page As</strong> option.
+    </div>
+    <main>
+<h2>Market Mood Research — Independent Objective-Drift Audit and Course Correction</h2>
+<h2>Executive conclusion</h2>
+<p>The permanent project objective reconstructed from the Quant Center codebase is:</p>
+<blockquote><p>Build a Market Intelligence Engine that improves decisions across the Quant Center stock universe—including stock selection, portfolio construction, Risk-O-Meter, and F1. It is not an index prediction model.</p></blockquote>
+<p>Production evidence supports this objective:</p>
+<ul>
+<li>`core/orchestrator.py` runs stock-selection engines and writes ticker-level signals.</li>
+<li>`Engines/` contains per-stock screening, ranking, sizing, stop, and target logic.</li>
+<li>`core/ai_scanner.py` produces per-stock BUY/WATCH/EXIT decisions.</li>
+<li>Quant Center&#x27;s F1 services consume ranked per-stock decisions and construct portfolios.</li>
+<li>Index and breadth measures appear primarily as context or entry gates, not as the product being forecast.</li>
+</ul>
+<p>The research objective drift began in Phase 2 when the equal-weight mean price of the available stock universe was named `index_close` and made the primary target for forward-return prediction. Phase 3 then converted those index-return relationships into market states and allocation recommendations. That conversion was not justified for stock selection, F1, or portfolio construction.</p>
+<p>The Phase 3 audit corrected statistical reliability problems but retained index outcomes as the regime target. Phase 4 moved closer to the correct objective by treating stress as a drawdown-risk layer, but its validation and weights still use an equal-weight index proxy rather than actual Quant Center portfolio and stock-universe decision outcomes.</p>
+<p>Therefore:</p>
+<ul>
+<li>Keep the descriptive breadth/factor constructions.</li>
+<li>Keep the statistical reliability standards.</li>
+<li>Keep the Stress Layer concept as a defensive risk feature.</li>
+<li>Discard the original Phase 3 states and allocation recommendations.</li>
+<li>Revalidate all weights, boundaries, states, and Risk-O-Meter mappings against stock-universe, F1, and portfolio outcomes.</li>
+</ul>
+<hr>
+<h2>1. Reconstructed project objective</h2>
+<h3>What the project actually does</h3>
+<table>
+<tr><th>Project function</th><th>Evidence</th><th>Correct Market Intelligence role</th></tr>
+<tr><td>Stock screening</td><td>`Engines/`, `core/orchestrator.py`</td><td>Improve candidate quality and timing</td></tr>
+<tr><td>Stock ranking</td><td>`core/ai_scanner.py`, F1 decision feed</td><td>Improve cross-sectional selection</td></tr>
+<tr><td>Portfolio construction</td><td>`config.py`, F1/F1 Basket services</td><td>Control deployment, sizing, concentration, and turnover</td></tr>
+<tr><td>Risk control</td><td>Breadth gates, earnings blocks, stops, Phase 4 stress design</td><td>Throttle exposure and protect capital</td></tr>
+<tr><td>F1</td><td>Ranked BUY/ROTATE/BLOCK/WATCH decisions</td><td>Improve deployment and portfolio rotation</td></tr>
+</table>
+<h3>What the project is not</h3>
+<p>It is not designed to:</p>
+<ul>
+<li>Forecast Nifty direction as its primary output.</li>
+<li>Maximize correlation with index forward returns.</li>
+<li>Treat a positive index return as sufficient evidence that stock-selection decisions improved.</li>
+<li>Derive portfolio allocation solely from expected index returns.</li>
+</ul>
+<h3>Correct research question</h3>
+<p>The correct question is not:</p>
+<blockquote><p>Does this factor predict the market index return?</p></blockquote>
+<p>It is:</p>
+<blockquote><p>Does this information improve the quality, risk, selectivity, sizing, and deployment decisions of Quant Center&#x27;s stock universe and portfolios?</p></blockquote>
+<hr>
+<h2>2. Where objective drift occurred</h2>
+<h3>Initial methodological drift</h3>
+<p>`research/market_mood_phase2/scripts/build_market_breadth.py` creates:</p>
+<pre>index_close = equal-weight mean of constituent closing prices</pre>
+<p>That synthetic series is useful as a broad universe condition indicator. The drift occurred when it became the optimization target rather than a contextual variable.</p>
+<h3>Consequences of the drift</h3>
+<p>1. Factor predictive power became synonymous with index-return IC.</p>
+<p>2. Factor weights were chosen from index-return correlations.</p>
+<p>3. LOW/MEDIUM/HIGH boundaries were selected to separate 10-day index returns.</p>
+<p>4. Market states were named and ranked from index outcomes.</p>
+<p>5. Risk-O-Meter actions were inferred from index expectancy.</p>
+<p>6. No analysis tested whether the factors improved:</p>
+<p>- stock-selection hit rate,</p>
+<p>- cross-sectional alpha,</p>
+<p>- F1 ranking quality,</p>
+<p>- basket return or drawdown,</p>
+<p>- portfolio concentration,</p>
+<p>- turnover,</p>
+<p>- deployment timing,</p>
+<p>- or capital efficiency.</p>
+<hr>
+<h2>3. Phase-by-phase classification</h2>
+<h2>Phase 1</h2>
+<p>No Phase 1 research artifacts or `market_mood.csv` are present in this repository.</p>
+<table>
+<tr><th>Conclusion or artifact</th><th>Classification</th><th>Reason</th></tr>
+<tr><td>Any Phase 1 thresholds, weights, or Driving Modes</td><td><strong class="needs-revalidation">Needs revalidation</strong></td><td>Source evidence is unavailable; they cannot be independently audited</td></tr>
+<tr><td>General idea of market context influencing stock decisions</td><td><strong class="still-valid">Still valid</strong></td><td>Consistent with production breadth gates and stock-selection architecture</td></tr>
+</table>
+<p>Phase 1 must be supplied or reconstructed before any claim that the entire historical chain has been validated.</p>
+<hr>
+<h2>Phase 2 — Factor predictive validation</h2>
+<h3>Still valid</h3>
+<table>
+<tr><th>Conclusion</th><th>Reason</th></tr>
+<tr><td>Trend Regime, Relative Leadership, and Participation Impulse are coherent condition descriptors</td><td>They are computed from contemporaneous price/breadth information and describe the stock universe</td></tr>
+<tr><td>Breadth, leadership, participation, and trend should remain independent during research</td><td>Prevents a final score from hiding weak components</td></tr>
+<tr><td>Quintile, monotonicity, IC, and interaction analysis are useful statistical tools</td><td>The tools remain valid when applied to the correct outcomes</td></tr>
+<tr><td>Large-sample interaction analysis is preferable to anecdotal thresholds</td><td>Methodologically sound</td></tr>
+</table>
+<h3>Needs reinterpretation</h3>
+<table>
+<tr><th>Conclusion</th><th>Required reinterpretation</th></tr>
+<tr><td>Relative Leadership was the strongest factor</td><td>It was strongest for the synthetic equal-weight index return, not necessarily for stock ranking or F1</td></tr>
+<tr><td>Participation Impulse had useful short-term predictive value</td><td>Treat as a possible deployment/selectivity indicator, not an index forecast</td></tr>
+<tr><td>Trend Regime was more useful at longer horizons</td><td>This may describe holding-environment quality, but does not prove better portfolio outcomes</td></tr>
+<tr><td>High Trend + High Participation was favorable</td><td>A supportive universe condition hypothesis, not evidence to increase allocation</td></tr>
+</table>
+<h3>Needs revalidation</h3>
+<table>
+<tr><th>Conclusion</th><th>Correct revalidation target</th></tr>
+<tr><td>Weights: Trend 23%, Leadership 41%, Participation 36%</td><td>Conditional stock returns, F1 rank spread, basket P&amp;L, portfolio drawdown</td></tr>
+<tr><td>No factor should be removed</td><td>Incremental decision value after controlling for overlap</td></tr>
+<tr><td>IC magnitudes and quintile spreads</td><td>Stock-level and portfolio-level outcomes</td></tr>
+<tr><td>Factor interactions</td><td>Engine/F1 hit rate, payoff ratio, drawdown, turnover, breadth of usable opportunities</td></tr>
+</table>
+<h3>Must be discarded</h3>
+<table>
+<tr><th>Conclusion</th><th>Reason</th></tr>
+<tr><td>“Proceed to implementation” based on Phase 2</td><td>The implementation gate was tied to index-return IC and combination return spread</td></tr>
+<tr><td>Index predictive power as proof of Quant Center decision value</td><td>Wrong objective</td></tr>
+</table>
+<hr>
+<h2>Phase 3 — Market states and Driving Mode thresholds</h2>
+<h3>Still valid</h3>
+<table>
+<tr><th>Conclusion</th><th>Reason</th></tr>
+<tr><td>Factor distributions can supply natural boundaries</td><td>Distributional analysis is appropriate, but target-assisted selection must be removed</td></tr>
+<tr><td>Combination cells require sample-count reporting</td><td>Essential governance</td></tr>
+<tr><td>State persistence and transition frequency matter</td><td>Relevant to preventing excessive portfolio churn</td></tr>
+</table>
+<h3>Needs reinterpretation</h3>
+<table>
+<tr><th>Conclusion</th><th>Required reinterpretation</th></tr>
+<tr><td>LOW/MEDIUM/HIGH categories are useful</td><td>They should describe universe conditions, not index-return bands</td></tr>
+<tr><td>Market states can simplify decision policy</td><td>States should map to selection breadth, portfolio risk, and deployment conditions</td></tr>
+</table>
+<h3>Needs revalidation</h3>
+<table>
+<tr><th>Conclusion</th><th>Correct revalidation</th></tr>
+<tr><td>Numeric factor boundaries</td><td>Derive using rolling distributions and validate against decision outcomes</td></tr>
+<tr><td>Number of states</td><td>Select using stability plus separation in portfolio/F1 outcomes</td></tr>
+<tr><td>Transition and duration properties</td><td>Recompute after states are rebuilt on correct outcomes</td></tr>
+</table>
+<h3>Must be discarded</h3>
+<table>
+<tr><th>Conclusion</th><th>Reason</th></tr>
+<tr><td>Fog, City, and Mixed Terrain states</td><td>Built partly from index-return profiles; City had only 14 days</td></tr>
+<tr><td>City/Fog → increase allocation</td><td>No evidence from Quant Center portfolios or F1</td></tr>
+<tr><td>Raw combination rankings led by cells with seven observations</td><td>Statistically unreliable</td></tr>
+<tr><td>“Proceed to implementation”</td><td>Superseded by the audit and invalid under the correct objective</td></tr>
+</table>
+<hr>
+<h2>Phase 3 reliability audit</h2>
+<h3>Still valid</h3>
+<table>
+<tr><th>Conclusion</th><th>Reason</th></tr>
+<tr><td>Seven-observation combinations must not outrank well-supported combinations without uncertainty adjustment</td><td>Universal statistical principle</td></tr>
+<tr><td>Report standard error, confidence intervals, and reliability</td><td>Required for any decision rule</td></tr>
+<tr><td>Recommended minimum cell size of approximately 30</td><td>Reasonable research governance floor</td></tr>
+<tr><td>Original Phase 3 states must not be implemented</td><td>Correct</td></tr>
+<tr><td>Opportunity factors alone do not reliably identify stress/bear conditions</td><td>Supported by the failure of all-three-LOW to isolate adverse outcomes</td></tr>
+<tr><td>Drawdown, downside volatility, new-low pressure, and persistence should be added</td><td>Directly relevant to capital protection</td></tr>
+</table>
+<h3>Needs reinterpretation</h3>
+<table>
+<tr><th>Conclusion</th><th>Required reinterpretation</th></tr>
+<tr><td>HIGH Trend + HIGH Leadership + HIGH Participation was the reliable leader</td><td>Reliable only for index-return evidence; treat as a hypothesis for broad stock opportunity</td></tr>
+<tr><td>Constructive/Caution/Capital Protection are appropriate names</td><td>Useful policy labels, not validated state definitions</td></tr>
+</table>
+<h3>Needs revalidation</h3>
+<table>
+<tr><th>Conclusion</th><th>Correct revalidation</th></tr>
+<tr><td>Three states are statistically optimal</td><td>Re-run clustering on stock/basket/portfolio behavior</td></tr>
+<tr><td>Outcome clusters</td><td>Use Quant Center outcomes, not index outcomes</td></tr>
+<tr><td>State allocation mappings</td><td>Test gross exposure, position count, and F1 deployment policies</td></tr>
+</table>
+<h3>Must be discarded</h3>
+<table>
+<tr><th>Conclusion</th><th>Reason</th></tr>
+<tr><td>Index-outcome clusters as final production states</td><td>They cluster the wrong outcomes</td></tr>
+</table>
+<hr>
+<h2>Phase 4 — Stress Layer</h2>
+<h3>Still valid</h3>
+<table>
+<tr><th>Conclusion</th><th>Reason</th></tr>
+<tr><td>Stress must be separate from opportunity</td><td>Prevents relief rallies from being mistaken for durable risk-on conditions</td></tr>
+<tr><td>New-low pressure and breadth deterioration are strong stress candidates</td><td>They directly describe deterioration across the stock universe</td></tr>
+<tr><td>Drawdown, downside volatility, and breadth-failure persistence are relevant</td><td>Directly related to capital-protection decisions</td></tr>
+<tr><td>Stress predicts drawdown risk better than directional return</td><td>Correct conceptual use</td></tr>
+<tr><td>High stress can coexist with positive subsequent returns</td><td>Critical evidence against using stress as a short/index forecast</td></tr>
+<tr><td>Stress should act as an independent defensive override</td><td>Aligned with Risk-O-Meter purpose</td></tr>
+<tr><td>Walk-forward testing is required before implementation</td><td>Correct</td></tr>
+</table>
+<h3>Needs reinterpretation</h3>
+<table>
+<tr><th>Conclusion</th><th>Required reinterpretation</th></tr>
+<tr><td>Stress Index predicts “market drawdown”</td><td>It predicts drawdown of the equal-weight universe proxy; interpret as a candidate portfolio-risk feature</td></tr>
+<tr><td>Highest stress means Capital Protection</td><td>It may justify a risk review or throttle, but the action must depend on actual portfolio/F1 outcomes</td></tr>
+</table>
+<h3>Needs revalidation</h3>
+<table>
+<tr><th>Conclusion</th><th>Correct revalidation</th></tr>
+<tr><td>Stress Index weights</td><td>Walk-forward portfolio drawdown, basket tail loss, and F1 adverse-selection outcomes</td></tr>
+<tr><td>20-day drawdown IC of 0.214</td><td>Recalculate for Quant Center baskets and strategy books</td></tr>
+<tr><td>Stress quintile thresholds</td><td>Evaluate false positives, lead time, opportunity cost, and recovery behavior</td></tr>
+<tr><td>Combined opportunity-state × stress policy</td><td>Simulate actual deployment and sizing decisions</td></tr>
+</table>
+<h3>Must be discarded</h3>
+<p>No Phase 4 factor family needs to be discarded solely because of objective drift. However, none of its exact weights or thresholds is production-valid yet.</p>
+<hr>
+<h2>4. Master conclusion register</h2>
+<table>
+<tr><th>Research conclusion</th><th>Classification</th></tr>
+<tr><td>Breadth history is useful for universe-condition analysis</td><td><strong class="still-valid">Still valid</strong></td></tr>
+<tr><td>Trend/Leadership/Participation factor definitions</td><td><strong class="still-valid">Still valid</strong> as descriptors</td></tr>
+<tr><td>Independent factor analysis</td><td><strong class="still-valid">Still valid</strong></td></tr>
+<tr><td>Statistical reliability metrics and minimum sample rules</td><td><strong class="still-valid">Still valid</strong></td></tr>
+<tr><td>Opportunity factors alone miss stress regimes</td><td><strong class="still-valid">Still valid</strong></td></tr>
+<tr><td>Add Stress Layer</td><td><strong class="still-valid">Still valid</strong></td></tr>
+<tr><td>Stress is a drawdown-risk layer, not directional forecast</td><td><strong class="still-valid">Still valid</strong></td></tr>
+<tr><td>Phase 2 factor ranking</td><td><strong class="needs-reinterpretation">Needs reinterpretation</strong></td></tr>
+<tr><td>Phase 2 combination results</td><td><strong class="needs-reinterpretation">Needs reinterpretation</strong></td></tr>
+<tr><td>Phase 3 state concept</td><td><strong class="needs-reinterpretation">Needs reinterpretation</strong></td></tr>
+<tr><td>Three policy labels: Constructive/Caution/Capital Protection</td><td><strong class="needs-reinterpretation">Needs reinterpretation</strong></td></tr>
+<tr><td>Phase 2 weights</td><td><strong class="needs-revalidation">Needs revalidation</strong></td></tr>
+<tr><td>Phase 3 boundaries</td><td><strong class="needs-revalidation">Needs revalidation</strong></td></tr>
+<tr><td>Phase 3 state count</td><td><strong class="needs-revalidation">Needs revalidation</strong></td></tr>
+<tr><td>Phase 3 audit outcome clusters</td><td><strong class="needs-revalidation">Needs revalidation</strong></td></tr>
+<tr><td>Phase 4 Stress Index weights and thresholds</td><td><strong class="needs-revalidation">Needs revalidation</strong></td></tr>
+<tr><td>Any F1 integration claim</td><td>Needs revalidation from scratch</td></tr>
+<tr><td>Phase 2 “Proceed to implementation”</td><td><strong class="must-be-discarded">Must be discarded</strong></td></tr>
+<tr><td>Phase 3 Fog/City/Mixed Terrain states</td><td><strong class="must-be-discarded">Must be discarded</strong></td></tr>
+<tr><td>Phase 3 allocation recommendations</td><td><strong class="must-be-discarded">Must be discarded</strong></td></tr>
+<tr><td>Phase 3 “Proceed to implementation”</td><td><strong class="must-be-discarded">Must be discarded</strong></td></tr>
+</table>
+<hr>
+<h2>5. Correct outcome framework</h2>
+<p>Future Market Intelligence research must evaluate whether information available on day *t* improves decisions made after day *t*.</p>
+<h3>Stock-selection outcomes</h3>
+<ul>
+<li>Forward return of selected stocks.</li>
+<li>Return relative to the eligible universe.</li>
+<li>Rank IC across stocks, not time-series IC against an index.</li>
+<li>Top-minus-bottom rank spread.</li>
+<li>Hit rate, payoff ratio, and downside tail.</li>
+<li>Number and quality of actionable candidates.</li>
+<li>Performance separately for each engine and F1.</li>
+</ul>
+<h3>Portfolio-construction outcomes</h3>
+<ul>
+<li>Basket return and drawdown.</li>
+<li>Volatility and downside semivariance.</li>
+<li>Concentration and sector exposure.</li>
+<li>Turnover and transaction-cost-adjusted performance.</li>
+<li>Position overlap across engines.</li>
+<li>Capital utilization and idle cash.</li>
+<li>Tail loss and recovery time.</li>
+</ul>
+<h3>Risk-O-Meter outcomes</h3>
+<ul>
+<li>Reduction in portfolio maximum drawdown.</li>
+<li>Reduction in ≥3%, ≥5%, and ≥10% loss-event frequency.</li>
+<li>False defensive signals and missed upside.</li>
+<li>Warning lead time before adverse portfolio events.</li>
+<li>Improvement in risk-adjusted return after throttling.</li>
+<li>Stability and turnover of allocation states.</li>
+</ul>
+<h3>F1 outcomes</h3>
+<ul>
+<li>PortfolioRank monotonicity.</li>
+<li>BUY versus WATCH/BLOCK forward spread.</li>
+<li>Deployment success by market state.</li>
+<li>ROTATE decision quality.</li>
+<li>Basket return, drawdown, and recovery.</li>
+<li>Effect of state-conditioned position count and capital per pick.</li>
+</ul>
+<p>The broad-market or equal-weight universe return may remain:</p>
+<ul>
+<li>a benchmark,</li>
+<li>a control variable,</li>
+<li>a regime descriptor,</li>
+<li>or a relative-return denominator.</li>
+</ul>
+<p>It must not remain the sole optimization target.</p>
+<hr>
+<h2>6. Course-corrected research architecture</h2>
+<pre>Contemporaneous universe information
+    ├── Trend Layer
+    ├── Leadership Layer
+    ├── Participation Layer
+    └── Stress Layer
+            ↓
+Decision-context model
+            ↓
+    ┌──────────────────────────────────────┐
+    │ Stock selection / rank thresholds    │
+    │ Portfolio sizing / concentration     │
+    │ Risk-O-Meter exposure throttle       │
+    │ F1 deployment / rotation policy      │
+    └──────────────────────────────────────┘
+            ↓
+Evaluation on stock, F1, and portfolio outcomes</pre>
+<p>Market Intelligence should estimate the quality and risk of the opportunity set—not predict a single index path.</p>
+<hr>
+<h2>7. Required course correction</h2>
+<h3>Step 1 — Freeze invalid production conclusions</h3>
+<p>Do not use:</p>
+<ul>
+<li>Phase 2 weights,</li>
+<li>Phase 3 boundaries,</li>
+<li>Phase 3 state labels,</li>
+<li>Phase 3 allocation rules,</li>
+<li>or current Stress Index thresholds</li>
+</ul>
+<p>in production.</p>
+<h3>Step 2 — Rebuild the research panel</h3>
+<p>Create a point-in-time daily panel containing:</p>
+<ul>
+<li>eligible universe constituents,</li>
+<li>factor values,</li>
+<li>engine signals,</li>
+<li>F1 decisions and ranks,</li>
+<li>holdings and portfolio state,</li>
+<li>forward stock outcomes,</li>
+<li>and forward portfolio outcomes.</li>
+</ul>
+<p>Universe membership must be point-in-time to reduce survivorship bias.</p>
+<h3>Step 3 — Revalidate factor usefulness</h3>
+<p>For each factor, test:</p>
+<ul>
+<li>cross-sectional stock rank IC,</li>
+<li>conditional signal hit rate,</li>
+<li>selected-versus-universe excess return,</li>
+<li>and incremental value after controlling for the other factors.</li>
+</ul>
+<h3>Step 4 — Revalidate Stress Layer</h3>
+<p>Test whether stress:</p>
+<ul>
+<li>predicts portfolio drawdown and tail loss,</li>
+<li>improves sizing decisions,</li>
+<li>reduces loss-event frequency,</li>
+<li>and provides useful warning lead time without excessive opportunity cost.</li>
+</ul>
+<h3>Step 5 — Joint policy simulation</h3>
+<p>Evaluate:</p>
+<pre>Opportunity condition × Stress condition
+    → entry threshold
+    → number of positions
+    → capital per position
+    → gross exposure
+    → F1 deployment/rotation policy</pre>
+<p>Compare each policy with unchanged Quant Center behavior.</p>
+<h3>Step 6 — Walk-forward governance</h3>
+<p>All thresholds and weights must be estimated on historical training windows and evaluated on later unseen periods. Report:</p>
+<ul>
+<li>parameter stability,</li>
+<li>state frequency,</li>
+<li>transition stability,</li>
+<li>confidence intervals,</li>
+<li>turnover,</li>
+<li>false positives,</li>
+<li>and out-of-sample portfolio impact.</li>
+</ul>
+<h3>Step 7 — Expand to the future Nifty 750 universe</h3>
+<p>Repeat validation when the point-in-time Nifty 750 universe is available. Current results use a substantially smaller stock history and cannot automatically generalize.</p>
+<hr>
+<h2>Final independent recommendation</h2>
+<p>The Market Mood research contains useful raw ingredients but does not yet validate a production Market Intelligence Engine for Quant Center.</p>
+<p>The correct disposition is:</p>
+<ul>
+<li>Retain: factor constructions, breadth methodology, reliability governance, Stress Layer concept, and drawdown-not-direction interpretation.</li>
+<li>Reinterpret: index-based evidence as preliminary universe-context evidence.</li>
+<li>Revalidate: all weights, thresholds, interactions, states, and Risk-O-Meter/F1 mappings using stock and portfolio outcomes.</li>
+<li>Discard: Phase 2 and original Phase 3 implementation recommendations, original Phase 3 states, and index-return-derived allocation actions.</li>
+</ul>
+<p>The next phase should not ask whether Market Mood predicts an index. It should ask whether Market Intelligence measurably improves Quant Center&#x27;s stock selection, portfolio construction, capital protection, and F1 decisions out of sample.</p>
+    </main>
+    <footer>
+      Generated from MARKET_MOOD_OBJECTIVE_DRIFT_AUDIT.md · Quant Center Market Intelligence research
+    </footer>
+  </div>
+</body>
+</html>
