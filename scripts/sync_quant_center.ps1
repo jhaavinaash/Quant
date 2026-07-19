@@ -16,6 +16,7 @@ $Source = Split-Path $PSScriptRoot -Parent
 
 $items = @(
     "dashboard",
+    "market_intelligence",
     "core",
     "alerts",
     "Data",

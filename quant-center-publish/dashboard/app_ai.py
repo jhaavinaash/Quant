@@ -34,7 +34,7 @@ from core.ai_scanner import (
     CAPITAL_PER_PICK,
     EXIT_THRESHOLD,
 )
-from config import UNIVERSE_FILE, RESULT_CALENDAR_FILE
+from config import PRICE_FILE, UNIVERSE_FILE, RESULT_CALENDAR_FILE
 from config import (
     BASE_DIR,
     DATA_DIR,
@@ -54,6 +54,18 @@ except Exception:
     ENGINE_RULES = {}
 from core.utils import safe_read_csv
 from core.news_fetcher import get_portfolio_news
+from market_intelligence import (
+    TRADING_APPROACH_SCOPE,
+    DrivingModeName,
+    LeadershipState,
+    ParticipationState,
+    StressState,
+    TrendState,
+    calculate_market_intelligence,
+    determine_driving_mode,
+    interpret_market_intelligence,
+    trading_approach_guidance,
+)
 
 
 # =====================================================
@@ -1170,10 +1182,113 @@ def _calc_engine_health(trades_df):
     return pd.DataFrame(rows) if rows else pd.DataFrame()
 
 
+_BRIEFING_PERCENTAGE_METRICS = {
+    "distance_from_medium",
+    "distance_from_long",
+    "above_medium_share",
+    "above_long_share",
+    "medium_breadth_change",
+    "positive_return_share",
+    "positive_sector_share",
+    "universe_drawdown",
+    "new_low_share",
+    "persistent_breadth_change",
+    "downside_deviation",
+}
+
+
+def _format_briefing_metric(name, value):
+    if value is None:
+        return "Unavailable"
+    if name == "as_of":
+        return pd.Timestamp(value).strftime("%d %b %Y")
+    if name in _BRIEFING_PERCENTAGE_METRICS:
+        return f"{float(value):.1%}"
+    if name == "leadership_concentration":
+        return f"{float(value):.4f}"
+    if name in {"universe_level", "medium_average", "long_average"}:
+        return f"{float(value):.4f}"
+    if name == "effective_leader_count":
+        return f"{float(value):.1f}"
+    return str(value)
+
+
+def _briefing_metric_table(metrics):
+    return pd.DataFrame(
+        [
+            {
+                "Metric": name.replace("_", " ").title(),
+                "Value": _format_briefing_metric(name, value),
+            }
+            for name, value in metrics.items()
+        ]
+    )
+
+
+def _briefing_key_points(conditions):
+    dimensions = [
+        ("Trend", conditions.trend),
+        ("Participation", conditions.participation),
+        ("Leadership", conditions.leadership),
+        ("Stress", conditions.stress),
+    ]
+    positive_states = {
+        TrendState.STRONG,
+        ParticipationState.BROAD,
+        LeadershipState.BROAD,
+        StressState.LOW,
+    }
+    risk_states = {
+        TrendState.WEAK,
+        TrendState.UNAVAILABLE,
+        ParticipationState.NARROW,
+        ParticipationState.UNAVAILABLE,
+        LeadershipState.CONCENTRATED,
+        LeadershipState.WEAK,
+        LeadershipState.UNAVAILABLE,
+        StressState.ELEVATED,
+        StressState.HIGH,
+        StressState.UNAVAILABLE,
+    }
+    positives = [
+        f"**{name}:** {condition.explanation}"
+        for name, condition in dimensions
+        if condition.state in positive_states
+    ]
+    risks = [
+        f"**{name}:** {condition.explanation}"
+        for name, condition in dimensions
+        if condition.state in risk_states
+    ]
+    return positives, risks
+
+
+@st.cache_data(ttl=3600, show_spinner=False)
+def _cached_market_briefing():
+    """Build the read-only, engine-independent personal market briefing."""
+
+    prices = safe_read_csv(PRICE_FILE)
+    required_price_columns = {"Date", "Ticker", "Close"}
+    missing = required_price_columns.difference(prices.columns)
+    if prices.empty or missing:
+        missing_text = ", ".join(sorted(missing)) or "price rows"
+        raise ValueError(f"Market price history is missing: {missing_text}")
+
+    sectors = safe_read_csv(UNIVERSE_FILE)
+    intelligence = calculate_market_intelligence(
+        prices[["Date", "Ticker", "Close"]],
+        sectors if not sectors.empty else None,
+    )
+    conditions = interpret_market_intelligence(intelligence)
+    briefing = determine_driving_mode(conditions)
+    return intelligence, conditions, briefing, pd.Timestamp.now()
+
+
 # =====================================================
 # TABS
 # =====================================================
-tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10 = st.tabs([
+tab11, tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10 = st.tabs([
+    "Market Briefing",
     "Today Actions",
     "Open Positions",
     "Closed Trades",
@@ -4362,9 +4477,141 @@ with tab9:
             hide_index=False
         )
 
-    # =====================================================
-    # TAB 10 — GEMINI SCANNER
-    # =====================================================
+# =====================================================
+# TAB 10 — GEMINI SCANNER
+# =====================================================
+with tab10:
+    render_gemini_flasher_interface()
 
-    with tab10:
-                    render_gemini_flasher_interface()
+
+# =====================================================
+# TAB 11 — PERSONAL MARKET BRIEFING
+# =====================================================
+with tab11:
+    st.subheader("Today's Market Approach")
+    st.info(f"**Scope:** {TRADING_APPROACH_SCOPE}")
+
+    refresh_col, _ = st.columns([1, 5])
+    with refresh_col:
+        if st.button("Refresh briefing", key="refresh_market_briefing"):
+            _cached_market_briefing.clear()
+            st.rerun()
+
+    try:
+        intelligence, conditions, briefing, refreshed_at = (
+            _cached_market_briefing()
+        )
+        mode_colors = {
+            DrivingModeName.AGGRESSIVE: CLR_BULL,
+            DrivingModeName.NORMAL: CLR_INFO,
+            DrivingModeName.CAUTIOUS: CLR_WARN,
+            DrivingModeName.DEFENSIVE: CLR_BEAR,
+        }
+        mode_color = mode_colors[briefing.mode]
+        mode_col, confidence_col = st.columns(2)
+        with mode_col:
+            st.markdown(
+                kpi_card(
+                    "MARKET APPROACH",
+                    briefing.mode.value,
+                    mode_color,
+                    "Aggressive / Normal / Cautious / Defensive",
+                ),
+                unsafe_allow_html=True,
+            )
+        with confidence_col:
+            st.markdown(
+                kpi_card(
+                    "CONDITION AGREEMENT",
+                    briefing.confidence.value,
+                    CLR_INFO,
+                    "Confidence based on dimension agreement",
+                ),
+                unsafe_allow_html=True,
+            )
+
+        guidance = trading_approach_guidance(briefing.mode)
+        st.markdown("### One-line summary")
+        if briefing.mode == DrivingModeName.AGGRESSIVE:
+            st.success(guidance)
+        elif briefing.mode == DrivingModeName.NORMAL:
+            st.info(guidance)
+        elif briefing.mode == DrivingModeName.CAUTIOUS:
+            st.warning(guidance)
+        else:
+            st.error(guidance)
+
+        st.markdown("## Daily Market Brief")
+        st.markdown("### Why this approach was selected")
+        st.write(briefing.reason)
+
+        positives, risks = _briefing_key_points(conditions)
+        positive_col, risk_col = st.columns(2)
+        with positive_col:
+            st.markdown("### Key positives")
+            if positives:
+                for point in positives:
+                    st.markdown(f"- {point}")
+            else:
+                st.caption("No strongly supportive condition is present.")
+        with risk_col:
+            st.markdown("### Key risks")
+            if risks:
+                for point in risks:
+                    st.markdown(f"- {point}")
+            else:
+                st.caption("No elevated market-condition risk is present.")
+
+        raw_metrics = intelligence.as_dict()
+        st.markdown("## Market Conditions")
+        condition_sections = [
+            ("Trend", conditions.trend, raw_metrics["trend"]),
+            (
+                "Participation",
+                conditions.participation,
+                raw_metrics["participation"],
+            ),
+            (
+                "Leadership",
+                conditions.leadership,
+                raw_metrics["leadership"],
+            ),
+            ("Stress", conditions.stress, raw_metrics["stress"]),
+        ]
+        for title, condition, metrics in condition_sections:
+            with st.expander(
+                f"{title} — {condition.state.value}",
+                expanded=False,
+            ):
+                st.write(condition.explanation)
+                st.dataframe(
+                    _briefing_metric_table(metrics),
+                    use_container_width=True,
+                    hide_index=True,
+                )
+
+        with st.expander("Raw Metrics — Full Transparency", expanded=False):
+            st.caption(
+                "Complete calculated outputs exactly as returned by Market "
+                "Intelligence."
+            )
+            st.json(raw_metrics)
+
+        st.markdown("## Metadata")
+        data_col, universe_col, sector_col, refresh_time_col = st.columns(4)
+        data_col.metric(
+            "Data date",
+            intelligence.as_of.strftime("%d %b %Y"),
+        )
+        universe_col.metric("Universe size", intelligence.universe_size)
+        sector_col.metric(
+            "Sector coverage",
+            f"{intelligence.leadership.sector_count} sectors",
+        )
+        refresh_time_col.metric(
+            "Last refresh time",
+            refreshed_at.strftime("%d %b %Y · %H:%M:%S"),
+        )
+
+    except Exception as exc:
+        st.error(f"Market briefing is unavailable: {exc}")

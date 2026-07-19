@@ -1287,7 +1287,8 @@ def _cached_market_briefing():
 # =====================================================
 # TABS
 # =====================================================
-tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10, tab11 = st.tabs([
+tab11, tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10 = st.tabs([
+    "Market Briefing",
     "Today Actions",
     "Open Positions",
     "Closed Trades",
@@ -1298,7 +1299,6 @@ tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10, tab11 = st.tabs([
     "AI Intelligence",
     "Trade Entry",
     "Gemini AI Flasher",
-    "Personal Market Briefing",
 ])
 
 

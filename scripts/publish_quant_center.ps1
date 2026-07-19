@@ -12,7 +12,9 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
-$Source = Join-Path (Split-Path $PSScriptRoot -Parent) "quant-center-publish"
+$QuantRoot = Split-Path $PSScriptRoot -Parent
+$Source = Join-Path $QuantRoot "quant-center-publish"
+$MarketIntelligenceSource = Join-Path $QuantRoot "market_intelligence"
 
 if (-not (Test-Path $Source)) {
     Write-Error "quant-center-publish folder not found. Run git pull in quant folder first."
@@ -31,6 +33,10 @@ Get-ChildItem $Target -Force | Where-Object { $_.Name -ne '.git' } | Remove-Item
 $exclude = @('.git', 'node_modules', 'frontend\dist', 'backend\venv', 'venv-streamlit')
 Get-ChildItem $Source -Force | ForEach-Object {
     Copy-Item $_.FullName (Join-Path $Target $_.Name) -Recurse -Force
+}
+if (Test-Path $MarketIntelligenceSource) {
+    Copy-Item $MarketIntelligenceSource (Join-Path $Target "market_intelligence") -Recurse -Force
+    Write-Host "Copied Market Intelligence package."
 }
 
 Set-Location $Target
