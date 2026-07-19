@@ -166,3 +166,44 @@ class MarketConditions:
                 result[dimension]["raw"]["as_of"].isoformat()
             )
         return result
+
+
+class DrivingModeName(str, Enum):
+    AGGRESSIVE = "Aggressive"
+    NORMAL = "Normal"
+    CAUTIOUS = "Cautious"
+    DEFENSIVE = "Defensive"
+
+
+class ConfidenceLevel(str, Enum):
+    HIGH = "High"
+    MEDIUM = "Medium"
+    LOW = "Low"
+
+
+@dataclass(frozen=True)
+class DimensionExplanations:
+    trend: str
+    participation: str
+    leadership: str
+    stress: str
+
+
+@dataclass(frozen=True)
+class DrivingMode:
+    """Explainable deterministic interpretation of MarketConditions."""
+
+    as_of: datetime
+    mode: DrivingModeName
+    reason: str
+    dimensions: DimensionExplanations
+    confidence: ConfidenceLevel
+
+    def as_dict(self) -> dict[str, Any]:
+        """Return a serialization-friendly dictionary."""
+
+        result = asdict(self)
+        result["as_of"] = self.as_of.isoformat()
+        result["mode"] = self.mode.value
+        result["confidence"] = self.confidence.value
+        return result

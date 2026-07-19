@@ -108,3 +108,31 @@ All interpretation boundaries are held in the threshold dataclasses in
 `config.py`. Stress uses transparent independent trigger rules: any high
 boundary produces `High`; otherwise any elevated boundary produces `Elevated`.
 No weighted or composite score is calculated.
+
+## Driving Mode
+
+`DrivingModeEngine` accepts `MarketConditions` only. It never reads raw metric
+values.
+
+The deterministic rule priority is:
+
+1. High Stress defensive override.
+2. Multiple adverse opportunity dimensions.
+3. Unavailable conditions.
+4. Elevated Stress.
+5. Concentrated Leadership.
+6. Any remaining adverse opportunity condition.
+7. Fully favorable opportunity with Low Stress.
+8. Otherwise Normal.
+
+This produces `Aggressive`, `Normal`, `Cautious`, or `Defensive` with a reason
+and the explanation from each interpreted dimension. `DrivingModeRules` in
+`config.py` controls trigger behavior and required dimension counts.
+
+Confidence describes agreement among the four qualitative dimensions:
+
+- `High`: all four share the same favorable, neutral, or adverse stance.
+- `Medium`: three dimensions share a stance.
+- `Low`: agreement is weaker or any condition is unavailable.
+
+Confidence is not a probability and does not predict an outcome.

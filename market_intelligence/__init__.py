@@ -1,6 +1,7 @@
 """Public API for Market Intelligence calculations and interpretation."""
 
 from .config import (
+    DrivingModeRules,
     InterpretationConfig,
     LeadershipInterpretationThresholds,
     MarketIntelligenceConfig,
@@ -8,6 +9,7 @@ from .config import (
     StressInterpretationThresholds,
     TrendInterpretationThresholds,
 )
+from .driving_mode import DrivingModeEngine, determine_driving_mode
 from .engine import MarketIntelligenceEngine, calculate_market_intelligence
 from .interpreter import (
     MarketIntelligenceInterpreter,
@@ -19,6 +21,10 @@ from .interpreter import (
 )
 from .leadership import calculate_leadership
 from .models import (
+    ConfidenceLevel,
+    DimensionExplanations,
+    DrivingMode,
+    DrivingModeName,
     LeadershipCondition,
     LeadershipResult,
     LeadershipState,
@@ -39,6 +45,12 @@ from .stress import calculate_stress
 from .trend import calculate_trend
 
 __all__ = [
+    "ConfidenceLevel",
+    "DimensionExplanations",
+    "DrivingMode",
+    "DrivingModeEngine",
+    "DrivingModeName",
+    "DrivingModeRules",
     "InterpretationConfig",
     "LeadershipCondition",
     "LeadershipInterpretationThresholds",
@@ -66,6 +78,7 @@ __all__ = [
     "calculate_participation",
     "calculate_stress",
     "calculate_trend",
+    "determine_driving_mode",
     "interpret_leadership",
     "interpret_market_intelligence",
     "interpret_participation",

@@ -185,3 +185,64 @@ class InterpretationConfig:
     stress: StressInterpretationThresholds = field(
         default_factory=StressInterpretationThresholds
     )
+
+
+@dataclass(frozen=True)
+class DrivingModeRules:
+    """Configurable deterministic rules for Driving Mode selection.
+
+    Counts apply only to the three opportunity dimensions: Trend,
+    Participation, and Leadership.
+    """
+
+    aggressive_favorable_dimensions_required: int = 3
+    defensive_adverse_dimensions_required: int = 2
+    normal_adverse_dimensions_allowed: int = 0
+    defensive_on_high_stress: bool = True
+    cautious_on_elevated_stress: bool = True
+    cautious_on_concentrated_leadership: bool = True
+    cautious_on_unavailable_condition: bool = True
+    high_confidence_agreement_required: int = 4
+    medium_confidence_agreement_required: int = 3
+
+    def __post_init__(self) -> None:
+        opportunity_counts = {
+            "aggressive_favorable_dimensions_required": (
+                self.aggressive_favorable_dimensions_required
+            ),
+            "defensive_adverse_dimensions_required": (
+                self.defensive_adverse_dimensions_required
+            ),
+            "normal_adverse_dimensions_allowed": (
+                self.normal_adverse_dimensions_allowed
+            ),
+        }
+        for name, value in opportunity_counts.items():
+            if not 0 <= value <= 3:
+                raise ValueError(f"{name} must be between 0 and 3")
+
+        if (
+            self.normal_adverse_dimensions_allowed
+            >= self.defensive_adverse_dimensions_required
+        ):
+            raise ValueError(
+                "normal_adverse_dimensions_allowed must be below "
+                "defensive_adverse_dimensions_required"
+            )
+
+        if not 1 <= self.medium_confidence_agreement_required <= 4:
+            raise ValueError(
+                "medium_confidence_agreement_required must be between 1 and 4"
+            )
+        if not 1 <= self.high_confidence_agreement_required <= 4:
+            raise ValueError(
+                "high_confidence_agreement_required must be between 1 and 4"
+            )
+        if (
+            self.medium_confidence_agreement_required
+            >= self.high_confidence_agreement_required
+        ):
+            raise ValueError(
+                "medium confidence agreement must be below high confidence "
+                "agreement"
+            )
