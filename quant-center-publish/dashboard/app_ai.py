@@ -1444,7 +1444,10 @@ with tab2:
         try:
             styled = disp.style.apply(_bg, axis=1).map(_num, subset=colored).format(fmt, na_rep="—")
         except AttributeError:
-            styled = disp.style.apply(_bg, axis=1).applymap(_num, subset=colored).format(fmt, na_rep="—")
+            try:
+                styled = disp.style.apply(_bg, axis=1).applymap(_num, subset=colored).format(fmt, na_rep="—")
+            except AttributeError:
+                styled = disp
 
         st.dataframe(styled, use_container_width=True, hide_index=True)
 
@@ -1617,7 +1620,10 @@ with tab3:
             try:
                 styled = disp.style.apply(_bg, axis=1).map(_num, subset=colored).format(fmt, na_rep="—")
             except AttributeError:
-                styled = disp.style.apply(_bg, axis=1).applymap(_num, subset=colored).format(fmt, na_rep="—")
+                try:
+                    styled = disp.style.apply(_bg, axis=1).applymap(_num, subset=colored).format(fmt, na_rep="—")
+                except AttributeError:
+                    styled = disp
 
             st.dataframe(styled, use_container_width=True, hide_index=True)
 
@@ -3903,7 +3909,10 @@ with tab8:
                 try:
                     styled = df_w.style.map(_pct_color_w, subset=["1M %", "vs Nifty"]).format(fmt, na_rep="—")
                 except AttributeError:
-                    styled = df_w.style.applymap(_pct_color_w, subset=["1M %", "vs Nifty"]).format(fmt, na_rep="—")
+                    try:
+                        styled = df_w.style.applymap(_pct_color_w, subset=["1M %", "vs Nifty"]).format(fmt, na_rep="—")
+                    except AttributeError:
+                        styled = df_w
 
                 st.dataframe(styled, use_container_width=True, hide_index=True)
 
@@ -4066,7 +4075,10 @@ with tab8:
             try:
                 _sty = _disp.style.apply(_pt_bg, axis=1).map(_pt_num, subset=_rc).format(_ptfmt, na_rep="—")
             except AttributeError:
-                _sty = _disp.style.apply(_pt_bg, axis=1).applymap(_pt_num, subset=_rc).format(_ptfmt, na_rep="—")
+                try:
+                    _sty = _disp.style.apply(_pt_bg, axis=1).applymap(_pt_num, subset=_rc).format(_ptfmt, na_rep="—")
+                except AttributeError:
+                    _sty = _disp
 
             st.dataframe(_sty, use_container_width=True, hide_index=True)
 
