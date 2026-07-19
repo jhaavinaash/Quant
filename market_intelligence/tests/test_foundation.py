@@ -88,6 +88,25 @@ class FoundationTests(unittest.TestCase):
         self.assertEqual(result.as_of, result.leadership.as_of)
         self.assertEqual(result.as_of, result.stress.as_of)
 
+    def test_future_prices_cannot_change_as_of_results(self) -> None:
+        as_of = pd.Timestamp("2024-10-01")
+        original = calculate_market_intelligence(
+            self.prices,
+            self.sectors,
+            as_of=as_of,
+        )
+
+        changed = self.prices.copy()
+        future = changed["Date"] > as_of
+        changed.loc[future, "Close"] = changed.loc[future, "Close"] * 100.0
+        recalculated = calculate_market_intelligence(
+            changed,
+            self.sectors,
+            as_of=as_of,
+        )
+
+        self.assertEqual(original, recalculated)
+
     def test_short_history_returns_unavailable_long_metrics(self) -> None:
         config = MarketIntelligenceConfig(
             medium_window=10,
