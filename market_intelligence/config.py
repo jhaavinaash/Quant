@@ -2,7 +2,12 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
+
+
+def _validate_proportion(name: str, value: float) -> None:
+    if not 0.0 <= value <= 1.0:
+        raise ValueError(f"{name} must be between 0 and 1")
 
 
 @dataclass(frozen=True)
@@ -53,3 +58,130 @@ class MarketIntelligenceConfig:
         if blank:
             names = ", ".join(blank)
             raise ValueError(f"Column names cannot be blank: {names}")
+
+
+@dataclass(frozen=True)
+class TrendInterpretationThresholds:
+    """Configurable boundaries for Trend Structure interpretation."""
+
+    strong_distance: float = 0.02
+    weak_distance: float = -0.02
+
+    def __post_init__(self) -> None:
+        if self.weak_distance >= self.strong_distance:
+            raise ValueError("weak_distance must be below strong_distance")
+
+
+@dataclass(frozen=True)
+class ParticipationInterpretationThresholds:
+    """Configurable boundaries for Participation interpretation."""
+
+    broad_share: float = 0.60
+    narrow_share: float = 0.40
+
+    def __post_init__(self) -> None:
+        _validate_proportion("broad_share", self.broad_share)
+        _validate_proportion("narrow_share", self.narrow_share)
+        if self.narrow_share >= self.broad_share:
+            raise ValueError("narrow_share must be below broad_share")
+
+
+@dataclass(frozen=True)
+class LeadershipInterpretationThresholds:
+    """Configurable boundaries for Leadership Quality interpretation."""
+
+    broad_positive_share: float = 0.60
+    weak_positive_share: float = 0.40
+    broad_sector_share: float = 0.60
+    weak_sector_share: float = 0.40
+    broad_effective_leader_share: float = 0.25
+
+    def __post_init__(self) -> None:
+        values = {
+            "broad_positive_share": self.broad_positive_share,
+            "weak_positive_share": self.weak_positive_share,
+            "broad_sector_share": self.broad_sector_share,
+            "weak_sector_share": self.weak_sector_share,
+            "broad_effective_leader_share": self.broad_effective_leader_share,
+        }
+        for name, value in values.items():
+            _validate_proportion(name, value)
+        if self.weak_positive_share >= self.broad_positive_share:
+            raise ValueError(
+                "weak_positive_share must be below broad_positive_share"
+            )
+        if self.weak_sector_share >= self.broad_sector_share:
+            raise ValueError("weak_sector_share must be below broad_sector_share")
+
+
+@dataclass(frozen=True)
+class StressInterpretationThresholds:
+    """Configurable boundaries for Market Stress interpretation."""
+
+    elevated_drawdown: float = 0.05
+    high_drawdown: float = 0.10
+    elevated_new_low_share: float = 0.05
+    high_new_low_share: float = 0.15
+    elevated_breadth_decline: float = 0.10
+    high_breadth_decline: float = 0.20
+    elevated_declining_day_share: float = 0.60
+    high_declining_day_share: float = 0.75
+    elevated_downside_deviation: float = 0.20
+    high_downside_deviation: float = 0.35
+
+    def __post_init__(self) -> None:
+        pairs = {
+            "drawdown": (self.elevated_drawdown, self.high_drawdown),
+            "new_low_share": (
+                self.elevated_new_low_share,
+                self.high_new_low_share,
+            ),
+            "breadth_decline": (
+                self.elevated_breadth_decline,
+                self.high_breadth_decline,
+            ),
+            "declining_day_share": (
+                self.elevated_declining_day_share,
+                self.high_declining_day_share,
+            ),
+            "downside_deviation": (
+                self.elevated_downside_deviation,
+                self.high_downside_deviation,
+            ),
+        }
+        for name, (elevated, high) in pairs.items():
+            if elevated < 0 or high < 0:
+                raise ValueError(f"{name} thresholds cannot be negative")
+            if elevated >= high:
+                raise ValueError(
+                    f"Elevated {name} threshold must be below high threshold"
+                )
+        for name, value in {
+            "elevated_drawdown": self.elevated_drawdown,
+            "high_drawdown": self.high_drawdown,
+            "elevated_new_low_share": self.elevated_new_low_share,
+            "high_new_low_share": self.high_new_low_share,
+            "elevated_breadth_decline": self.elevated_breadth_decline,
+            "high_breadth_decline": self.high_breadth_decline,
+            "elevated_declining_day_share": self.elevated_declining_day_share,
+            "high_declining_day_share": self.high_declining_day_share,
+        }.items():
+            _validate_proportion(name, value)
+
+
+@dataclass(frozen=True)
+class InterpretationConfig:
+    """Independent threshold groups used by the interpretation layer."""
+
+    trend: TrendInterpretationThresholds = field(
+        default_factory=TrendInterpretationThresholds
+    )
+    participation: ParticipationInterpretationThresholds = field(
+        default_factory=ParticipationInterpretationThresholds
+    )
+    leadership: LeadershipInterpretationThresholds = field(
+        default_factory=LeadershipInterpretationThresholds
+    )
+    stress: StressInterpretationThresholds = field(
+        default_factory=StressInterpretationThresholds
+    )

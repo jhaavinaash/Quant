@@ -88,3 +88,23 @@ Stress Index and does not trigger defensive action.
 - `stress`
 
 The engine only assembles these four independent results.
+
+## Independent interpretation
+
+`MarketIntelligenceInterpreter` converts each raw dimension into a qualitative
+condition without combining dimensions:
+
+| Dimension | States | Interpretation inputs |
+|---|---|---|
+| Trend | Strong / Neutral / Weak | Medium- and long-trend distances |
+| Participation | Broad / Average / Narrow | Medium- and long-term participation shares |
+| Leadership | Broad / Concentrated / Weak | Positive stock share, effective leader share, and positive sector share |
+| Stress | Low / Elevated / High | Drawdown, new-low share, persistent breadth decline, declining-day share, and downside deviation |
+
+Any dimension with insufficient inputs returns `Unavailable`. Each condition
+preserves its complete raw result and includes a short explanation.
+
+All interpretation boundaries are held in the threshold dataclasses in
+`config.py`. Stress uses transparent independent trigger rules: any high
+boundary produces `High`; otherwise any elevated boundary produces `Elevated`.
+No weighted or composite score is calculated.

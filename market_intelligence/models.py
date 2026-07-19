@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from dataclasses import asdict, dataclass
 from datetime import datetime
+from enum import Enum
 from typing import Any, Optional
 
 
@@ -85,4 +86,83 @@ class MarketIntelligence:
         result["as_of"] = self.as_of.isoformat()
         for dimension in ("trend", "participation", "leadership", "stress"):
             result[dimension]["as_of"] = result[dimension]["as_of"].isoformat()
+        return result
+
+
+class TrendState(str, Enum):
+    STRONG = "Strong"
+    NEUTRAL = "Neutral"
+    WEAK = "Weak"
+    UNAVAILABLE = "Unavailable"
+
+
+class ParticipationState(str, Enum):
+    BROAD = "Broad"
+    AVERAGE = "Average"
+    NARROW = "Narrow"
+    UNAVAILABLE = "Unavailable"
+
+
+class LeadershipState(str, Enum):
+    BROAD = "Broad"
+    CONCENTRATED = "Concentrated"
+    WEAK = "Weak"
+    UNAVAILABLE = "Unavailable"
+
+
+class StressState(str, Enum):
+    LOW = "Low"
+    ELEVATED = "Elevated"
+    HIGH = "High"
+    UNAVAILABLE = "Unavailable"
+
+
+@dataclass(frozen=True)
+class TrendCondition:
+    raw: TrendResult
+    state: TrendState
+    explanation: str
+
+
+@dataclass(frozen=True)
+class ParticipationCondition:
+    raw: ParticipationResult
+    state: ParticipationState
+    explanation: str
+
+
+@dataclass(frozen=True)
+class LeadershipCondition:
+    raw: LeadershipResult
+    state: LeadershipState
+    explanation: str
+
+
+@dataclass(frozen=True)
+class StressCondition:
+    raw: StressResult
+    state: StressState
+    explanation: str
+
+
+@dataclass(frozen=True)
+class MarketConditions:
+    """Independent qualitative interpretations of all four dimensions."""
+
+    as_of: datetime
+    trend: TrendCondition
+    participation: ParticipationCondition
+    leadership: LeadershipCondition
+    stress: StressCondition
+
+    def as_dict(self) -> dict[str, Any]:
+        """Return a serialization-friendly nested dictionary."""
+
+        result = asdict(self)
+        result["as_of"] = self.as_of.isoformat()
+        for dimension in ("trend", "participation", "leadership", "stress"):
+            result[dimension]["state"] = result[dimension]["state"].value
+            result[dimension]["raw"]["as_of"] = (
+                result[dimension]["raw"]["as_of"].isoformat()
+            )
         return result
