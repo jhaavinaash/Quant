@@ -2,7 +2,9 @@ import { useCallback, useEffect, useState } from 'react';
 import { BrokerStatus } from '../components/BrokerStatus';
 import { EngineStatus } from '../components/EngineStatus';
 import { dashboardService } from '../services/dashboardService';
+import { marketBriefingService } from '../services/marketBriefingService';
 import { ControlResult, DashboardSnapshot } from '../types';
+import { MarketBriefingSnapshot } from '../types/marketBriefing';
 
 const fmtInr = (value: number, signed = true) => {
   const sign = signed && value > 0 ? '+' : '';
@@ -51,12 +53,215 @@ const KpiCard = ({
   </div>
 );
 
+const approachStyle: Record<
+  MarketBriefingSnapshot['approach'],
+  { value: string; border: string; banner: string }
+> = {
+  Aggressive: {
+    value: 'text-emerald-400',
+    border: 'border-t-emerald-500/60',
+    banner: 'border-emerald-500/40 bg-emerald-500/10 text-emerald-200',
+  },
+  Normal: {
+    value: 'text-sky-400',
+    border: 'border-t-sky-500/60',
+    banner: 'border-sky-500/40 bg-sky-500/10 text-sky-200',
+  },
+  Cautious: {
+    value: 'text-amber-400',
+    border: 'border-t-amber-500/60',
+    banner: 'border-amber-500/40 bg-amber-500/10 text-amber-200',
+  },
+  Defensive: {
+    value: 'text-red-400',
+    border: 'border-t-red-500/60',
+    banner: 'border-red-500/40 bg-red-500/10 text-red-200',
+  },
+};
+
+const MarketBriefingPanel = ({
+  snapshot,
+  loading,
+  error,
+  refreshing,
+  onRefresh,
+}: {
+  snapshot: MarketBriefingSnapshot | null;
+  loading: boolean;
+  error: string | null;
+  refreshing: boolean;
+  onRefresh: () => void;
+}) => {
+  if (loading) {
+    return (
+      <section className="rounded-lg border border-slate-800 bg-slate-900 p-5 text-sm text-slate-400">
+        Loading Market Briefing…
+      </section>
+    );
+  }
+  if (error || !snapshot) {
+    return (
+      <section className="rounded-lg border border-red-500/30 bg-red-500/10 p-5 text-sm text-red-300">
+        {error ?? 'Market Briefing is unavailable.'}
+      </section>
+    );
+  }
+
+  const style = approachStyle[snapshot.approach];
+  return (
+    <section className="space-y-5 rounded-xl border border-slate-800 bg-slate-950/40 p-5">
+      <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+        <div>
+          <h2 className="text-xl font-bold text-slate-100">Today&apos;s Market Approach</h2>
+          <p className="mt-1 text-sm text-slate-500">Your one-minute morning market briefing</p>
+        </div>
+        <button
+          type="button"
+          onClick={onRefresh}
+          disabled={refreshing}
+          className="rounded-md border border-slate-700 bg-slate-900 px-4 py-2 text-sm font-medium text-slate-200 hover:bg-slate-800 disabled:opacity-50"
+        >
+          {refreshing ? 'Refreshing…' : 'Refresh Briefing'}
+        </button>
+      </div>
+
+      <div className="rounded-lg border border-sky-500/30 bg-sky-500/10 px-4 py-3 text-sm text-sky-200">
+        <span className="font-semibold">Scope:</span> {snapshot.scope}
+      </div>
+
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        <KpiCard
+          label="Market Approach"
+          value={snapshot.approach}
+          sub="Aggressive / Normal / Cautious / Defensive"
+          valueClass={style.value}
+          accent={style.border}
+        />
+        <KpiCard
+          label="Condition Agreement"
+          value={snapshot.confidence}
+          sub="Confidence based on dimension agreement"
+          accent="border-t-sky-500/60"
+        />
+      </div>
+
+      <div>
+        <h3 className="mb-2 text-sm font-semibold text-slate-200">One-line summary</h3>
+        <div className={`rounded-lg border px-4 py-3 text-sm ${style.banner}`}>
+          {snapshot.oneLineSummary}
+        </div>
+      </div>
+
+      <div>
+        <h3 className="text-base font-semibold text-slate-100">Daily Market Brief</h3>
+        <h4 className="mb-1 mt-3 text-sm font-medium text-slate-300">
+          Why this approach was selected
+        </h4>
+        <p className="text-sm leading-6 text-slate-400">{snapshot.reason}</p>
+      </div>
+
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+        <div className="rounded-lg border border-emerald-500/20 bg-emerald-500/5 p-4">
+          <h3 className="mb-3 text-sm font-semibold text-emerald-300">Key positives</h3>
+          {snapshot.keyPositives.length ? (
+            <ul className="space-y-2 text-sm text-slate-300">
+              {snapshot.keyPositives.map((item) => (
+                <li key={item.dimension}>
+                  <span className="font-medium text-slate-200">{item.dimension}:</span>{' '}
+                  {item.explanation}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="text-sm text-slate-500">No strongly supportive condition is present.</p>
+          )}
+        </div>
+        <div className="rounded-lg border border-amber-500/20 bg-amber-500/5 p-4">
+          <h3 className="mb-3 text-sm font-semibold text-amber-300">Key risks</h3>
+          {snapshot.keyRisks.length ? (
+            <ul className="space-y-2 text-sm text-slate-300">
+              {snapshot.keyRisks.map((item) => (
+                <li key={item.dimension}>
+                  <span className="font-medium text-slate-200">{item.dimension}:</span>{' '}
+                  {item.explanation}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="text-sm text-slate-500">No elevated market-condition risk is present.</p>
+          )}
+        </div>
+      </div>
+
+      <div>
+        <h3 className="mb-3 text-base font-semibold text-slate-100">Market Conditions</h3>
+        <div className="space-y-2">
+          {snapshot.dimensions.map((dimension) => (
+            <details
+              key={dimension.name}
+              className="rounded-lg border border-slate-800 bg-slate-900"
+            >
+              <summary className="cursor-pointer px-4 py-3 text-sm font-medium text-slate-200">
+                {dimension.name} — {dimension.state}
+              </summary>
+              <div className="border-t border-slate-800 px-4 py-4">
+                <p className="mb-4 text-sm text-slate-400">{dimension.explanation}</p>
+                <div className="overflow-x-auto rounded-lg border border-slate-800">
+                  <table className="min-w-full divide-y divide-slate-800 text-sm">
+                    <thead className="bg-slate-950/60 text-left text-xs uppercase tracking-wider text-slate-500">
+                      <tr>
+                        <th className="px-4 py-2">Metric</th>
+                        <th className="px-4 py-2">Value</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-800">
+                      {dimension.metrics.map((metric) => (
+                        <tr key={metric.name}>
+                          <td className="px-4 py-2 text-slate-400">{metric.name}</td>
+                          <td className="px-4 py-2 font-medium text-slate-200">{metric.value}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+
+      <details className="rounded-lg border border-slate-800 bg-slate-900">
+        <summary className="cursor-pointer px-4 py-3 text-sm font-medium text-slate-200">
+          Raw Metrics — Full Transparency
+        </summary>
+        <pre className="max-h-96 overflow-auto border-t border-slate-800 p-4 text-xs text-slate-400">
+          {JSON.stringify(snapshot.rawMetrics, null, 2)}
+        </pre>
+      </details>
+
+      <div>
+        <h3 className="mb-3 text-base font-semibold text-slate-100">Metadata</h3>
+        <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+          <KpiCard label="Data date" value={snapshot.dataDate} />
+          <KpiCard label="Universe size" value={String(snapshot.universeSize)} />
+          <KpiCard label="Sector coverage" value={`${snapshot.sectorCoverage} sectors`} />
+          <KpiCard label="Last refresh time" value={snapshot.lastRefreshTime} />
+        </div>
+      </div>
+    </section>
+  );
+};
+
 const Dashboard = () => {
   const [snapshot, setSnapshot] = useState<DashboardSnapshot | null>(null);
   const [controlResult, setControlResult] = useState<ControlResult | null>(null);
   const [loading, setLoading] = useState(true);
   const [actionLoading, setActionLoading] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [marketBriefing, setMarketBriefing] = useState<MarketBriefingSnapshot | null>(null);
+  const [briefingLoading, setBriefingLoading] = useState(true);
+  const [briefingRefreshing, setBriefingRefreshing] = useState(false);
+  const [briefingError, setBriefingError] = useState<string | null>(null);
 
   const loadDashboard = useCallback(async () => {
     try {
@@ -74,9 +279,24 @@ const Dashboard = () => {
     }
   }, []);
 
+  const loadMarketBriefing = useCallback(async (refresh = false) => {
+    if (refresh) setBriefingRefreshing(true);
+    try {
+      const data = await marketBriefingService.getSnapshot(refresh);
+      setMarketBriefing(data);
+      setBriefingError(null);
+    } catch {
+      setBriefingError('Failed to load Market Briefing.');
+    } finally {
+      setBriefingLoading(false);
+      setBriefingRefreshing(false);
+    }
+  }, []);
+
   useEffect(() => {
     loadDashboard();
-  }, [loadDashboard]);
+    loadMarketBriefing();
+  }, [loadDashboard, loadMarketBriefing]);
 
   const runAction = async (
     key: string,
@@ -139,6 +359,14 @@ const Dashboard = () => {
           </button>
         </div>
       </div>
+
+      <MarketBriefingPanel
+        snapshot={marketBriefing}
+        loading={briefingLoading}
+        error={briefingError}
+        refreshing={briefingRefreshing}
+        onRefresh={() => loadMarketBriefing(true)}
+      />
 
       <div className="flex flex-col gap-3 rounded-lg border border-slate-800 bg-slate-900 p-4 lg:flex-row lg:items-center lg:justify-between">
         <div className="grid grid-cols-2 gap-3 md:grid-cols-4 flex-1">
