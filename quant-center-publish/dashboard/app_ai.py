@@ -34,7 +34,7 @@ from core.ai_scanner import (
     CAPITAL_PER_PICK,
     EXIT_THRESHOLD,
 )
-from config import UNIVERSE_FILE, RESULT_CALENDAR_FILE
+from config import PRICE_FILE, UNIVERSE_FILE, RESULT_CALENDAR_FILE
 from config import (
     BASE_DIR,
     DATA_DIR,
@@ -54,6 +54,16 @@ except Exception:
     ENGINE_RULES = {}
 from core.utils import safe_read_csv
 from core.news_fetcher import get_portfolio_news
+from market_intelligence import (
+    TRADING_APPROACH_SCOPE,
+    DrivingModeName,
+    briefing_highlights,
+    briefing_metrics,
+    calculate_market_intelligence,
+    determine_driving_mode,
+    interpret_market_intelligence,
+    trading_approach_guidance,
+)
 
 
 # =====================================================
@@ -1170,10 +1180,58 @@ def _calc_engine_health(trades_df):
     return pd.DataFrame(rows) if rows else pd.DataFrame()
 
 
+def _briefing_metric_table(metrics):
+    rows = briefing_metrics(metrics)
+    return pd.DataFrame(
+        [
+            {
+                "Metric": row.name,
+                "Value": row.value,
+            }
+            for row in rows
+        ]
+    )
+
+
+def _briefing_key_points(conditions):
+    positive_highlights, risk_highlights = briefing_highlights(conditions)
+    positives = [
+        f"**{highlight.dimension}:** {highlight.explanation}"
+        for highlight in positive_highlights
+    ]
+    risks = [
+        f"**{highlight.dimension}:** {highlight.explanation}"
+        for highlight in risk_highlights
+    ]
+    return positives, risks
+
+
+@st.cache_data(ttl=3600, show_spinner=False)
+def _cached_market_briefing():
+    """Build the read-only, engine-independent personal market briefing."""
+
+    prices = safe_read_csv(PRICE_FILE)
+    required_price_columns = {"Date", "Ticker", "Close"}
+    missing = required_price_columns.difference(prices.columns)
+    if prices.empty or missing:
+        missing_text = ", ".join(sorted(missing)) or "price rows"
+        raise ValueError(f"Market price history is missing: {missing_text}")
+
+    sectors = safe_read_csv(UNIVERSE_FILE)
+    intelligence = calculate_market_intelligence(
+        prices[["Date", "Ticker", "Close"]],
+        sectors if not sectors.empty else None,
+    )
+    conditions = interpret_market_intelligence(intelligence)
+    briefing = determine_driving_mode(conditions)
+    return intelligence, conditions, briefing, pd.Timestamp.now()
+
+
 # =====================================================
 # TABS
 # =====================================================
-tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10 = st.tabs([
+tab11, tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10 = st.tabs([
+    "Market Briefing",
     "Today Actions",
     "Open Positions",
     "Closed Trades",
@@ -1329,7 +1387,10 @@ with tab2:
         try:
             styled = disp.style.apply(_bg, axis=1).map(_num, subset=colored).format(fmt, na_rep="—")
         except AttributeError:
-            styled = disp.style.apply(_bg, axis=1).applymap(_num, subset=colored).format(fmt, na_rep="—")
+            try:
+                styled = disp.style.apply(_bg, axis=1).applymap(_num, subset=colored).format(fmt, na_rep="—")
+            except AttributeError:
+                styled = disp
 
         st.dataframe(styled, use_container_width=True, hide_index=True)
 
@@ -1502,7 +1563,10 @@ with tab3:
             try:
                 styled = disp.style.apply(_bg, axis=1).map(_num, subset=colored).format(fmt, na_rep="—")
             except AttributeError:
-                styled = disp.style.apply(_bg, axis=1).applymap(_num, subset=colored).format(fmt, na_rep="—")
+                try:
+                    styled = disp.style.apply(_bg, axis=1).applymap(_num, subset=colored).format(fmt, na_rep="—")
+                except AttributeError:
+                    styled = disp
 
             st.dataframe(styled, use_container_width=True, hide_index=True)
 
@@ -3170,12 +3234,15 @@ with tab7:
                     .format(fmt, na_rep="—")
                 )
             except AttributeError:
-                styled = (
-                    disp.style
-                    .apply(_bg, axis=1)
-                    .applymap(_num, subset=["P&L ₹", "Return %", "Sector Bias %"])
-                    .format(fmt, na_rep="—")
-                )
+                try:
+                    styled = (
+                        disp.style
+                        .apply(_bg, axis=1)
+                        .applymap(_num, subset=["P&L ₹", "Return %", "Sector Bias %"])
+                        .format(fmt, na_rep="—")
+                    )
+                except AttributeError:
+                    styled = disp
 
             st.dataframe(styled, use_container_width=True, hide_index=True)
 
@@ -3704,12 +3771,15 @@ with tab8:
                         .format(fmt, na_rep="—")
                     )
                 except AttributeError:
-                    styled = (
-                        df_sb.style
-                        .applymap(_score_color, subset=["Score"])
-                        .applymap(_pct_color,   subset=["1M %", "vs Nifty"])
-                        .format(fmt, na_rep="—")
-                    )
+                    try:
+                        styled = (
+                            df_sb.style
+                            .applymap(_score_color, subset=["Score"])
+                            .applymap(_pct_color,   subset=["1M %", "vs Nifty"])
+                            .format(fmt, na_rep="—")
+                        )
+                    except AttributeError:
+                        styled = df_sb
 
                 st.dataframe(styled, use_container_width=True, hide_index=True)
 
@@ -3788,7 +3858,10 @@ with tab8:
                 try:
                     styled = df_w.style.map(_pct_color_w, subset=["1M %", "vs Nifty"]).format(fmt, na_rep="—")
                 except AttributeError:
-                    styled = df_w.style.applymap(_pct_color_w, subset=["1M %", "vs Nifty"]).format(fmt, na_rep="—")
+                    try:
+                        styled = df_w.style.applymap(_pct_color_w, subset=["1M %", "vs Nifty"]).format(fmt, na_rep="—")
+                    except AttributeError:
+                        styled = df_w
 
                 st.dataframe(styled, use_container_width=True, hide_index=True)
 
@@ -3854,12 +3927,15 @@ with tab8:
                         .format(fmt, na_rep="—")
                     )
                 except AttributeError:
-                    styled = (
-                        df_sec.style
-                        .applymap(_sec_color, subset=["Avg Score", "Top Stock Score"])
-                        .applymap(_mom_color, subset=["1M Momentum %"])
-                        .format(fmt, na_rep="—")
-                    )
+                    try:
+                        styled = (
+                            df_sec.style
+                            .applymap(_sec_color, subset=["Avg Score", "Top Stock Score"])
+                            .applymap(_mom_color, subset=["1M Momentum %"])
+                            .format(fmt, na_rep="—")
+                        )
+                    except AttributeError:
+                        styled = df_sec
 
                 st.dataframe(styled, use_container_width=True, hide_index=True)
 
@@ -3951,7 +4027,10 @@ with tab8:
             try:
                 _sty = _disp.style.apply(_pt_bg, axis=1).map(_pt_num, subset=_rc).format(_ptfmt, na_rep="—")
             except AttributeError:
-                _sty = _disp.style.apply(_pt_bg, axis=1).applymap(_pt_num, subset=_rc).format(_ptfmt, na_rep="—")
+                try:
+                    _sty = _disp.style.apply(_pt_bg, axis=1).applymap(_pt_num, subset=_rc).format(_ptfmt, na_rep="—")
+                except AttributeError:
+                    _sty = _disp
 
             st.dataframe(_sty, use_container_width=True, hide_index=True)
 
@@ -4362,9 +4441,141 @@ with tab9:
             hide_index=False
         )
 
-    # =====================================================
-    # TAB 10 — GEMINI SCANNER
-    # =====================================================
+# =====================================================
+# TAB 10 — GEMINI SCANNER
+# =====================================================
+with tab10:
+    render_gemini_flasher_interface()
 
-    with tab10:
-                    render_gemini_flasher_interface()
+
+# =====================================================
+# TAB 11 — PERSONAL MARKET BRIEFING
+# =====================================================
+with tab11:
+    st.subheader("Today's Market Approach")
+    st.info(f"**Scope:** {TRADING_APPROACH_SCOPE}")
+
+    refresh_col, _ = st.columns([1, 5])
+    with refresh_col:
+        if st.button("Refresh briefing", key="refresh_market_briefing"):
+            _cached_market_briefing.clear()
+            st.rerun()
+
+    try:
+        intelligence, conditions, briefing, refreshed_at = (
+            _cached_market_briefing()
+        )
+        mode_colors = {
+            DrivingModeName.AGGRESSIVE: CLR_BULL,
+            DrivingModeName.NORMAL: CLR_INFO,
+            DrivingModeName.CAUTIOUS: CLR_WARN,
+            DrivingModeName.DEFENSIVE: CLR_BEAR,
+        }
+        mode_color = mode_colors[briefing.mode]
+        mode_col, confidence_col = st.columns(2)
+        with mode_col:
+            st.markdown(
+                kpi_card(
+                    "MARKET APPROACH",
+                    briefing.mode.value,
+                    mode_color,
+                    "Aggressive / Normal / Cautious / Defensive",
+                ),
+                unsafe_allow_html=True,
+            )
+        with confidence_col:
+            st.markdown(
+                kpi_card(
+                    "CONDITION AGREEMENT",
+                    briefing.confidence.value,
+                    CLR_INFO,
+                    "Confidence based on dimension agreement",
+                ),
+                unsafe_allow_html=True,
+            )
+
+        guidance = trading_approach_guidance(briefing.mode)
+        st.markdown("### One-line summary")
+        if briefing.mode == DrivingModeName.AGGRESSIVE:
+            st.success(guidance)
+        elif briefing.mode == DrivingModeName.NORMAL:
+            st.info(guidance)
+        elif briefing.mode == DrivingModeName.CAUTIOUS:
+            st.warning(guidance)
+        else:
+            st.error(guidance)
+
+        st.markdown("## Daily Market Brief")
+        st.markdown("### Why this approach was selected")
+        st.write(briefing.reason)
+
+        positives, risks = _briefing_key_points(conditions)
+        positive_col, risk_col = st.columns(2)
+        with positive_col:
+            st.markdown("### Key positives")
+            if positives:
+                for point in positives:
+                    st.markdown(f"- {point}")
+            else:
+                st.caption("No strongly supportive condition is present.")
+        with risk_col:
+            st.markdown("### Key risks")
+            if risks:
+                for point in risks:
+                    st.markdown(f"- {point}")
+            else:
+                st.caption("No elevated market-condition risk is present.")
+
+        raw_metrics = intelligence.as_dict()
+        st.markdown("## Market Conditions")
+        condition_sections = [
+            ("Trend", conditions.trend, raw_metrics["trend"]),
+            (
+                "Participation",
+                conditions.participation,
+                raw_metrics["participation"],
+            ),
+            (
+                "Leadership",
+                conditions.leadership,
+                raw_metrics["leadership"],
+            ),
+            ("Stress", conditions.stress, raw_metrics["stress"]),
+        ]
+        for title, condition, metrics in condition_sections:
+            with st.expander(
+                f"{title} — {condition.state.value}",
+                expanded=False,
+            ):
+                st.write(condition.explanation)
+                st.dataframe(
+                    _briefing_metric_table(metrics),
+                    use_container_width=True,
+                    hide_index=True,
+                )
+
+        with st.expander("Raw Metrics — Full Transparency", expanded=False):
+            st.caption(
+                "Complete calculated outputs exactly as returned by Market "
+                "Intelligence."
+            )
+            st.json(raw_metrics)
+
+        st.markdown("## Metadata")
+        data_col, universe_col, sector_col, refresh_time_col = st.columns(4)
+        data_col.metric(
+            "Data date",
+            intelligence.as_of.strftime("%d %b %Y"),
+        )
+        universe_col.metric("Universe size", intelligence.universe_size)
+        sector_col.metric(
+            "Sector coverage",
+            f"{intelligence.leadership.sector_count} sectors",
+        )
+        refresh_time_col.metric(
+            "Last refresh time",
+            refreshed_at.strftime("%d %b %Y · %H:%M:%S"),
+        )
+
+    except Exception as exc:
+        st.error(f"Market briefing is unavailable: {exc}")

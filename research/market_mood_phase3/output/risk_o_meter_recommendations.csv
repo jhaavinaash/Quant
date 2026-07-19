@@ -1,0 +1,4 @@
+market_state,risk_o_meter_action,rationale,confidence
+City,Increase allocation,Favorable expected return and win rate with contained volatility.,0.6354025100551105
+Fog,Increase allocation,Favorable expected return and win rate with contained volatility.,0.8510937151196473
+Mixed Terrain,Reduced allocation,Marginal edge; tighten position sizing and raise selectivity.,0.8552577629567212
