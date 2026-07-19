@@ -57,10 +57,8 @@ from core.news_fetcher import get_portfolio_news
 from market_intelligence import (
     TRADING_APPROACH_SCOPE,
     DrivingModeName,
-    LeadershipState,
-    ParticipationState,
-    StressState,
-    TrendState,
+    briefing_highlights,
+    briefing_metrics,
     calculate_market_intelligence,
     determine_driving_mode,
     interpret_market_intelligence,
@@ -1182,83 +1180,28 @@ def _calc_engine_health(trades_df):
     return pd.DataFrame(rows) if rows else pd.DataFrame()
 
 
-_BRIEFING_PERCENTAGE_METRICS = {
-    "distance_from_medium",
-    "distance_from_long",
-    "above_medium_share",
-    "above_long_share",
-    "medium_breadth_change",
-    "positive_return_share",
-    "positive_sector_share",
-    "universe_drawdown",
-    "new_low_share",
-    "persistent_breadth_change",
-    "downside_deviation",
-}
-
-
-def _format_briefing_metric(name, value):
-    if value is None:
-        return "Unavailable"
-    if name == "as_of":
-        return pd.Timestamp(value).strftime("%d %b %Y")
-    if name in _BRIEFING_PERCENTAGE_METRICS:
-        return f"{float(value):.1%}"
-    if name == "leadership_concentration":
-        return f"{float(value):.4f}"
-    if name in {"universe_level", "medium_average", "long_average"}:
-        return f"{float(value):.4f}"
-    if name == "effective_leader_count":
-        return f"{float(value):.1f}"
-    return str(value)
-
-
 def _briefing_metric_table(metrics):
+    rows = briefing_metrics(metrics)
     return pd.DataFrame(
         [
             {
-                "Metric": name.replace("_", " ").title(),
-                "Value": _format_briefing_metric(name, value),
+                "Metric": row.name,
+                "Value": row.value,
             }
-            for name, value in metrics.items()
+            for row in rows
         ]
     )
 
 
 def _briefing_key_points(conditions):
-    dimensions = [
-        ("Trend", conditions.trend),
-        ("Participation", conditions.participation),
-        ("Leadership", conditions.leadership),
-        ("Stress", conditions.stress),
-    ]
-    positive_states = {
-        TrendState.STRONG,
-        ParticipationState.BROAD,
-        LeadershipState.BROAD,
-        StressState.LOW,
-    }
-    risk_states = {
-        TrendState.WEAK,
-        TrendState.UNAVAILABLE,
-        ParticipationState.NARROW,
-        ParticipationState.UNAVAILABLE,
-        LeadershipState.CONCENTRATED,
-        LeadershipState.WEAK,
-        LeadershipState.UNAVAILABLE,
-        StressState.ELEVATED,
-        StressState.HIGH,
-        StressState.UNAVAILABLE,
-    }
+    positive_highlights, risk_highlights = briefing_highlights(conditions)
     positives = [
-        f"**{name}:** {condition.explanation}"
-        for name, condition in dimensions
-        if condition.state in positive_states
+        f"**{highlight.dimension}:** {highlight.explanation}"
+        for highlight in positive_highlights
     ]
     risks = [
-        f"**{name}:** {condition.explanation}"
-        for name, condition in dimensions
-        if condition.state in risk_states
+        f"**{highlight.dimension}:** {highlight.explanation}"
+        for highlight in risk_highlights
     ]
     return positives, risks
 

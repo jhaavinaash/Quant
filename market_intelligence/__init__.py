@@ -46,11 +46,19 @@ from .models import (
     TrendState,
 )
 from .participation import calculate_participation
+from .presentation import (
+    BriefingHighlight,
+    BriefingMetric,
+    briefing_highlights,
+    briefing_metrics,
+)
 from .stress import calculate_stress
 from .trend import calculate_trend
 
 __all__ = [
     "ConfidenceLevel",
+    "BriefingHighlight",
+    "BriefingMetric",
     "DimensionExplanations",
     "DrivingMode",
     "DrivingModeEngine",
@@ -84,6 +92,8 @@ __all__ = [
     "calculate_participation",
     "calculate_stress",
     "calculate_trend",
+    "briefing_highlights",
+    "briefing_metrics",
     "determine_driving_mode",
     "interpret_leadership",
     "interpret_market_intelligence",
