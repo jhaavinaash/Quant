@@ -136,3 +136,15 @@ Confidence describes agreement among the four qualitative dimensions:
 - `Low`: agreement is weaker or any condition is unavailable.
 
 Confidence is not a probability and does not predict an outcome.
+
+## Personal Market Briefing
+
+The dashboard presents Driving Mode as direct overall trading guidance:
+
+- Aggressive: go full-on while keeping normal trade discipline.
+- Normal: trade normally without forcing extra trades.
+- Cautious: trade less and reject marginal setups.
+- Defensive: protect capital and minimize new trades.
+
+This guidance is not linked to any specific engine, including F1. It applies to
+the user's overall trading approach.

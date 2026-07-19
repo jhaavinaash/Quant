@@ -7,6 +7,7 @@ import unittest
 from datetime import datetime
 
 from market_intelligence import (
+    TRADING_APPROACH_SCOPE,
     ConfidenceLevel,
     DrivingMode,
     DrivingModeEngine,
@@ -26,6 +27,7 @@ from market_intelligence import (
     TrendResult,
     TrendState,
     determine_driving_mode,
+    trading_approach_guidance,
 )
 
 AS_OF = datetime(2026, 6, 16)
@@ -317,6 +319,27 @@ class DrivingModeCompletenessTests(unittest.TestCase):
         self.assertNotIn("raw", result)
         self.assertNotIn("risk_o_meter", result)
         self.assertNotIn("f1", result)
+
+
+class PersonalBriefingTests(unittest.TestCase):
+    def test_every_mode_has_direct_trading_guidance(self) -> None:
+        expected_phrases = {
+            DrivingModeName.AGGRESSIVE: "Go full-on",
+            DrivingModeName.NORMAL: "Trade normally",
+            DrivingModeName.CAUTIOUS: "Trade less",
+            DrivingModeName.DEFENSIVE: "Protect capital",
+        }
+
+        for mode, phrase in expected_phrases.items():
+            with self.subTest(mode=mode):
+                guidance = trading_approach_guidance(mode)
+                self.assertIn(phrase, guidance)
+                self.assertTrue(guidance.endswith("."))
+
+    def test_scope_is_overall_approach_not_engine_specific(self) -> None:
+        self.assertIn("not linked to any specific engine", TRADING_APPROACH_SCOPE)
+        self.assertIn("including F1", TRADING_APPROACH_SCOPE)
+        self.assertIn("overall trading approach", TRADING_APPROACH_SCOPE)
 
 
 if __name__ == "__main__":

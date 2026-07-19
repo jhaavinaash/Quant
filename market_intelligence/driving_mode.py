@@ -17,6 +17,34 @@ from .models import (
     TrendState,
 )
 
+TRADING_APPROACH_SCOPE = (
+    "This Personal Market Briefing is not linked to any specific engine, "
+    "including F1. It applies to your overall trading approach."
+)
+
+_MODE_GUIDANCE = {
+    DrivingModeName.AGGRESSIVE: (
+        "Go full-on today. Conditions support broader trading, while normal "
+        "trade discipline still applies."
+    ),
+    DrivingModeName.NORMAL: (
+        "Trade normally today. Take valid setups without forcing extra trades."
+    ),
+    DrivingModeName.CAUTIOUS: (
+        "Trade less and be selective today. Avoid forcing marginal setups."
+    ),
+    DrivingModeName.DEFENSIVE: (
+        "Protect capital today. Minimize new trades and wait for conditions "
+        "to improve."
+    ),
+}
+
+
+def trading_approach_guidance(mode: DrivingModeName) -> str:
+    """Return the plain-language overall trading approach for a mode."""
+
+    return _MODE_GUIDANCE[mode]
+
 
 def _opportunity_counts(
     conditions: MarketConditions,

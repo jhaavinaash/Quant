@@ -34,7 +34,7 @@ from core.ai_scanner import (
     CAPITAL_PER_PICK,
     EXIT_THRESHOLD,
 )
-from config import UNIVERSE_FILE, RESULT_CALENDAR_FILE
+from config import PRICE_FILE, UNIVERSE_FILE, RESULT_CALENDAR_FILE
 from config import (
     BASE_DIR,
     DATA_DIR,
@@ -54,6 +54,14 @@ except Exception:
     ENGINE_RULES = {}
 from core.utils import safe_read_csv
 from core.news_fetcher import get_portfolio_news
+from market_intelligence import (
+    TRADING_APPROACH_SCOPE,
+    DrivingModeName,
+    calculate_market_intelligence,
+    determine_driving_mode,
+    interpret_market_intelligence,
+    trading_approach_guidance,
+)
 
 
 # =====================================================
@@ -1170,10 +1178,30 @@ def _calc_engine_health(trades_df):
     return pd.DataFrame(rows) if rows else pd.DataFrame()
 
 
+@st.cache_data(ttl=3600, show_spinner=False)
+def _cached_market_briefing():
+    """Build the read-only, engine-independent personal market briefing."""
+
+    prices = safe_read_csv(PRICE_FILE)
+    required_price_columns = {"Date", "Ticker", "Close"}
+    missing = required_price_columns.difference(prices.columns)
+    if prices.empty or missing:
+        missing_text = ", ".join(sorted(missing)) or "price rows"
+        raise ValueError(f"Market price history is missing: {missing_text}")
+
+    sectors = safe_read_csv(UNIVERSE_FILE)
+    intelligence = calculate_market_intelligence(
+        prices[["Date", "Ticker", "Close"]],
+        sectors if not sectors.empty else None,
+    )
+    conditions = interpret_market_intelligence(intelligence)
+    return determine_driving_mode(conditions)
+
+
 # =====================================================
 # TABS
 # =====================================================
-tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10 = st.tabs([
+tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10, tab11 = st.tabs([
     "Today Actions",
     "Open Positions",
     "Closed Trades",
@@ -1184,6 +1212,7 @@ tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9, tab10 = st.tabs([
     "AI Intelligence",
     "Trade Entry",
     "Gemini AI Flasher",
+    "Personal Market Briefing",
 ])
 
 
@@ -4362,9 +4391,86 @@ with tab9:
             hide_index=False
         )
 
-    # =====================================================
-    # TAB 10 — GEMINI SCANNER
-    # =====================================================
+# =====================================================
+# TAB 10 — GEMINI SCANNER
+# =====================================================
+with tab10:
+    render_gemini_flasher_interface()
 
-    with tab10:
-                    render_gemini_flasher_interface()
+
+# =====================================================
+# TAB 11 — PERSONAL MARKET BRIEFING
+# =====================================================
+with tab11:
+    st.subheader("Personal Market Briefing")
+    st.info(f"**Scope:** {TRADING_APPROACH_SCOPE}")
+
+    refresh_col, _ = st.columns([1, 5])
+    with refresh_col:
+        if st.button("Refresh briefing", key="refresh_market_briefing"):
+            _cached_market_briefing.clear()
+            st.rerun()
+
+    try:
+        briefing = _cached_market_briefing()
+        mode_colors = {
+            DrivingModeName.AGGRESSIVE: CLR_BULL,
+            DrivingModeName.NORMAL: CLR_INFO,
+            DrivingModeName.CAUTIOUS: CLR_WARN,
+            DrivingModeName.DEFENSIVE: CLR_BEAR,
+        }
+        mode_color = mode_colors[briefing.mode]
+        mode_col, confidence_col = st.columns(2)
+        with mode_col:
+            st.markdown(
+                kpi_card(
+                    "TODAY'S APPROACH",
+                    briefing.mode.value,
+                    mode_color,
+                    briefing.as_of.strftime("Data through %d %b %Y"),
+                ),
+                unsafe_allow_html=True,
+            )
+        with confidence_col:
+            st.markdown(
+                kpi_card(
+                    "CONDITION AGREEMENT",
+                    briefing.confidence.value,
+                    CLR_INFO,
+                    "Agreement across the four market dimensions",
+                ),
+                unsafe_allow_html=True,
+            )
+
+        guidance = trading_approach_guidance(briefing.mode)
+        if briefing.mode == DrivingModeName.AGGRESSIVE:
+            st.success(f"**Your brief:** {guidance}")
+        elif briefing.mode == DrivingModeName.NORMAL:
+            st.info(f"**Your brief:** {guidance}")
+        elif briefing.mode == DrivingModeName.CAUTIOUS:
+            st.warning(f"**Your brief:** {guidance}")
+        else:
+            st.error(f"**Your brief:** {guidance}")
+
+        st.markdown("### Why")
+        st.write(briefing.reason)
+
+        st.markdown("### Today's market conditions")
+        trend_col, participation_col = st.columns(2)
+        with trend_col:
+            st.markdown(f"**Trend**  \n{briefing.dimensions.trend}")
+        with participation_col:
+            st.markdown(
+                f"**Participation**  \n{briefing.dimensions.participation}"
+            )
+
+        leadership_col, stress_col = st.columns(2)
+        with leadership_col:
+            st.markdown(
+                f"**Leadership**  \n{briefing.dimensions.leadership}"
+            )
+        with stress_col:
+            st.markdown(f"**Stress**  \n{briefing.dimensions.stress}")
+
+    except Exception as exc:
+        st.error(f"Market briefing is unavailable: {exc}")

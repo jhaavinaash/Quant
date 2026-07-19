@@ -9,7 +9,12 @@ from .config import (
     StressInterpretationThresholds,
     TrendInterpretationThresholds,
 )
-from .driving_mode import DrivingModeEngine, determine_driving_mode
+from .driving_mode import (
+    TRADING_APPROACH_SCOPE,
+    DrivingModeEngine,
+    determine_driving_mode,
+    trading_approach_guidance,
+)
 from .engine import MarketIntelligenceEngine, calculate_market_intelligence
 from .interpreter import (
     MarketIntelligenceInterpreter,
@@ -73,6 +78,7 @@ __all__ = [
     "TrendInterpretationThresholds",
     "TrendResult",
     "TrendState",
+    "TRADING_APPROACH_SCOPE",
     "calculate_leadership",
     "calculate_market_intelligence",
     "calculate_participation",
@@ -84,4 +90,5 @@ __all__ = [
     "interpret_participation",
     "interpret_stress",
     "interpret_trend",
+    "trading_approach_guidance",
 ]
