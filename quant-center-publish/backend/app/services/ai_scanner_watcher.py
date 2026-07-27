@@ -20,7 +20,6 @@ from app.services.ai_scanner_market_session import (
     due_scan_slot,
     format_slot_key,
     is_auto_scan_window,
-    is_market_session_open,
     next_scheduled_slot,
     now_ist,
     seconds_until,
