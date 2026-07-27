@@ -1,4 +1,10 @@
-"""Shared AI Scanner opportunity detection + email pipeline (AUTO and MANUAL)."""
+"""Shared AI Scanner opportunity detection + email pipeline (AUTO and MANUAL).
+
+PROTECTED CONTRACT — email only NEW opportunities:
+- Qualifying set = scan['strong_buys'] only (not watchlist).
+- One event per (trading_date, ticker); duplicates never re-email once SENT.
+- Failed emails may retry while the ticker is still qualifying the same day.
+"""
 
 from __future__ import annotations
 

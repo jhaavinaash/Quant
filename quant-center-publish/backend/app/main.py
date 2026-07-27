@@ -33,6 +33,8 @@ async def lifespan(app: FastAPI):
     except Exception as err:
         await logger.acritical("Database initialization failed!", error=str(err))
         raise err
+    # AI Scanner live watch (09:30–15:30 IST / 30m / email only NEW) — start
+    # before other monitors so schedule is never dropped by later init work.
     await start_ai_scanner_watcher_async()
     await start_basket_monitor_async()
     yield
