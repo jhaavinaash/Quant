@@ -14,16 +14,26 @@ import tempfile
 import types
 import unittest
 from dataclasses import dataclass, field
-from datetime import date
+from datetime import date, datetime, time, timedelta
 from pathlib import Path
 from typing import Any
 from unittest.mock import patch
+from zoneinfo import ZoneInfo
 
 BACKEND = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(BACKEND))
 
 from app.services.ai_scanner_event_store import AIScannerEventStore, get_event_store
+from app.services.ai_scanner_market_session import (
+    SCAN_SLOTS,
+    due_scan_slot,
+    is_auto_scan_window,
+    next_scheduled_slot,
+    slot_datetime,
+)
 from app.services.ai_scanner_opportunity_pipeline import process_qualifying_opportunities
+
+IST = ZoneInfo("Asia/Kolkata")
 
 
 @dataclass
@@ -236,6 +246,33 @@ class WatchTests(unittest.TestCase):
         self.assertIn("STRONG_BUY_GROUPS = 4", src)
         self.assertIn('action = "STRONG BUY"', src)
         self.assertIn("composite >= STRONG_BUY_SCORE and groups_fired >= STRONG_BUY_GROUPS", src)
+
+    def test_13_schedule_0930_to_1530_every_30_min(self) -> None:
+        """Contract: 09:30–15:30 IST inclusive, every 30 minutes (13 slots)."""
+        self.assertEqual(SCAN_SLOTS[0], time(9, 30))
+        self.assertEqual(SCAN_SLOTS[-1], time(15, 30))
+        self.assertEqual(len(SCAN_SLOTS), 13)
+        for i in range(1, len(SCAN_SLOTS)):
+            prev = datetime.combine(date(2026, 7, 27), SCAN_SLOTS[i - 1])
+            cur = datetime.combine(date(2026, 7, 27), SCAN_SLOTS[i])
+            self.assertEqual((cur - prev), timedelta(minutes=30))
+
+    def test_14_due_slot_includes_1530_with_grace(self) -> None:
+        """15:30 slot must still be due a few minutes after the hour."""
+        # Monday 2026-07-27
+        at_slot = datetime(2026, 7, 27, 15, 30, 0, tzinfo=IST)
+        late = datetime(2026, 7, 27, 15, 40, 0, tzinfo=IST)
+        self.assertTrue(is_auto_scan_window(at_slot))
+        self.assertTrue(is_auto_scan_window(late))
+        self.assertEqual(due_scan_slot(at_slot), slot_datetime(date(2026, 7, 27), time(15, 30)))
+        self.assertEqual(due_scan_slot(late), slot_datetime(date(2026, 7, 27), time(15, 30)))
+
+    def test_15_late_wake_still_catches_0930(self) -> None:
+        """90s was too tight — a 5-minute late wake must still fire 09:30."""
+        late = datetime(2026, 7, 27, 9, 35, 0, tzinfo=IST)
+        self.assertEqual(due_scan_slot(late), slot_datetime(date(2026, 7, 27), time(9, 30)))
+        nxt = next_scheduled_slot(late)
+        self.assertEqual(nxt, slot_datetime(date(2026, 7, 27), time(10, 0)))
 
 
 def run_all() -> int:

@@ -1,4 +1,10 @@
-"""IST NSE regular-session helpers for AI Scanner live watch scheduling."""
+"""IST NSE regular-session helpers for AI Scanner live watch scheduling.
+
+PROTECTED CONTRACT — do not weaken during other feature work:
+- Auto-scan every 30 minutes from 09:30 IST through 15:30 IST (inclusive), weekdays.
+- Email only NEW qualifying opportunities (same trading_date + ticker once);
+  that rule lives in ai_scanner_opportunity_pipeline + ai_scanner_event_store.
+"""
 
 from __future__ import annotations
 
@@ -7,7 +13,7 @@ from zoneinfo import ZoneInfo
 
 IST = ZoneInfo("Asia/Kolkata")
 
-# Stable 30-minute scan slots during regular NSE equity session (IST).
+# Stable 30-minute scan slots: 09:30 → 15:30 IST inclusive (13 slots).
 SCAN_SLOTS: tuple[time, ...] = (
     time(9, 30),
     time(10, 0),
@@ -21,7 +27,15 @@ SCAN_SLOTS: tuple[time, ...] = (
     time(14, 0),
     time(14, 30),
     time(15, 0),
+    time(15, 30),
 )
+
+# How late after a slot the watcher may still fire it (covers slow wakes / long prior scans).
+SLOT_GRACE_SEC = 25 * 60
+
+# Auto-scan window: open slightly before first slot; stay open through last-slot grace.
+_AUTO_SCAN_START = time(9, 15)
+_AUTO_SCAN_END = time(15, 55)
 
 
 def now_ist() -> datetime:
@@ -40,14 +54,26 @@ def is_nse_trading_day(d: date) -> bool:
 
 def is_market_session_open(dt: datetime | None = None) -> bool:
     """
-    Eligible NSE regular session window for automatic scans.
-    Uses 09:15–15:30 IST on weekdays (slightly wider than slot list so 09:30 anchor is valid).
+    NSE regular cash session window (shared by F1 basket monitor and status labels).
+    09:15–15:30 IST on weekdays.
     """
     ts = dt or now_ist()
     if not is_nse_trading_day(ts.date()):
         return False
     t = ts.time()
     return time(9, 15) <= t <= time(15, 30)
+
+
+def is_auto_scan_window(dt: datetime | None = None) -> bool:
+    """
+    Window in which the AI Scanner watcher may start or finish a scheduled slot.
+    Extends a few minutes past 15:30 so the 15:30 slot can still fire with grace.
+    """
+    ts = dt or now_ist()
+    if not is_nse_trading_day(ts.date()):
+        return False
+    t = ts.time()
+    return _AUTO_SCAN_START <= t <= _AUTO_SCAN_END
 
 
 def slot_datetime(trading_day: date, slot: time) -> datetime:
@@ -74,20 +100,43 @@ def next_scheduled_slot(from_dt: datetime | None = None) -> datetime | None:
     return None
 
 
-def current_or_recent_slot(from_dt: datetime | None = None, tolerance_sec: int = 90) -> datetime | None:
+def due_scan_slot(
+    from_dt: datetime | None = None,
+    *,
+    grace_sec: int = SLOT_GRACE_SEC,
+) -> datetime | None:
     """
-    Return the slot datetime if *from_dt* is within *tolerance_sec* after a scheduled slot.
-    Used by the watcher to fire at most once per anchored slot.
+    Most recent scheduled slot that is due right now.
+
+    A slot is due when:
+      slot_time <= now <= slot_time + grace_sec
+    and we are inside the auto-scan window.
+
+    Using a 25-minute grace (not 90 seconds) prevents missed scans when the
+    watcher wakes late or a previous universe scan overruns slightly.
     """
     ts = from_dt or now_ist()
-    if not is_nse_trading_day(ts.date()) or not is_market_session_open(ts):
+    if not is_nse_trading_day(ts.date()) or not is_auto_scan_window(ts):
         return None
+    due: datetime | None = None
     for slot in SCAN_SLOTS:
         slot_dt = slot_datetime(ts.date(), slot)
         delta = (ts - slot_dt).total_seconds()
-        if 0 <= delta <= tolerance_sec:
-            return slot_dt
-    return None
+        if 0 <= delta <= grace_sec:
+            due = slot_dt
+    return due
+
+
+def current_or_recent_slot(
+    from_dt: datetime | None = None,
+    tolerance_sec: int = SLOT_GRACE_SEC,
+) -> datetime | None:
+    """
+    Compatibility wrapper used by the watcher.
+
+    Defaults to SLOT_GRACE_SEC (25 min). Prefer due_scan_slot() for new code.
+    """
+    return due_scan_slot(from_dt, grace_sec=tolerance_sec)
 
 
 def seconds_until(dt: datetime) -> float:

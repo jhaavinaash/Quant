@@ -270,7 +270,7 @@ const AIScanner = () => {
               )}
             </div>
             <div className="text-xs text-slate-500">
-              Auto scan every 30 min · IST market session
+              Auto scan every 30 min · 09:30–15:30 IST · email only NEW
             </div>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-3 text-xs">

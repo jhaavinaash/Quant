@@ -1,18 +1,25 @@
-"""Server-side 30-minute AI Scanner live watch (IST market-session anchored)."""
+"""Server-side 30-minute AI Scanner live watch (IST market-session anchored).
+
+PROTECTED CONTRACT — do not weaken during other feature work:
+- Runs every 30 minutes from 09:30 IST through 15:30 IST (inclusive) on weekdays.
+- Starts with FastAPI lifespan; must keep running while the backend is up.
+- Emails only NEW opportunities (pipeline + event store dedupe by trading_date+ticker).
+"""
 
 from __future__ import annotations
 
 import asyncio
 import threading
 from dataclasses import dataclass, field
-from datetime import datetime
 from typing import Optional
 
 import structlog
 
 from app.services.ai_scanner_market_session import (
     current_or_recent_slot,
+    due_scan_slot,
     format_slot_key,
+    is_auto_scan_window,
     is_market_session_open,
     next_scheduled_slot,
     now_ist,
@@ -84,7 +91,7 @@ def _run_auto_cycle() -> PipelineResult | None:
             f"new={pipe.events_created} sent={pipe.emails_sent}"
         )
         _status.lastError = ""
-        _status.status = "ACTIVE" if is_market_session_open() else "INACTIVE"
+        _status.status = "ACTIVE" if is_auto_scan_window() else "INACTIVE"
         _refresh_today_counts()
         log.info(
             "ai_scanner_watch_cycle_ok",
@@ -101,11 +108,21 @@ def _run_auto_cycle() -> PipelineResult | None:
         return None
 
 
+def _wait_for(stop: threading.Event, seconds: float, *, cap: float = 3600.0) -> None:
+    """Sleep until the next wake, never shorter than 1s when a positive wait is intended."""
+    wait_s = min(max(float(seconds), 1.0), cap)
+    stop.wait(timeout=wait_s)
+
+
 def _watcher_loop(stop: threading.Event) -> None:
     import os
 
     _status.ownerPid = os.getpid()
-    log.info("ai_scanner_watcher_started", pid=_status.ownerPid)
+    log.info(
+        "ai_scanner_watcher_started",
+        pid=_status.ownerPid,
+        schedule="09:30-15:30 IST every 30m",
+    )
 
     while not stop.is_set():
         try:
@@ -113,39 +130,45 @@ def _watcher_loop(stop: threading.Event) -> None:
             _update_next_slot()
             _refresh_today_counts()
 
-            if not is_market_session_open(ts):
+            if not is_auto_scan_window(ts):
                 _status.status = "INACTIVE"
                 nxt = next_scheduled_slot(ts)
                 if nxt:
-                    stop.wait(timeout=min(seconds_until(nxt) + 1, 3600))
+                    _wait_for(stop, seconds_until(nxt) + 1.0, cap=3600.0)
                 else:
-                    stop.wait(timeout=300)
+                    _wait_for(stop, 300.0)
                 continue
 
             _status.status = "ACTIVE"
-            slot_dt = current_or_recent_slot(ts)
+            # Prefer due_scan_slot (25-min grace). current_or_recent_slot is the same API.
+            slot_dt = due_scan_slot(ts) or current_or_recent_slot(ts)
             if slot_dt:
                 slot_key = format_slot_key(slot_dt)
                 if slot_key not in _status._executed_slots:
-                    _status._executed_slots.add(slot_key)
-                    _status.lastSlotKey = slot_key
-                    _run_auto_cycle()
-                    nxt = next_scheduled_slot(now_ist())
-                    if nxt:
-                        stop.wait(timeout=min(seconds_until(nxt) + 1, 1800))
+                    # Mark executed only after a successful cycle so failures retry
+                    # within the same slot's grace window.
+                    pipe = _run_auto_cycle()
+                    if pipe is not None:
+                        _status._executed_slots.add(slot_key)
+                        _status.lastSlotKey = slot_key
+                        nxt = next_scheduled_slot(now_ist())
+                        if nxt:
+                            _wait_for(stop, seconds_until(nxt) + 1.0, cap=3600.0)
+                        continue
+                    # Scan/pipeline failed — retry soon while still inside grace.
+                    _wait_for(stop, 60.0)
                     continue
 
             nxt = next_scheduled_slot(ts)
             if nxt:
-                wait_s = min(seconds_until(nxt) + 1, 1800)
-                stop.wait(timeout=max(5.0, wait_s))
+                _wait_for(stop, seconds_until(nxt) + 1.0, cap=3600.0)
             else:
-                stop.wait(timeout=60)
+                _wait_for(stop, 60.0)
         except Exception as exc:
             _status.status = "ERROR"
             _status.lastError = str(exc)[:300]
             log.exception("ai_scanner_watcher_loop_error")
-            stop.wait(timeout=60)
+            _wait_for(stop, 60.0)
 
     log.info("ai_scanner_watcher_stopped", pid=_status.ownerPid)
 
